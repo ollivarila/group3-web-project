@@ -1,17 +1,17 @@
-const express = require('express')
-const dotenv = require('dotenv')
-const cors = require('cors')
+const express = require('express');
+const dotenv = require('dotenv');
+const cors = require('cors');
 
-dotenv.config()
+dotenv.config();
 
-const app = express()
+const app = express();
 
-app.use(cors())
+app.use(cors());
 
 app.get('/', (req, res) => {
-  res.send({ message: 'hello world!' })
-})
+  res.send({ message: 'hello world!' });
+});
 
-const port = process.env.PORT | 3000
+const port = process.env.PORT || 3000;
 
-app.listen(port, () => console.log(`Server listening on ${port}`))
+app.listen(port, () => console.log(`Server listening on ${port}`));
