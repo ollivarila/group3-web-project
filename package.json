@@ -1,0 +1,19 @@
+{
+  "name": "group3-web-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ollivarila/group3-web-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ollivarila/group3-web-project/issues"
+  },
+  "homepage": "https://github.com/ollivarila/group3-web-project#readme"
+}
