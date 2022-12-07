@@ -18,5 +18,5 @@ jobs:
         uses: rjstone/discord-webhook-notify@v1
         with:
           severity: info
-          details: 'New content pushed to branch. Target: ${{ github.ref_name }}' 
+          details: 'New content pushed to branch. Push target branch: ${{ github.ref_name }}' 
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
