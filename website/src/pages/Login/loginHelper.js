@@ -4,31 +4,21 @@ import { useState } from 'react';
 
 const sendLoginRequest = async (user) => {
   const url = `${BACKEND_URL}/api/user/login`
-  console.log(user)
-  return axios.post(url, user).then(res => res.data).catch(err => {
-    console.error('ERROR: error logging in: ', err.message)
-    return null
-  })
+  return axios.post(url, user).then(res => res.data)
 }
 
 // Send login request and save token to localstorage on success
 // Token is saved with key token and decoded token is saved with key user
+// Throws error if request fails
 
 export const login = async (user) => {
   const token = await sendLoginRequest(user)
 
-  console.log(token)
-
-  if (!token) {
-    throw new Error('Could not login')
-  }
-
   localStorage.setItem('token', token)
 
-  const parsedToken = jwtDecode(token)
-  console.log(parsedToken)
+  const decoded = jwtDecode(token)
 
-  localStorage.setItem('user', JSON.stringify(parsedToken))
+  localStorage.setItem('user', JSON.stringify(decoded))
 
   return token
 }
