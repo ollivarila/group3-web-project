@@ -1,0 +1,36 @@
+name: Pull request workflow
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  notify_webhook:
+    if: always()
+    name: Send discord notification
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Success
+        if: success()
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: info
+          details: 'New pull request ready to be reviewed.' 
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Failure
+        if: failure()
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: error
+          details: 'New pull request, but it did not pass some checks.' 
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}       
+      - name: Cancelled
+        if: cancelled()
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: warn
+          details: 'New pull request ready to be reviewed.' 
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
