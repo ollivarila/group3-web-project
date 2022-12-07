@@ -3,11 +3,11 @@ const  webpack  = require('webpack')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 
 const config = (env, argv) => {
-  console.log(argv)
   const backend_url = argv.mode === 'production'
     ? 'deployment url here'
     : 'http://localhost:3001'
   return {
+    mode: argv.mode,
     entry: './website/src/index.js',
     output: {
       path: path.resolve(__dirname, 'dist'),
