@@ -15,6 +15,7 @@ const productSchema = new Schema({
   comment: {
     type: String,
   },
+  // Add ref to shoppingList
 })
 
 const shoppingListSchema = new Schema({
