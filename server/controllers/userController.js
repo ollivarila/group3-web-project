@@ -21,6 +21,7 @@ const generateJwt = (username, email, userId) => {
 }
 
 const signup = async (req, res) => {
+  console.log(req)
   const { email, username, password } = req.body
 
   try {
@@ -28,7 +29,7 @@ const signup = async (req, res) => {
     const token = generateJwt(user.username, user.email, user._id)
     res.send(token)
   } catch (error) {
-    console.error('ERROR: could not signup: ', error.message)
+    console.error('ERROR: could not signup: ', error)
     res.status(400).send({ error: error.message })
   }
 }

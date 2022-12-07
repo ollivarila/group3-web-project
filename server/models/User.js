@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcrypt')
@@ -20,7 +21,7 @@ const userSchema = new mongoose.Schema({
   ],
 })
 
-userSchema.statics.signup = async (username, email, password) => {
+userSchema.statics.signup = async function (username, email, password) {
   // validation
   if (!email || !password || !username) {
     throw Error('All fields must be filled')
@@ -28,9 +29,11 @@ userSchema.statics.signup = async (username, email, password) => {
   if (!validator.isEmail(email)) {
     throw Error('Email not valid')
   }
+  /* Maybe implement later
   if (!validator.isStrongPassword(password)) {
     throw Error('Password not strong enough')
   }
+  */
 
   const emailExists = await this.findOne({ email })
   const usernameExists = await this.findOne({ username })
@@ -51,14 +54,14 @@ userSchema.statics.signup = async (username, email, password) => {
   return user
 }
 
-const validateNameOrEmail = async (nameOrEmail) => {
-  const name = await this.findOne({ name: nameOrEmail })
+const validateNameOrEmail = async function (model, nameOrEmail) {
+  const name = await model.findOne({ name: nameOrEmail })
 
   if (name) {
     return name
   }
 
-  const email = await this.findOne({ email: nameOrEmail })
+  const email = await model.findOne({ email: nameOrEmail })
   if (email) {
     return email
   }
@@ -72,7 +75,7 @@ userSchema.statics.login = async function (nameOrEmail, password) {
     throw Error('All fields must be filled')
   }
 
-  const user = await validateNameOrEmail(nameOrEmail)
+  const user = await validateNameOrEmail(this, nameOrEmail)
 
   if (!user) {
     throw new Error('Username or email incorrect')
