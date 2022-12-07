@@ -20,6 +20,7 @@ jobs:
           severity: info
           details: 'New pull request ready to be reviewed.' 
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          text: '<@everyone>'
       - name: Failure
         if: failure()
         uses: rjstone/discord-webhook-notify@v1
