@@ -13,12 +13,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  shoppingLists: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'ShoppingList',
-    },
-  ],
+  user_id: {
+    type: String,
+    required: true,
+  },
 })
 
 userSchema.statics.signup = async function (username, email, password) {

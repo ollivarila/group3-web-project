@@ -1,31 +1,22 @@
 const mongoose = require('mongoose')
+const ShoppingItem = require('./ShoppingItem')
 
 const { Schema } = mongoose
-const productSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  amount: {
-    type: String,
-  },
-  unit: {
-    type: String,
-  },
-  comment: {
-    type: String,
-  },
-  // Add ref to shoppingList
-})
 
 const shoppingListSchema = new Schema({
   title: {
     type: String,
     required: true,
   },
-  productList: [productSchema],
+  productList: {
+    type: [ShoppingItem.schema],
+  },
   comment: {
     type: String,
+  },
+  userId: {
+    type: String,
+    required: true,
   },
 
 }, { timestamps: true })

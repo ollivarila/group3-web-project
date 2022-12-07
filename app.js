@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const startUp = require('./utils/startUp')
 const loginRouter = require('./server/routes/user')
+const shoppingListRouter = require('./server/routes/shoppingList')
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(express.json())
 
 app.use('/api/user', loginRouter)
+app.use('/api/shoppingLists', shoppingListRouter)
 
 app.get('/', (req, res) => {
   res.send({ message: 'hello world!' });
