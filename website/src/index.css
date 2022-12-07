@@ -1,0 +1,17 @@
+:root {
+  --background: #222E50;
+  --text: #FFFFFF;
+  --primary: #4BB3FD;
+  --secondary: #118AB2;
+  --success: #4CB944;
+  --warning: #FFD166;
+  --error: #ef233c;
+}
+
+body {
+  margin: 0px;
+  background-color: var(--background);
+  font-family: 'Roboto', sans-serif;
+    min-width: 360px;
+    overflow: auto;
+}
