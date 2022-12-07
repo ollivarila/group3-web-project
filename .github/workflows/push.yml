@@ -1,0 +1,22 @@
+name: Push notification workflow
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+
+jobs:
+  notify_webhook:
+    if: always()
+    name: Send discord notification
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Send notification
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: info
+          details: 'New content pushed to branch. Push target branch: ${{ github.ref_name }}' 
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
