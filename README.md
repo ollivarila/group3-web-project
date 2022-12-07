@@ -15,6 +15,8 @@ TODO
 - Add build route to app.js
 - start script
 
+JOTAIN
+
 FUTURE PLANS
 ===
 - Rearranging shopping list by dragging
