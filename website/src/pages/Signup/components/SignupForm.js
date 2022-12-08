@@ -38,7 +38,6 @@ const SignupForm = () => {
         <button type='submit'>Sign up</button>
         <FailNotification message={error}/>
       </form>
-
     </div>
   );
 }
