@@ -36,21 +36,24 @@ const getListbyId = async (req, res) => {
 }
 
 function makeProducts(list) {
-  const itemList = []
+  if (!list || list === []) {
+    return []
+  }
+  const schemaList = []
   list.forEach(element => {
-    itemList.push(new ShoppingItem({
+    schemaList.push(new ShoppingItem({
       name: element.name,
       amount: element.amount,
       unit: element.unit,
       comment: element.comment,
     }))
   });
-  return itemList
+  return schemaList
 }
 
 const addShoppingLists = async (req, res) => {
-  const { title, comment = '', products } = req.body // body = title, comment(optional), list of item objects
-  const productList = makeProducts(products)
+  const { title, comment = '', itemList } = req.body // body = title, comment(optional), list of item objects
+  const productList = makeProducts(itemList)
   try {
     const shoppingList = await ShoppingList.create({
       title, productList, comment, owner: req.id,
@@ -85,8 +88,8 @@ const updateShoppingList = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: 'No list for this id found' })
   }
-  const { title, comment = '', products } = req.body // body = title, comment(optional), list of item objects
-  const productList = makeProducts(products)
+  const { title, comment = '', itemList } = req.body // body = title, comment(optional), list of item objects
+  const productList = makeProducts(itemList)
   try {
     const shoppingList = await ShoppingList.findById(id)
     if (!shoppingList) {
@@ -107,6 +110,84 @@ const updateShoppingList = async (req, res) => {
   }
 }
 
+const deleteItemFromList = async (req, res) => {
+  const { id } = req.params // list id (path)
+  const { productId } = req.body // product id
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send({ error: 'list id is not valid' })
+  }
+  if (!mongoose.Types.ObjectId.isValid(productId)) {
+    return res.status(400).send({ error: 'product id is not valid' })
+  }
+
+  const list = await ShoppingList.findById(id)
+
+  if (!verifyOwnership(list.owner, req.id)) {
+    return res.status(400).send({ error: "You can't modify this list" })
+  }
+
+  if (!list) {
+    return res.status(404).json({ error: 'No list found' })
+  }
+
+  const editedList = list.productList.filter((p) => p.id !== productId)
+
+  const updated = await ShoppingList.findByIdAndUpdate(
+    list._id,
+    { title: list.title, productList: editedList, comment: list.comment },
+    { new: true },
+  )
+  res.status(200).send(updated)
+}
+
+const editItemFromList = async (req, res) => {
+  const { id } = req.params // list id (path)
+  const {
+    productId, name = null, amount = null, unit = null, comment = null,
+  } = req.body // product id, optional -> name, amount, unit, comment
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send({ error: 'list id is not valid' })
+  }
+  if (!mongoose.Types.ObjectId.isValid(productId)) {
+    return res.status(400).send({ error: 'product id is not valid' })
+  }
+
+  const list = await ShoppingList.findById(id)
+
+  if (!verifyOwnership(list.owner, req.id)) {
+    return res.status(400).send({ error: "You can't modify this list" })
+  }
+
+  if (!list) {
+    return res.status(404).json({ error: 'No list found' })
+  }
+
+  const product = list.productList.find((p) => p.id === productId)
+  const newProduct = new ShoppingItem({
+    name: name || product.name,
+    amount: amount || product.amount,
+    unit: unit || product.unit,
+    comment: comment || product.comment,
+    _id: product.id,
+  })
+
+  const newList = list.productList.map((item) => {
+    if (item.id === productId) {
+      return newProduct
+    }
+    return item
+  })
+
+  const updated = await ShoppingList.findByIdAndUpdate(
+    list._id,
+    { title: list.title, productList: newList, comment: list.comment },
+    { new: true },
+  )
+  res.status(200).send(updated)
+}
+
 const getAll = async (req, res) => {
   try {
     const uLists = await ShoppingList.find({ owner: req.id })
@@ -119,6 +200,7 @@ const getAll = async (req, res) => {
   }
 }
 
+// clears all data from database
 const formatDb = async (req, res) => {
   await ShoppingList.deleteMany({})
   await ShoppingItem.deleteMany({})
@@ -133,4 +215,6 @@ module.exports = {
   updateShoppingList,
   getAll,
   formatDb,
+  deleteItemFromList,
+  editItemFromList,
 }
