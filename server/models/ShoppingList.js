@@ -14,11 +14,19 @@ const shoppingListSchema = new Schema({
   comment: {
     type: String,
   },
-  userId: {
-    type: String,
+  owner: {
+    type: mongoose.Types.ObjectId,
     required: true,
   },
 
 }, { timestamps: true })
+
+shoppingListSchema.set('toJSON', {
+  transform: (doc, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  },
+})
 
 module.exports = mongoose.model('ShoppingList', shoppingListSchema)

@@ -4,11 +4,11 @@ const User = require('../models/User')
 
 dotenv.config()
 
-const generateJwt = (username, email, userId) => {
+const generateJwt = (username, email, id) => {
   const userForToken = {
     username,
     email,
-    userId,
+    id,
   }
 
   const token = jwt.sign(
@@ -34,8 +34,11 @@ const signup = async (req, res) => {
 }
 
 const login = async (req, res) => {
-  const { nameOrEmail, password } = req.body
-
+  const { username = null, email = null, password } = req.body
+  let nameOrEmail = username
+  if (!username) {
+    nameOrEmail = email
+  }
   try {
     const user = await User.login(nameOrEmail, password)
     const token = generateJwt(user.username, user.email, user._id)

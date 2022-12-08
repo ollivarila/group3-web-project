@@ -9,11 +9,12 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  password: {
+  username: {
     type: String,
     required: true,
+    unique: true,
   },
-  user_id: {
+  password: {
     type: String,
     required: true,
   },
@@ -47,14 +48,15 @@ userSchema.statics.signup = async function (username, email, password) {
   const salt = await bcrypt.genSalt(10)
   const hash = await bcrypt.hash(password, salt)
 
-  const user = await this.create({ email, username, password: hash })
+  const user = await this.create({
+    email, username, password: hash,
+  })
 
   return user
 }
 
 const validateNameOrEmail = async function (model, nameOrEmail) {
-  const name = await model.findOne({ name: nameOrEmail })
-
+  const name = await model.findOne({ username: nameOrEmail })
   if (name) {
     return name
   }
