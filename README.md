@@ -10,10 +10,8 @@ TODO
 - Loginpage (Olli)
 - Routes to website (React router)
 - Tests :)
-- Build script
 - Deployment workflow
 - Add build route to app.js
-- start script
 
 JOTAIN
 

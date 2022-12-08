@@ -106,5 +106,8 @@
   },
   "jest": {
     "testEnvironment": "node"
+  },
+  "nodemonConfig": {
+    "ignore": "website/*"
   }
 }
