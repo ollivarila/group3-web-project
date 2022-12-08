@@ -4,6 +4,7 @@ import Home from './pages/Home/Home'
 import Signup from './pages/Signup/Signup'
 import Login from './pages/Login/Login'
 
+// import Signup from './pages/Signup/Signup';
 const App = () => {
   return (
     <div className="app">
