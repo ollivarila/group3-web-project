@@ -1,16 +1,19 @@
 import React from 'react';
+import './styles/sidebarstyle.css'
 
-const Sidebar = ({ handleShowList, handleShowListAdding }) => {
-  const testilista = [{ title: 'moi' }, { title: 'hei' }, { title: 'haloo' }];
+const Sidebar = ({shoppingLists, handleShowList, handleShowListAdding }) => {
+  //const shoppingLists = [{ title: 'moi' }, { title: 'hei' }, { title: 'haloo' }];
+  //const shoppingLists = []
+  console.log(shoppingLists)
   return (
     <section className="sidebar">
       <div className="buttonWrapper">
-        <button className="addbutton" onClick={handleShowListAdding}>+ Uusi lista</button>
+        <button className="addbutton" onClick={handleShowListAdding}>+ Add a new list</button>
       </div>
       <div className="list">
-        {testilista.map((list) => {
+        {shoppingLists.map((list, index) => {
           return (
-            <div key={list.title} className="buttonWrapper">
+            <div key={index} className="buttonWrapper">
               <button className="listItem" onClick={() => handleShowList(list)}>{list.title}</button>
             </div>
           );
