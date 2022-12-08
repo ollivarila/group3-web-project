@@ -6,12 +6,32 @@
   --success: #4CB944;
   --warning: #FFD166;
   --error: #ef233c;
+  --header-height: 32px;
 }
 
 body {
   margin: 0px;
   background-color: var(--background);
   font-family: 'Roboto', sans-serif;
-    min-width: 360px;
-    overflow: auto;
+  height: 100%;
+}
+
+p,
+input,
+button{
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif;
+}
+
+.root {
+  height: 100vh;
+  box-sizing: content-box;
+}
+
+.app {
+  height: 100%;
+}
+
+html {
+  height: 100%;
 }

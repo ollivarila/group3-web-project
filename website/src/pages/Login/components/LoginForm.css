@@ -2,11 +2,17 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  flex-wrap: wrap;
+  flex-shrink: 1;
 }
+
+.loginForm > * {
+  flex-shrink: 1;
+}
+
 
 .loginForm input {
   height: 40px;
-  width: fit-content;
   font-size: large;
   border-radius: 5px;
   border-style: none;
@@ -28,7 +34,6 @@
 
 .loginForm p {
   margin: 0;
-  width: 90%;
   font-size: small;
   text-align: center;
 }
@@ -42,13 +47,18 @@
 }
 
 .loginFormContainer {
+  align-self: center;
   background-color: var(--primary);
   color: var(--text);
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: 300px;
+  flex-grow: 1;
+  max-width: 300px;
+  flex-shrink: 1;
   padding: 64px 24px 64px 24px;
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  max-height: 300px;
 }

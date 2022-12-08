@@ -4,7 +4,10 @@ import { useState } from 'react';
 
 const sendLoginRequest = async (user) => {
   const url = `${BACKEND_URL}/api/user/login`
-  return axios.post(url, user).then(res => res.data)
+  return axios.post(url, user).then(res => res.data).catch(err => {
+    // Catch error to throw new one hmmm
+    throw new Error(err.response.data.error)
+  })
 }
 
 // Send login request and save token to localstorage on success
@@ -13,6 +16,8 @@ const sendLoginRequest = async (user) => {
 
 export const login = async (user) => {
   const token = await sendLoginRequest(user)
+
+  console.log(token)
 
   localStorage.setItem('token', token)
 

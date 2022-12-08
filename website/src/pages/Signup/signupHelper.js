@@ -3,8 +3,11 @@ import jwtDecode from 'jwt-decode';
 import { useState } from 'react';
 
 export const sendSignupRequest = (user) => {
-  const url = `${BACKEND_URL}/api/signup`
-  return axios.post(url, user).then(res => res.data)
+  const url = `${BACKEND_URL}/api/user/signup`
+  return axios.post(url, user).then(res => res.data).catch(err => {
+    // Catch error to throw new one hmmm
+    throw new Error(err.response.data.error)
+  })
 }
 
 // Send signup request and save token to localstorage on success
