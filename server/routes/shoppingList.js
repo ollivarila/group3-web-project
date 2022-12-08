@@ -1,12 +1,6 @@
 const { Router } = require('express')
 const {
-  getUserLists,
-  addShoppingLists,
-  deleteShoppingList,
-  getListbyId,
-  updateShoppingList,
-  getAll,
-  formatDb,
+  getUserLists, addShoppingLists, deleteShoppingList, getListbyId, updateShoppingList, getAll, formatDb,
 } = require('../controllers/shoppingListController')
 const authentication = require('../middleware/authentication')
 
