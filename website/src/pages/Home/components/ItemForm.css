@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: "Poppins";
     padding: 40px;
 }
 
@@ -24,25 +23,25 @@
 }
 label, input {
     display: block;
+
 }
 
 input {
     padding: 10px;
     margin-top: 5px;
     margin-bottom: 10px;
-    width: 100%;
+   
+    width: 310px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    box-shadow: rgba(36, 49, 171, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 
 }
 
 
 form button {
-    background: var(--primary);
-    border: 0;
     color: #fff;
     padding: 10px;
-    font-family: "Poppins";
     border-radius: 4px;
 
     display: flex;
@@ -54,8 +53,10 @@ form button {
 
     width: 332px;
     height: 44px;
-
     background: var(--background);
     border-radius: 4px;
+
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
 }
 
