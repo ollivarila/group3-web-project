@@ -26,7 +26,7 @@ const signup = async (req, res) => {
   try {
     const user = await User.signup(username, email, password)
     const token = generateJwt(user.username, user.email, user._id)
-    res.send(token)
+    res.send({ token })
   } catch (error) {
     console.error('ERROR: could not signup: ', error.message)
     res.status(400).send({ error: error.message })
@@ -34,15 +34,12 @@ const signup = async (req, res) => {
 }
 
 const login = async (req, res) => {
-  const { username = null, email = null, password } = req.body
-  let nameOrEmail = username
-  if (!username) {
-    nameOrEmail = email
-  }
+  const { nameOrEmail = null, password = null } = req.body
+
   try {
     const user = await User.login(nameOrEmail, password)
     const token = generateJwt(user.username, user.email, user._id)
-    res.send(token)
+    res.send({ token })
   } catch (error) {
     console.error('ERROR: could not login: ', error.message)
     res.status(400).send({ error: error.message })

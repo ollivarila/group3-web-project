@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "build": "node scripts/build.js && npm run copy:build",
     "copy:build": "cp -r website/build ./ && rm -rf website/build",
-    "test": "node scripts/test.js"
+    "test:backend": "clear && cross-env NODE_ENV=test jest server/ --verbose --runInBand --forceExit"
   },
   "dependencies": {
     "axios": "^1.2.0",
@@ -78,6 +78,7 @@
     "semver": "^7.3.5",
     "source-map-loader": "^3.0.0",
     "style-loader": "^3.3.1",
+    "supertest": "^6.3.3",
     "tailwindcss": "^3.0.2",
     "terser-webpack-plugin": "^5.2.5",
     "web-vitals": "^2.1.4",
