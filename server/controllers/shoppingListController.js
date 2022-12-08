@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const ShoppingItem = require('../models/ShoppingItem');
 const ShoppingList = require('../models/ShoppingList')
 
+const verifyOwnership = (ownerId, userId) => {
+  return ownerId.toString() === userId.toString()
+}
+
 const getUserLists = async (req, res) => {
   try {
     const uLists = await ShoppingList.find({ owner: req.id }).sort({ createdAt: -1 })
@@ -20,9 +24,8 @@ const getListbyId = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({ error: "id didn't match" })
   }
-  const shList = await ShoppingList.findById(id)
-
-  if (shList.owner !== req.id) {
+  const list = await ShoppingList.findById(id)
+  if (!verifyOwnership(list.owner, req.id)) {
     return res.status(400).send({ error: "you can't access this list" })
   }
 
@@ -66,14 +69,14 @@ const deleteShoppingList = async (req, res) => {
   }
   const list = await ShoppingList.findById(id)
 
-  if (req.id !== list.owner) {
+  if (!verifyOwnership(list.owner, req.id)) {
     return res.status(400).send({ error: "you can't delete this list" })
   }
 
   if (!list) {
     return res.status(404).json({ error: 'No list found' })
   }
-  list.delete()
+  await list.remove()
   res.status(200).send(list)
 }
 
@@ -89,8 +92,7 @@ const updateShoppingList = async (req, res) => {
     if (!shoppingList) {
       return res.status(400).send({ error: 'no find list' })
     }
-    console.log(shoppingList.owner.toString(), req.id.toString());
-    if (shoppingList.owner.toString() !== req.id.toString()) {
+    if (!verifyOwnership(shoppingList.owner, req.id)) {
       return res.status(400).send({ error: "You can't modify this list" })
     }
     const updated = await ShoppingList.findByIdAndUpdate(

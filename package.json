@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "build": "node scripts/build.js && npm run copy:build",
     "copy:build": "cp -r website/build ./ && rm -rf website/build",
-    "test:backend": "clear && cross-env NODE_ENV=test jest server/ --verbose --runInBand --forceExit"
+    "test:backend": "clear && cross-env NODE_ENV=test jest server/ --verbose --runInBand --forceExit --watchAll"
   },
   "dependencies": {
     "axios": "^1.2.0",
