@@ -34,10 +34,13 @@ const signup = async (req, res) => {
 }
 
 const login = async (req, res) => {
-  const { nameOrEmail = null, password = null } = req.body
+  const {
+    nameOrEmail = null, username = null, email = null, password = null,
+  } = req.body
+  const credentials = nameOrEmail || username || email
 
   try {
-    const user = await User.login(nameOrEmail, password)
+    const user = await User.login(credentials, password)
     const token = generateJwt(user.username, user.email, user._id)
     res.send({ token })
   } catch (error) {
