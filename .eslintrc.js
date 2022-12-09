@@ -14,7 +14,6 @@ module.exports = {
     ecmaVersion: 'latest',
     requireConfigFile: false,
   },
-  parser: '@babel/eslint-parser',
   rules: {
     indent: [
       'error',
