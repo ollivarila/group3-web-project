@@ -7,13 +7,12 @@ const ItemForm = () => {
   const [amount, setAmount] = useState('')
   const [unit, setUnit] = useState('')
   const [comment, setComment] = useState('')
-  // const [error, setError] = useState(null)
-  // const [emptyFields, setEmptyFields] = useState([])
 
   const showInfo = () => {
     // eslint-disable-next-line no-alert
     alert(` name = ${name} amount = ${amount} unit = ${unit} comment = ${comment} `)
   }
+  
   return (
     <div className='formLayout'>
       <form onSubmit={showInfo}>
