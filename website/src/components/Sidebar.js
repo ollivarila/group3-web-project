@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles/sidebarstyle.css'
 
-const Sidebar = ({shoppingLists, handleShowList, handleShowListAdding }) => {
+const Sidebar = ({ shoppingLists, handleShowList, handleShowListAdding }) => {
   //const shoppingLists = [{ title: 'moi' }, { title: 'hei' }, { title: 'haloo' }];
   //const shoppingLists = []
   console.log(shoppingLists)
@@ -10,6 +10,7 @@ const Sidebar = ({shoppingLists, handleShowList, handleShowListAdding }) => {
       <div className="buttonWrapper">
         <button className="addbutton" onClick={handleShowListAdding}>+ Add a new list</button>
       </div>
+      <h3>My Lists</h3>
       <div className="list">
         {shoppingLists.map((list, index) => {
           return (
