@@ -3,3 +3,4 @@
 /node_modules
 /reqs
 /website/node_modules
+.prettierrc

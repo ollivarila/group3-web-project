@@ -1,13 +1,17 @@
-import axios from 'axios';
-import jwtDecode from 'jwt-decode';
-import { useState } from 'react';
+import axios from 'axios'
+import jwtDecode from 'jwt-decode'
+import { useState } from 'react'
+import { BACKEND_URL } from '../../config'
 
 const sendLoginRequest = async (user) => {
   const url = `${BACKEND_URL}/api/user/login`
-  return axios.post(url, user).then(res => res.data).catch(err => {
-    // Catch error to throw new one hmmm
-    throw new Error(err.response.data.error)
-  })
+  return axios
+    .post(url, user)
+    .then((res) => res.data)
+    .catch((err) => {
+      // Catch error to throw new one hmmm
+      throw new Error(err.response.data.error)
+    })
 }
 
 // Send login request and save token to localstorage on success
