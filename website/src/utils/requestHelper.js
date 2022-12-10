@@ -6,10 +6,12 @@ export const authenticatedRequest = async (url, method, data = {}) => {
   const headers = {
     Authorization: auth,
   }
-  return axios.request({
-    url,
-    method,
-    data,
-    headers,
-  })
+  return axios
+    .request({
+      url,
+      method,
+      data,
+      headers,
+    })
+    .then((res) => res.data)
 }

@@ -21,15 +21,19 @@ const deleteItem = async (listId, itemId) => {
   const data = {
     productId: itemId,
   }
+  console.log(url, data)
   return authenticatedRequest(url, 'delete', data)
 }
 
 const deleteShoppingList = async (listId) => {
-  const url = `/api/${listId}`
+  const url = baseurl + `/api/${listId}`
   return authenticatedRequest(url, 'delete')
 }
 
-const createItem = async (listId, item) => {}
+const updateShoppingList = async (list) => {
+  const url = baseurl + `/${list.id}`
+  return authenticatedRequest(url, 'patch', list)
+}
 
 const createShoppingList = async (shoppingList) => {
   return authenticatedRequest(baseurl, 'post', shoppingList)
@@ -40,8 +44,8 @@ const service = {
   updateItem,
   deleteItem,
   deleteShoppingList,
-  createItem,
   createShoppingList,
+  updateShoppingList,
 }
 
 export default service

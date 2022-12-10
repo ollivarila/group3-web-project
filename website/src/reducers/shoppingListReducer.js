@@ -20,30 +20,33 @@ const shoppingListSlice = createSlice({
         .filter((shoppingList) => shoppingList.id === listId)
         .pop()
 
-      const newItemList = shList.itemList.map((listItem) => {
+      const newItemList = shList.productList.map((listItem) => {
         return listItem.id === item.id ? item : listItem
       })
 
-      shList.itemList = newItemList
-
-      return state.map((list) => {
+      shList.productList = newItemList
+      state = state.map((list) => {
         return list.id === shList.id ? shList : list
       })
     },
     removeItemFromList(state, action) {
-      const { list, item } = action.payload
+      const { listId, itemId } = action.payload
 
-      const removeFromThis = state.filter((e) => e.id === list.id).pop()
+      const removeFromThis = state.filter((e) => e.id === listId).pop()
 
-      const newItemList = removeFromThis.itemList.filter(
-        (e) => e.id !== item.id
+      const newProductList = removeFromThis.productList.filter(
+        (e) => e.id !== itemId
       )
 
-      removeFromThis.itemList = newItemList
+      removeFromThis.productList = newProductList
 
-      return state.map((list) => {
+      state = state.map((list) => {
         return list.id === removeFromThis.id ? removeFromThis : list
       })
+    },
+    removeShoppingList(state, action) {
+      const listId = action.payload
+      return state.filter((e) => e.id !== listId)
     },
   },
 })
@@ -53,16 +56,18 @@ export const {
   appendShoppingList,
   updateItemInList,
   removeItemFromList,
+  removeShoppingList,
 } = shoppingListSlice.actions
 
 // Gets all shopping lists if a user is logged in, they are set in the state
 export const initializeShoppingLists = () => {
   return async (dispatch, getState) => {
     const { user } = getState()
-    if (!user) return
+    if (!user) {
+      return
+    }
 
     const shoppingLists = await service.getShoppingLists(user.id)
-
     dispatch(setShoppingLists(shoppingLists))
   }
 }
@@ -81,17 +86,36 @@ export const updateItem = (listId, item) => {
   return async (dispatch) => {
     if (!item.id) throw new Error('Item id is missing')
 
-    const updated = await service.updateItem(item)
-
-    dispatch(updateItemInList(listId, updated))
+    const updated = await service.updateItem(listId, item)
+    dispatch(updateItemInList({ listId, item: updated }))
   }
 }
 
-export const removeItem = (list, item) => {
+export const removeItem = (listId, itemId) => {
   return async (dispatch) => {
-    await service.deleteItem(item.id)
+    await service.deleteItem(listId, itemId)
 
-    dispatch(removeItemFromList(list, item))
+    dispatch(removeItemFromList({ listId, itemId }))
+  }
+}
+
+const updateList = (list, item) => {
+  const newProductList = list.productList.map((e) => {
+    return e.id === item.id ? item : e
+  })
+  const copy = {
+    ...list,
+  }
+  copy.productList = newProductList
+  return copy
+}
+
+export const createItem = (list, item) => {
+  return async (dispatch) => {
+    const updatedList = updateList(list, item)
+    const updated = await service.updateShoppingList(updatedList)
+    dispatch(removeShoppingList(list))
+    dispatch(appendShoppingList(updated))
   }
 }
 

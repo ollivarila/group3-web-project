@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
+    "test": "react-scripts test --verbose --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -43,6 +43,6 @@
     ]
   },
   "devDependencies": {
-    "deep-freeze": "^0.0.1"
+    "axios-mock-adapter": "^1.21.2"
   }
 }

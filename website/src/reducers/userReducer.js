@@ -17,7 +17,7 @@ const userSlice = createSlice({
 export const { setUser, removeUser } = userSlice.actions
 
 export const initializeUser = () => {
-  return (dispatch) => {
+  return async (dispatch) => {
     const userJSON = localStorage.getItem('user')
 
     if (!userJSON) {
