@@ -4,6 +4,7 @@ import './Navbar.css'
 const Navbar = () => {
   const handleClick = () => {
   //    logout()
+  
   }
 
   return (
@@ -12,7 +13,7 @@ const Navbar = () => {
         <h1>Shopping list</h1>
         <nav>
           <div>
-            <button onClick={handleClick}>Log out</button>
+            <button onClick={handleClick}><a href='./login'>Log out</a></button>
           </div>
         </nav>
       </div>
