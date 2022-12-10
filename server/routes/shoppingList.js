@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const {
   getUserLists, addShoppingLists, deleteShoppingList,
-  getListbyId, updateShoppingList, getAll, formatDb, deleteItemFromList, editItemFromList,
+  getListbyId, updateShoppingList, getAll, formatDb, deleteItemFromList, editItemFromList, addItemsToList,
 } = require('../controllers/shoppingListController')
 const authentication = require('../middleware/authentication')
 
@@ -17,14 +17,16 @@ router.get('/all', getAll) // get all lists from database !delete when not neede
 
 router.delete('/reset', formatDb)
 
-router.patch('/item/:id', editItemFromList)
+router.patch('/:shListId/item/', addItemsToList)
 
-router.delete('/item/:id', deleteItemFromList)
+router.patch('/:shListId/item/:id', editItemFromList)
 
-router.get('/:id', getListbyId) // get list by id
+router.delete('/:shListId/item/:id', deleteItemFromList)
 
-router.delete('/:id', deleteShoppingList) // delete list by id
+router.get('/:shListId', getListbyId) // get list by id
 
-router.patch('/:id', updateShoppingList) // update one list
+router.delete('/:shListId', deleteShoppingList) // delete list by id
+
+router.patch('/:shListId', updateShoppingList) // update one list
 
 module.exports = router

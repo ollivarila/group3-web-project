@@ -61,7 +61,7 @@ const getUserLists = async (req, res) => {
  * @returns one list matching the id given in the route
  */
 const getListbyId = async (req, res) => {
-  const { id } = req.params
+  const { shListId: id } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({ error: "id didn't match" })
@@ -90,7 +90,7 @@ const getListbyId = async (req, res) => {
             "name": "saippua",
             "amount": 2,
             "comment": "punasta"
-        },
+        }
     ],
     "comment": null
   }
@@ -118,7 +118,7 @@ const addShoppingLists = async (req, res) => {
  * @returns shoppinglist that was deleted
  */
 const deleteShoppingList = async (req, res) => {
-  const { id } = req.params
+  const { shListId: id } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({ error: "id didn't match" })
@@ -154,7 +154,7 @@ const deleteShoppingList = async (req, res) => {
             "name": "saippua",
             "amount": 2,
             "comment": "punasta"
-        },
+        }
     ],
     "comment": null
   }
@@ -163,7 +163,7 @@ const deleteShoppingList = async (req, res) => {
  * @returns updated shoppinglist
  */
 const updateShoppingList = async (req, res) => {
-  const { id } = req.params
+  const { shListId: id } = req.params
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: 'No list for this id found' })
   }
@@ -199,19 +199,13 @@ const updateShoppingList = async (req, res) => {
 
 /**
  * delete one item from shoppinglist
- * @route DELETE api/shoppingLists/item/{shoppinglistId}
- * @body the productId of the product that will be deleted as json
- * example:
-  {
-    "productId": "63925ad7b61d638af5abb5ba"
-  }
+ * @route DELETE api/shoppingLists/{shoppinglistId}/item/{itemId}
  * @param {*} req
  * @param {*} res
  * @returns
  */
 const deleteItemFromList = async (req, res) => {
-  const { id } = req.params // list id (path)
-  const { productId } = req.body // product id
+  const { shListId: id, id: productId } = req.params // list id (path)
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({ error: 'list id is not valid' })
@@ -242,14 +236,12 @@ const deleteItemFromList = async (req, res) => {
 
 /**
  * edit one item from shoppinglist
- * @route PATCH api/shoppingLists/item/{shoppinglistId}
+ * @route PATCH api/shoppingLists/{shoppinglistId}/item/{itemId}
  * @body fields of the product that you want to modify
- * fields must include productId
  * fields can include name, amount, unit, comment
  * !leave the fields out of the body that you don't want to modify
  * example:
   {
-    "productId": "63925f2fb72c31c05869043a",
     "name": "ffff",
     "amount": "x määrä",
     "unit": "kuppia",
@@ -260,10 +252,10 @@ const deleteItemFromList = async (req, res) => {
  * @returns updated shoppinglist
  */
 const editItemFromList = async (req, res) => {
-  const { id } = req.params // list id (path)
+  const { shListId: id, id: productId } = req.params // list id (path)
   const {
-    productId, name = null, amount = null, unit = null, comment = null,
-  } = req.body // product id, optional -> name, amount, unit, comment
+    name = null, amount = null, unit = null, comment = null,
+  } = req.body
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({ error: 'list id is not valid' })
@@ -325,6 +317,89 @@ const getAll = async (req, res) => {
   }
 }
 
+/**
+ * adds x amount of items to the specified list
+ * @route PATCH /:shListId/item/
+ * @body one item as json object or an json object containing "itemlist" list of objects
+ * example1:
+ * {
+            "name": "saippua",
+            "amount": 2,
+            "unit": "dl",
+            "comment": "punasta"
+    }
+
+ * example2:
+ * "itemList": [
+        {
+            "name": "saippua",
+            "amount": 2,
+            "comment": "punasta"
+        },
+        {
+            "name": "saippua",
+            "amount": 2,
+            "comment": "punasta"
+        }
+    ]
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+
+const addItemsToList = async (req, res) => {
+  const { shListId: id } = req.params
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: 'No list for this id found' })
+  }
+  const { itemList } = req.body
+
+  console.log(itemList);
+
+  let productList = null
+  if (itemList) {
+    productList = makeProducts(itemList)
+  }
+
+  console.log(productList);
+
+  if (!productList) {
+    const {
+      name, amount, unit, comment,
+    } = req.body
+    productList = [{
+      name,
+      amount,
+      unit,
+      comment,
+    }]
+    productList = makeProducts(productList)
+  }
+
+  console.log(productList);
+
+  try {
+    const shoppingList = await ShoppingList.findById(id)
+    if (!shoppingList) {
+      return res.status(400).send({ error: 'no find list' })
+    }
+    if (!verifyOwnership(shoppingList.owner, req.id)) {
+      return res.status(400).send({ error: "You can't modify this list" })
+    }
+    const updated = await ShoppingList.findByIdAndUpdate(
+      shoppingList._id,
+      {
+        productList: [...productList, ...shoppingList.productList],
+      },
+      { new: true },
+    )
+    res.status(200).send(updated)
+  } catch (error) {
+    console.error(error)
+    res.status(400).send({ error: error.message })
+  }
+}
+
 // clears all data from database
 // route DELETE api/shoppingLists/reset
 const formatDb = async (req, res) => {
@@ -343,4 +418,5 @@ module.exports = {
   formatDb,
   deleteItemFromList,
   editItemFromList,
+  addItemsToList,
 }
