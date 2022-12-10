@@ -24,10 +24,10 @@ function makeProducts(list) {
   const schemaList = []
   list.forEach(element => {
     schemaList.push(new ShoppingItem({
-      name: element.name,
-      amount: element.amount,
-      unit: element.unit,
-      comment: element.comment,
+      name: element.name || 'no name',
+      amount: element.amount || null,
+      unit: element.unit || null,
+      comment: element.comment || null,
     }))
   });
   return schemaList
@@ -330,7 +330,8 @@ const getAll = async (req, res) => {
     }
 
  * example2:
- * "itemList": [
+{
+  "itemList": [
         {
             "name": "saippua",
             "amount": 2,
@@ -342,6 +343,8 @@ const getAll = async (req, res) => {
             "comment": "punasta"
         }
     ]
+  }
+
  * @param {*} req
  * @param {*} res
  * @returns
