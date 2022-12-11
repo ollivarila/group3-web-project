@@ -8,7 +8,7 @@ const shoppingListSchema = new Schema({
     type: String,
     required: true,
   },
-  productList: {
+  products: {
     type: [ShoppingItem.schema],
   },
   comment: {
