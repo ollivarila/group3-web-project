@@ -9,6 +9,7 @@ import NavbarWrapper from './components/NavbarWrapper'
 import { initializeUser } from './reducers/userReducer'
 
 
+
 const App = () => {
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()

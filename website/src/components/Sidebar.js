@@ -1,8 +1,8 @@
 import React from 'react';
 import './styles/sidebarstyle.css'
 
-const Sidebar = ({ shoppingLists, handleShowList, handleShowListAdding }) => {
-  //const shoppingLists = [{ title: 'moi' }, { title: 'hei' }, { title: 'haloo' }];
+const Sidebar = ({ handleShowList, handleShowListAdding }) => {
+  const shoppingLists = [{ title: 'moi' }, { title: 'hei' }, { title: 'haloo' }];
   //const shoppingLists = []
   console.log(shoppingLists)
   return (
