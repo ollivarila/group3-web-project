@@ -8,25 +8,17 @@ const getShoppingLists = async (userId) => {
 }
 
 const updateItem = async (listId, item) => {
-  const url = baseurl + `/item/${listId}`
-  const data = {
-    productId: item.id,
-    ...item,
-  }
-  return authenticatedRequest(url, 'patch', data)
+  const url = baseurl + `/${listId}/item/${item.id}`
+  return authenticatedRequest(url, 'patch', item)
 }
 
 const deleteItem = async (listId, itemId) => {
-  const url = baseurl + `/item/${listId}`
-  const data = {
-    productId: itemId,
-  }
-  console.log(url, data)
-  return authenticatedRequest(url, 'delete', data)
+  const url = baseurl + `/${listId}/item/${itemId}`
+  return authenticatedRequest(url, 'delete')
 }
 
 const deleteShoppingList = async (listId) => {
-  const url = baseurl + `/api/${listId}`
+  const url = baseurl + `/${listId}`
   return authenticatedRequest(url, 'delete')
 }
 

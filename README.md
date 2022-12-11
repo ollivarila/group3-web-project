@@ -1,17 +1,18 @@
 TODO
 ===
-- Backend: shopping list functionality (Mikko)
-- Backend: ShoppingListItem schema (Mikko)
-- Backend: CRUD on ShoppingListItem (/shoppinglistId/ItemID) and shoppingList (Mikko)
-- Basic container for page (Olli)
-- Frontpage (Contains header/navbar (Ilona): login/logout (Olli) , Content: List of shopping lists  (Sidebar (Jenni)), button to create new list (first in sidebar), redirect to login page if not logged in) Components: Nav, Sidebar, Element when nothing is selected (Olli)
-- Component for new shoppinglist (form) (!Olli)
-- Frontpage single list functionality when one list is clicked: Components: ShoppingList (Olli), ShoppingListItem (Olli) (button for remove and edit and checkmark) 
-- Loginpage (Olli)
-- Routes to website (React router)
-- Tests :)
+- refactor backend: name productlist itemlist etc to products, add boolean checked (or something better) to ProductSchema. (Mikko)
+- Navbar needs functionality (Ilona)
+- Sidebar functionality (Jenni)
+- Show something in homepage when nothing is selected (Jenni)
+- Frontpage (redirect to login page if not logged in) (Olli)
+- Component for new shoppinglist: functionality needed (Ilona)
+- <ShoppingList> (Mikko) component: shows currently selected list (gets it from the store) , 
+  contains a list of <Product> (Olli)(has button for editing, deleting, and checking as completed) components, shoppingList contains button for deleting list and adding new item
+- Add components to make a home page
+- Reducer for currently selected list (Olli)
+- NavBar wrapper component with outlet to app (Olli)
+- improve styling
 - Deployment workflow
-- Add build route to app.js
 
 JOTAIN
 
