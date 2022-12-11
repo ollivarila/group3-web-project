@@ -9,7 +9,7 @@ import { initializeShoppingLists } from './reducers/shoppingListReducer'
 const App = () => {
   const dispatch = useDispatch()
   const shoppingLists = useSelector((state) => state.shoppingLists)
-
+  console.log(shoppingLists)
   useEffect(() => {
     dispatch(initializeShoppingLists())
   }, [dispatch])

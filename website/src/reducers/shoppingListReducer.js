@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import service from '../services/shoppingListService'
 
-const initialState = 'state'
+const initialState = []
 
 const shoppingListSlice = createSlice({
   name: 'shoppingLists',
