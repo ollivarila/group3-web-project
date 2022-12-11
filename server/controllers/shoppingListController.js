@@ -28,6 +28,7 @@ function makeProducts(list) {
       amount: element.amount || null,
       unit: element.unit || null,
       comment: element.comment || null,
+      checked: element.checked || false,
     }))
   });
   return schemaList
@@ -254,7 +255,7 @@ const deleteItemFromList = async (req, res) => {
 const editItemFromList = async (req, res) => {
   const { shListId: id, id: productId } = req.params // list id (path)
   const {
-    name = null, amount = null, unit = null, comment = null,
+    name = null, amount = null, unit = null, comment = null, checked = null,
   } = req.body
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -280,6 +281,7 @@ const editItemFromList = async (req, res) => {
     amount: amount || product.amount,
     unit: unit || product.unit,
     comment: comment || product.comment,
+    checked: checked || product.checked,
     _id: product.id,
   })
 
@@ -292,7 +294,7 @@ const editItemFromList = async (req, res) => {
 
   const updated = await ShoppingList.findByIdAndUpdate(
     list._id,
-    { title: list.title, products: newList, comment: list.comment },
+    { products: newList },
     { new: true },
   )
   res.status(200).send(updated)
@@ -364,15 +366,16 @@ const addItemsToList = async (req, res) => {
 
   if (!products) {
     const {
-      name, amount, unit, comment,
+      name, amount, unit, comment, checked,
     } = req.body
     products = [{
       name,
       amount,
       unit,
       comment,
+      checked,
     }]
-    products = makeProducts(productst)
+    products = makeProducts(products)
   }
 
   try {

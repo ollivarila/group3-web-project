@@ -14,6 +14,9 @@ const shoppingListSchema = new Schema({
   comment: {
     type: String,
   },
+  checked: {
+    type: Boolean,
+  },
   owner: {
     type: mongoose.Types.ObjectId,
     required: true,
