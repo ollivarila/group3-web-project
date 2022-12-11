@@ -1,8 +1,15 @@
-import React from 'react';
+import React , {useEffect}from 'react';
 import './styles/sidebarstyle.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { initializeShoppingLists } from '../reducers/shoppingListReducer'
 
 const Sidebar = ({ handleShowList, handleShowListAdding }) => {
-  const shoppingLists = [{ title: 'moi' }, { title: 'hei' }, { title: 'haloo' }];
+  const dispatch = useDispatch()
+  const shoppingLists = useSelector((state) => state.shoppingLists)
+
+  useEffect(() => {
+    dispatch(initializeShoppingLists())
+  }, [dispatch])
   //const shoppingLists = []
   console.log(shoppingLists)
   return (
