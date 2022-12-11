@@ -50,6 +50,18 @@ const login = async (req, res) => {
   }
 }
 
+/**
+ * deletes user from database and also deletes that users lists from database
+ * @route DELETE api/user/{userId}
+ * @body users username or email and password
+ * example:
+{
+    "email": "mikko@merja.fi",
+    "password": "salasana"
+}
+ * @param {*} req
+ * @param {*} res
+ */
 const deleteUser = async (req, res) => {
   const {
     nameOrEmail = null, username = null, email = null, password = null,
@@ -66,7 +78,13 @@ const deleteUser = async (req, res) => {
   }
 }
 
-const deleteAllUsers = async (req, res) => {
+/**
+ * delete all users and lists from database
+ * @route DELETE api/user/deleteAll
+ * @param {*} req
+ * @param {*} res
+ */
+const deleteAllUsersAndLists = async (req, res) => {
   try {
     await User.deleteMany({})
     await ShoppingList.deleteMany({})
@@ -80,5 +98,5 @@ module.exports = {
   signup,
   login,
   deleteUser,
-  deleteAllUsers,
+  deleteAllUsersAndLists,
 }

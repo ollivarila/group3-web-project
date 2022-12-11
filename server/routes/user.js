@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const {
-  login, signup, deleteAllUsers, deleteUser,
+  login, signup, deleteUser, deleteAllUsersAndLists,
 } = require('../controllers/userController')
 const authentication = require('../middleware/authentication')
 
@@ -12,7 +12,7 @@ router.post('/signup', signup)
 
 router.use(authentication)
 
-router.delete('/deleteAll', deleteAllUsers) // deletes all users and lists
+router.delete('/deleteAll', deleteAllUsersAndLists) // deletes all users and lists
 
 router.delete('/delete/:id', deleteUser) // deletes one user
 
