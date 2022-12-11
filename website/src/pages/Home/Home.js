@@ -1,7 +1,13 @@
 import React from 'react'
+import Navbar from '../../components/NavbarWrapper'
 
 const Home = () => {
-  return <div>Home</div>
+  return (
+    <>
+    <Navbar />
+    <div>Home</div>
+    </>
+  )
 }
 
 export default Home

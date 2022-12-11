@@ -8,6 +8,7 @@ import { initializeShoppingLists } from './reducers/shoppingListReducer'
 import NavbarWrapper from './components/NavbarWrapper'
 import { initializeUser } from './reducers/userReducer'
 
+
 const App = () => {
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
@@ -15,7 +16,7 @@ const App = () => {
     dispatch(initializeShoppingLists())
     dispatch(initializeUser())
   }, [dispatch])
-
+    
   return (
     <>
       <Routes>
@@ -28,6 +29,7 @@ const App = () => {
       </Routes>
     </>
   )
+
 }
 
 export default App
