@@ -1,21 +1,30 @@
 import React, { useState } from 'react'
 import './ItemForm.css'
-// import { comment } from 'postcss'
 
 const ItemForm = () => {
   const [name, setName] = useState('')
   const [amount, setAmount] = useState('')
   const [unit, setUnit] = useState('')
   const [comment, setComment] = useState('')
+  const [error, setError] = useState('')
 
-  const showInfo = () => {
-    // eslint-disable-next-line no-alert
-    alert(` name = ${name} amount = ${amount} unit = ${unit} comment = ${comment} `)
+const handleSubmit = async (e) => {
+      e.preventDefault()
+      try {
+           // eslint-disable-next-line no-alert
+        alert(` name = ${name} amount = ${amount} unit = ${unit} comment = ${comment} `)
+      } catch (err) {
+        setError(err.message)
+        setName('')
+        setAmount('')
+        setUnit('')
+        console.log(error)
+      }
   }
   
   return (
     <div className='formLayout'>
-      <form onSubmit={showInfo}>
+      <form onSubmit={handleSubmit} className='ItemForm'>
         <h3>Add a New Item</h3>
         <div className="insideForm">
           <label >Name:</label>
@@ -43,9 +52,10 @@ const ItemForm = () => {
             value={comment}
           />
           <button>Add Item</button>
-          <button>Save List</button>
+          <button>Save Items & go back</button>
         </div>
       </form>
+  
     </div>
   )
 }

@@ -1,10 +1,18 @@
 import React from 'react'
+import {Navigate } from 'react-router-dom'
+
 import './Navbar.css'
 
 const Navbar = () => {
+
+  const toLogin = () => {
+    return ( 
+      <Navigate to='/signup' />
+    )
+  }
   const handleClick = () => {
   //    logout()
-  
+        toLogin()
   }
 
   return (
@@ -13,7 +21,7 @@ const Navbar = () => {
         <h1>Shopping list</h1>
         <nav>
           <div>
-            <button onClick={handleClick}><a href='./login'>Log out</a></button>
+            <button onClick={handleClick}>Log out</button>
           </div>
         </nav>
       </div>
