@@ -9,12 +9,6 @@ import NavbarWrapper from './components/NavbarWrapper'
 import { initializeUser } from './reducers/userReducer'
 import Product from './components/Product'
 
-const product = {
-  name: 'omena',
-  amount: 10,
-  comment: 'voi ostaa vähemmänkin',
-}
-
 const App = () => {
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
@@ -25,12 +19,6 @@ const App = () => {
 
   return (
     <>
-      <div className="testContainer">
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-      </div>
       <Routes>
         <Route path="/" element={<NavbarWrapper />}>
           <Route path="/" element={user ? <Home /> : <Login />} />
