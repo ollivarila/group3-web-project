@@ -15,7 +15,7 @@ const verifyOwnership = (ownerId, userId) => {
 /**
  * gets list of objects and makes an array that contains product schema items
  * @param {*} list list of product objects
- * @returns list of broduct schema elements
+ * @returns list of broduct schema elements, if provided list is empty or null returns an empty list
  */
 function makeProducts(list) {
   if (!list || list === []) {
@@ -28,6 +28,7 @@ function makeProducts(list) {
       amount: element.amount || null,
       unit: element.unit || null,
       comment: element.comment || null,
+      checked: element.checked || false,
     }))
   });
   return schemaList
@@ -64,7 +65,7 @@ const getListbyId = async (req, res) => {
   const { shListId: id } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({ error: "id didn't match" })
+    return res.status(400).send({ error: 'not a valid id' })
   }
   const list = await ShoppingList.findById(id)
   if (!verifyOwnership(list.owner, req.id)) {
@@ -72,7 +73,7 @@ const getListbyId = async (req, res) => {
   }
 
   if (!list) {
-    return res.status(404).json({ error: 'No list found' })
+    return res.status(404).json({ error: 'No list found with this id' })
   }
   res.status(200).send(list)
 }
@@ -99,10 +100,10 @@ const getListbyId = async (req, res) => {
  */
 const addShoppingLists = async (req, res) => {
   const { title, comment = '', itemList } = req.body // body = title, comment(optional), list of item objects
-  const productList = makeProducts(itemList)
+  const products = makeProducts(itemList)
   try {
     const shoppingList = await ShoppingList.create({
-      title, productList, comment, owner: req.id,
+      title, products, comment, owner: req.id,
     })
     res.status(200).send(shoppingList)
   } catch (error) {
@@ -168,9 +169,9 @@ const updateShoppingList = async (req, res) => {
     return res.status(400).json({ error: 'No list for this id found' })
   }
   const { title = null, comment = '', itemList = null } = req.body
-  let productList = null
+  let products = null
   if (itemList) {
-    productList = makeProducts(itemList)
+    products = makeProducts(itemList)
   }
 
   try {
@@ -185,7 +186,7 @@ const updateShoppingList = async (req, res) => {
       shoppingList._id,
       {
         title: title || shoppingList.title,
-        productList: productList || shoppingList.productList,
+        producs: products || shoppingList.products,
         comment,
       },
       { new: true },
@@ -224,11 +225,11 @@ const deleteItemFromList = async (req, res) => {
     return res.status(404).json({ error: 'No list found' })
   }
 
-  const editedList = list.productList.filter((p) => p.id !== productId)
+  const editedList = lis.products.filter((p) => p.id !== productId)
 
   const updated = await ShoppingList.findByIdAndUpdate(
     list._id,
-    { title: list.title, productList: editedList, comment: list.comment },
+    { title: list.title, products: editedList, comment: list.comment },
     { new: true },
   )
   res.status(200).send(updated)
@@ -254,7 +255,7 @@ const deleteItemFromList = async (req, res) => {
 const editItemFromList = async (req, res) => {
   const { shListId: id, id: productId } = req.params // list id (path)
   const {
-    name = null, amount = null, unit = null, comment = null,
+    name = null, amount = null, unit = null, comment = null, checked = null,
   } = req.body
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -274,16 +275,17 @@ const editItemFromList = async (req, res) => {
     return res.status(404).json({ error: 'No list found' })
   }
 
-  const product = list.productList.find((p) => p.id === productId)
+  const product = list.products.find((p) => p.id === productId)
   const newProduct = new ShoppingItem({
     name: name || product.name,
     amount: amount || product.amount,
     unit: unit || product.unit,
     comment: comment || product.comment,
+    checked: checked || product.checked,
     _id: product.id,
   })
 
-  const newList = list.productList.map((item) => {
+  const newList = list.products.map((item) => {
     if (item.id === productId) {
       return newProduct
     }
@@ -292,7 +294,7 @@ const editItemFromList = async (req, res) => {
 
   const updated = await ShoppingList.findByIdAndUpdate(
     list._id,
-    { title: list.title, productList: newList, comment: list.comment },
+    { products: newList },
     { new: true },
   )
   res.status(200).send(updated)
@@ -357,29 +359,24 @@ const addItemsToList = async (req, res) => {
   }
   const { itemList } = req.body
 
-  console.log(itemList);
-
-  let productList = null
+  let products = null
   if (itemList) {
-    productList = makeProducts(itemList)
+    products = makeProducts(itemList)
   }
 
-  console.log(productList);
-
-  if (!productList) {
+  if (!products) {
     const {
-      name, amount, unit, comment,
+      name, amount, unit, comment, checked,
     } = req.body
-    productList = [{
+    products = [{
       name,
       amount,
       unit,
       comment,
+      checked,
     }]
-    productList = makeProducts(productList)
+    products = makeProducts(products)
   }
-
-  console.log(productList);
 
   try {
     const shoppingList = await ShoppingList.findById(id)
@@ -392,7 +389,7 @@ const addItemsToList = async (req, res) => {
     const updated = await ShoppingList.findByIdAndUpdate(
       shoppingList._id,
       {
-        productList: [...productList, ...shoppingList.productList],
+        products: [...products, ...shoppingList.products],
       },
       { new: true },
     )

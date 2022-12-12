@@ -8,11 +8,14 @@ const shoppingListSchema = new Schema({
     type: String,
     required: true,
   },
-  productList: {
+  products: {
     type: [ShoppingItem.schema],
   },
   comment: {
     type: String,
+  },
+  checked: {
+    type: Boolean,
   },
   owner: {
     type: mongoose.Types.ObjectId,

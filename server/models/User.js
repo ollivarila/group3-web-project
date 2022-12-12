@@ -89,6 +89,30 @@ userSchema.statics.login = async function (nameOrEmail, password) {
   return user
 }
 
+// static login method
+userSchema.statics.delete = async function (nameOrEmail, password, reqId) {
+  if (!nameOrEmail || !password) {
+    throw Error('All fields must be filled')
+  }
+
+  const user = await validateNameOrEmail(this, nameOrEmail)
+
+  if (user.id.toString() !== reqId.toString()) {
+    throw new Error("You can't delete this user")
+  }
+
+  if (!user) {
+    throw new Error('Username or email incorrect')
+  }
+
+  const match = await bcrypt.compare(password, user.password)
+  if (!match) {
+    throw Error('Incorrect password')
+  }
+  user.delete()
+  return user
+}
+
 userSchema.set('toJSON', {
   transform: (doc, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
