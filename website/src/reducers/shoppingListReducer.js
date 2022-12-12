@@ -106,6 +106,9 @@ export const removeItem = (listId, itemId) => {
 
 const updateList = (list, item) => {
   const newProductList = list.productList.map((e) => {
+    if(!item.id){
+      return e
+    }
     return e.id === item.id ? item : e
   })
   const copy = {

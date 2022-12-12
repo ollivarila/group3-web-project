@@ -1,0 +1,105 @@
+
+
+.shoppinglistContainer {
+    display: flex;
+    flex-wrap: wrap;
+    background: lightgrey;
+    justify-content: center;
+    margin: 10px;
+    border-radius: 25px;
+    
+}
+
+.shoppinglistUl {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    width: 100%;
+    
+}
+
+.shoppinglistUl li {
+    width: 80%;
+    margin-top: 5px;
+}
+
+.product {
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+}
+
+header {
+    margin-top: 10px;
+    text-align: center;
+    width: 100%;
+    font-size: 40px;
+}
+
+footer {
+    margin: 10px 0px 20px 0px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+footer button {
+    width: 25%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.deleteList {
+    background-color: lightcoral;
+    border-width: 1px;
+    
+}
+
+.addItem {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.addItem button {
+    text-decoration: underline;
+    font-size: 20px;
+    padding: 10px;
+    width: 100%;
+    background-color: var(--primary);
+    border-radius: 3px;
+    border-width: 1px;
+}
+
+.addItem button:hover {
+    background-color: var(--secondary);
+}
+
+.deleteList:hover {
+    background-color: red;
+}
+.comment {
+    margin-top: 10px;
+    border-style: dashed;
+    border-width: 0.5px;
+    width: 80%;
+}
+
+.comment p {
+    margin: 10px;
+}
+
+@media (max-width: 480px){
+    footer {
+        flex-wrap: wrap;
+    }
+    footer button {
+        width: 100%;
+        margin: 2px;
+    }
+
+
+}
