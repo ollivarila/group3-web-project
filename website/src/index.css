@@ -6,7 +6,6 @@
   --success: #4CB944;
   --warning: #FFD166;
   --error: #ef233c;
-  --header-height: 32px;
 }
 
 body {
@@ -23,9 +22,11 @@ button{
   font-family: 'Roboto', sans-serif;
 }
 
-.root {
-  height: 100vh;
-  box-sizing: content-box;
+#root {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 10px 0px 10px;
+  height: 100%;
 }
 
 .app {
@@ -34,4 +35,9 @@ button{
 
 html {
   height: 100%;
+}
+
+main {
+  display: flex;
+  flex-grow: 1;
 }

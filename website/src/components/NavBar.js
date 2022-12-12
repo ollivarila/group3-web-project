@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 
 import './Navbar.css'
 
@@ -7,11 +7,11 @@ const Navbar = () => {
   const navigate = useNavigate()
 
   const handleClick = () => {
-       navigate('/login')
+    navigate('/login')
   }
 
   return (
-    <header>
+    <header className="navHeader">
       <div className="container">
         <h1>Shopping list</h1>
         <nav>
@@ -23,4 +23,4 @@ const Navbar = () => {
     </header>
   )
 }
-export default Navbar;
+export default Navbar

@@ -1,14 +1,13 @@
 
   .sidebar{
     position: flex;
-    padding-top: 10px;
-    width: 40%;
-    max-width: 260px;
-    height: 879px;
+    width: 240px;
     left: 0px;
     top: 0px;
-    
-    background: #F8F8FF;
+    border-radius: 5px;
+    margin-top: 10px;
+    background: #FFFFFF;
+    margin-bottom: 0;
     }
     
     .listItem{

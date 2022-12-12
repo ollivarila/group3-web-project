@@ -1,13 +1,10 @@
 import React from 'react'
-import Navbar from '../../components/NavBar'
-import NewShoppingList from './components/NewShoppingList'
+import Sidebar from '../../components/Sidebar'
 
 const Home = () => {
   return (
     <>
-    <Navbar />
-    <NewShoppingList />
-    <div>Home</div>
+      <Sidebar />
     </>
   )
 }

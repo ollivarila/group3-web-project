@@ -7,7 +7,7 @@
 }
 
 .loginForm > * {
-  flex-shrink: 1;
+  width: 300px;
 }
 
 
@@ -21,11 +21,9 @@
 }
 
 .loginForm button {
-  border-style: solid;
-  border-width: 2px;
-  border-color: var(--success);
-  color: var(--success);
-  background-color: #FFFFFF;
+  border-style: none;
+  color: #FFFFFF;
+  background-color: var(--success);
   height: 40px;
   border-radius: 5px;
   font-size: large;
@@ -34,7 +32,7 @@
 
 .loginForm p {
   margin: 0;
-  font-size: small;
+  font-size: 16px;
   text-align: center;
 }
 
@@ -43,7 +41,7 @@
   margin: 0;
   margin-bottom: 24px;
   font-weight: 300;
-  font-size: 48px;
+  font-size: 64px;
 }
 
 .loginFormContainer {
@@ -55,10 +53,10 @@
   justify-content: center;
   align-items: center;
   flex-grow: 1;
-  max-width: 300px;
+  max-width: 500px;
   flex-shrink: 1;
-  padding: 64px 24px 64px 24px;
+  padding: 64px;
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-  max-height: 300px;
+  max-height: 400px;
 }
