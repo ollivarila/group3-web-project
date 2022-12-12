@@ -3,15 +3,17 @@ import { login, useLogin } from '../loginHelper'
 import Input from '../../../components/Input'
 import './LoginForm.css'
 import FailNotification from '../../../components/FailNotification'
+import { useNavigate } from 'react-router-dom'
 
 const LoginForm = () => {
   const [user, { setNameOrEmail, setPassword }] = useLogin()
   const [error, setError] = useState(null)
-
+  const navigate = useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       await login(user)
+      navigate('/')
     } catch (err) {
       setError(err.message)
       setNameOrEmail('')

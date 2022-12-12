@@ -2,6 +2,8 @@ import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import { useState } from 'react'
 import { BACKEND_URL } from '../../config'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../../reducers/userReducer'
 
 export const sendSignupRequest = (user) => {
   const url = `${BACKEND_URL}/api/user/signup`
@@ -24,6 +26,10 @@ export const signup = async (user) => {
   localStorage.setItem('token', token)
 
   const decoded = jwtDecode(token)
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const dispatch = useDispatch()
+  dispatch(setUser(decoded))
 
   localStorage.setItem('user', decoded)
 
