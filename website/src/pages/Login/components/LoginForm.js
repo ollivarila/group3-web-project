@@ -3,16 +3,20 @@ import { login, useLogin } from '../loginHelper'
 import Input from '../../../components/Input'
 import './LoginForm.css'
 import FailNotification from '../../../components/FailNotification'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../../../reducers/userReducer'
 
 const LoginForm = () => {
   const [user, { setNameOrEmail, setPassword }] = useLogin()
   const [error, setError] = useState(null)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await login(user)
+      const userFromResponse = await login(user)
+      dispatch(setUser(userFromResponse))
       navigate('/')
     } catch (err) {
       setError(err.message)
@@ -45,7 +49,7 @@ const LoginForm = () => {
           placeholder={'Password'}
         />
         <p>
-          Don&apos;t have an account? <a href="/">Sign up</a>
+          Don&apos;t have an account? <Link to="/signup">Sign up</Link>
         </p>
         <button type="submit">Log in</button>
         <FailNotification message={error} />

@@ -2,8 +2,6 @@ import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import { useState } from 'react'
 import { BACKEND_URL } from '../../config'
-import { useDispatch } from 'react-redux'
-import { setUser } from '../../reducers/userReducer'
 
 const sendLoginRequest = async (user) => {
   const url = `${BACKEND_URL}/api/user/login`
@@ -21,19 +19,15 @@ const sendLoginRequest = async (user) => {
 // Throws error if request fails
 
 export const login = async (user) => {
-  const token = await sendLoginRequest(user)
+  const { token } = await sendLoginRequest(user)
 
   localStorage.setItem('token', token)
 
   const decoded = jwtDecode(token)
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const dispatch = useDispatch()
-  dispatch(setUser(decoded))
-
   localStorage.setItem('user', JSON.stringify(decoded))
 
-  return token
+  return decoded
 }
 
 // Custom hook for user login form

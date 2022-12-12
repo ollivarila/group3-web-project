@@ -27,13 +27,9 @@ export const signup = async (user) => {
 
   const decoded = jwtDecode(token)
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const dispatch = useDispatch()
-  dispatch(setUser(decoded))
-
   localStorage.setItem('user', decoded)
 
-  return token
+  return decoded
 }
 
 export const useSignup = () => {

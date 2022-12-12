@@ -4,16 +4,20 @@ import Input from '../../../components/Input'
 import './SignupForm.css'
 import FailNotification from '../../../components/FailNotification'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../../../reducers/userReducer'
 
 const SignupForm = () => {
   const [user, { setUsername, setEmail, setPassword }] = useSignup()
   const [error, setError] = useState(null)
   const navigate = useNavigate()
 
+  const dispatch = useDispatch()
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await signup(user)
+      const userFromResponse = await signup(user)
+      dispatch(setUser(userFromResponse))
       navigate('/')
     } catch (err) {
       setError(err.message)
