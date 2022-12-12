@@ -1,0 +1,76 @@
+
+  .sidebar{
+    position: flex;
+    padding-top: 10px;
+    width: 40%;
+    max-width: 260px;
+    height: 879px;
+    left: 0px;
+    top: 0px;
+    
+    background: #F8F8FF;
+    }
+    
+    .listItem{
+      /*position: flex; */
+      flex-direction: column; 
+      align-items: flex-start; 
+      padding: 8px 8px;
+      gap: 2px; 
+      background: none;
+      border: none; 
+      border-top: 1.5px solid;
+      width: 230px;
+      height: 40px;
+      margin: 2px 2px;
+      font-size: 16px;
+      
+    }
+  
+    .buttonWrapper {
+      /* margin: auto; */
+      display: flex;
+      justify-content: center;
+    }
+  
+    .listItem:hover{
+      font-size: 18px;
+    }
+    
+    .list:active{
+      font-size: 18px;
+    }
+  
+    .list{
+      position: fixed;
+      display: block;
+      justify-content: center;
+      margin-top: 50px;
+      position: absolute;
+      width: 40%;
+      max-width: 260px;
+      height: 272px;
+      left: 0px;
+      top: 162px;
+    }
+    
+    .addbutton{
+    margin-top: 20px;
+    width: 150px;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 50px;
+    background: #2892B4;
+    color:var(--text);
+    border: none;
+    opacity:0.8;
+    }
+  
+  .addbutton:hover{
+  opacity:1;
+  }
+
+  h3{
+    text-align: center;
+    margin: 30px 20px;
+  }
