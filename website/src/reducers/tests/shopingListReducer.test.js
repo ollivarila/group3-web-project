@@ -31,7 +31,7 @@ describe('shoppingListReducer', () => {
     const shoppingList = [
       {
         title: 'first list',
-        productList: [
+        products: [
           {
             name: 'mockProduct',
             amount: 2,
@@ -66,7 +66,7 @@ describe('shoppingListReducer', () => {
     }
     const action = appendShoppingList({
       title: 'shoppingList',
-      productList: [2, 3],
+      products: [2, 3],
     })
     render(
       <Wrapper store={store}>
@@ -99,7 +99,7 @@ describe('shoppingListReducer', () => {
     )
 
     expect(lists.length).toBe(1)
-    expect(lists[0].productList[0].name).toBe('updated')
+    expect(lists[0].products[0].name).toBe('updated')
   })
 
   it('removes item from list', () => {
@@ -119,7 +119,7 @@ describe('shoppingListReducer', () => {
       </Wrapper>,
     )
     expect(lists.length).toBe(1)
-    expect(lists[0].productList.length).toBe(0)
+    expect(lists[0].products.length).toBe(0)
   })
 
   it('removes shoppingList', () => {

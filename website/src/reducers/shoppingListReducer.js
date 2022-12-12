@@ -20,11 +20,11 @@ const shoppingListSlice = createSlice({
         .filter((shoppingList) => shoppingList.id === listId)
         .pop()
 
-      const newItemList = shList.productList.map((listItem) => {
+      const productsToUpdate = shList.products.map((listItem) => {
         return listItem.id === item.id ? item : listItem
       })
 
-      shList.productList = newItemList
+      shList.products = productsToUpdate
       state = state.map((list) => {
         return list.id === shList.id ? shList : list
       })
@@ -34,11 +34,11 @@ const shoppingListSlice = createSlice({
 
       const removeFromThis = state.filter((e) => e.id === listId).pop()
 
-      const newProductList = removeFromThis.productList.filter(
+      const newProductList = removeFromThis.products.filter(
         (e) => e.id !== itemId,
       )
 
-      removeFromThis.productList = newProductList
+      removeFromThis.products = newProductList
 
       state = state.map((list) => {
         return list.id === removeFromThis.id ? removeFromThis : list
@@ -126,7 +126,7 @@ export const removeItem = (listId, itemId) => {
 
 export const updateList = (list, item) => {
   const newProductList = list.productList.map((e) => {
-    if(!item.id){
+    if (!item.id) {
       return e
     }
     return e.id === item.id ? item : e
