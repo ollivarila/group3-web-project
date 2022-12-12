@@ -1,18 +1,23 @@
 import React, { useState } from 'react'
+import {createShoppingList} from '../../../reducers/shoppingListReducer';
 import './NewShoppingList.css'
 
 const NewShoppingList = () => {
-  const [title, setTitle] = useState('')
-  const [owner, setOwner] = useState('')
-  const [comment, setComment] = useState('')
+  //const [title, setTitle] = useState('')
+  //const [comment, setComment] = useState('')
+  const [list, setList] = useState({title: "", comment: ""})
 
- 
 const handleSubmit = async (e) => {
-        e.preventDefault()
-        // importtaa reducerista listan lisäys metodi ja käytä sitä. 
-        // Mahd myös käyttäjä hae sieltä. 
-    // eslint-disable-next-line no-alert
-    alert(` name = ${title}  owner = ${owner} comment = ${comment} `)
+      e.preventDefault()
+      createShoppingList(list)
+  }
+
+  const handleTitleChange = (e) => {
+    setList ({...list, title: e.target.value})
+  }
+
+  const handleCommentChange = (e) => {
+    setList ({...list, comment: e.target.value})
   }
   
   return (
@@ -23,20 +28,22 @@ const handleSubmit = async (e) => {
           <label>Title:</label>
           <input
             type="text"
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
+            onChange={handleTitleChange}
+            value={list.title}
           />
           <label>ProductList:</label>
          <p> Tänne tulisi näkyviin kaikki lisätyt itemit</p>
           <label>Comment:</label>
           <input
             type="text"
-            onChange={(e) => setComment(e.target.value)}
-            value={comment}
+            onChange={handleCommentChange}
+            value={list.comment}
           />
           <button>Save List</button>
         </div>
       </form>
+      <p style={{color: 'white'}}> Listan title on {list.title} ja kommentti on {list.comment} </p>
+
     </div>
   )
 }

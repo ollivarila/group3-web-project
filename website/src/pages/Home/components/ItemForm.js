@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import './ItemForm.css'
+import {currentShoppingListSlice} from '../../../reducers/currentShoppingListReducer'
 
 const ItemForm = () => {
-  const [name, setName] = useState('')
+
+const [name, setName] = useState('')
   const [amount, setAmount] = useState('')
   const [unit, setUnit] = useState('')
   const [comment, setComment] = useState('')

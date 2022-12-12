@@ -8,7 +8,6 @@ import { initializeShoppingLists } from './reducers/shoppingListReducer'
 import NavbarWrapper from './components/NavbarWrapper'
 import { initializeUser } from './reducers/userReducer'
 
-
 const App = () => {
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
@@ -16,20 +15,25 @@ const App = () => {
     dispatch(initializeShoppingLists())
     dispatch(initializeUser())
   }, [dispatch])
-    
-  return (
-    <>
-      <Routes>
+//     
+//
+/* <Routes>
         <Route path="/" element={<NavbarWrapper />}>
-          <Route path="/" element={user ? <Home /> : <Login />} />
+          <Route path="/" element={<Home />} />
+               <Route path="/" element={user ? <Home /> : <Signup />} />
+
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<div>404 not found</div>} />
         </Route>
-      </Routes>
+      </Routes> */
+
+    
+  return (
+    <>
+     <Home /> 
     </>
   )
-
 }
 
 export default App
