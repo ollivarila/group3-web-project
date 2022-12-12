@@ -81,6 +81,7 @@ footer button {
 .deleteList:hover {
     background-color: red;
 }
+
 .comment {
     margin-top: 10px;
     border-style: dashed;

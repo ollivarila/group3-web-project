@@ -42,11 +42,12 @@ const ListItems = (props) => {
 }
 
 
-const ShoppinList = ({list, pList}) => {
+const ShoppingList = ({shoppingList}) => {
 
-    const copy = [...pList]
-    const [productList, setProductList] = useState(copy)
-    const [name, setName] = useState(list.name)
+    const copy = [...shoppingList]
+    const [productList, setProductList] = useState(copy.products)
+    const [name, setName] = useState(copy.title)
+    const [comment, setComment] = useState(copy.comment)
 
     
     const handleNameChange = () => {
@@ -67,7 +68,7 @@ const ShoppinList = ({list, pList}) => {
             </header>
             <ListItems products={productList} list={name}/>
             <section className='comment'>
-                <p>{list.comment}</p>
+                <p>{comment}</p>
             </section>
             <footer>
                 <button className='changeComment' onClick={handleCommentchange}>Edit comment</button>
@@ -79,4 +80,4 @@ const ShoppinList = ({list, pList}) => {
     )
 }
 
-export default ShoppinList
+export default ShoppingList
