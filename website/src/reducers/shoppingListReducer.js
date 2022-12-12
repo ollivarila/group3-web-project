@@ -35,7 +35,7 @@ const shoppingListSlice = createSlice({
       const removeFromThis = state.filter((e) => e.id === listId).pop()
 
       const newProductList = removeFromThis.productList.filter(
-        (e) => e.id !== itemId
+        (e) => e.id !== itemId,
       )
 
       removeFromThis.productList = newProductList
@@ -48,6 +48,16 @@ const shoppingListSlice = createSlice({
       const listId = action.payload
       return state.filter((e) => e.id !== listId)
     },
+    addItemToList(state, action) {
+      const { listId, item } = action.payload
+
+      const listToAddTo = state.filter((list) => (list.id = listId)).pop()
+      const { products } = listToAddTo
+      listToAddTo.products = [...products, item]
+      state = state.map((list) => {
+        return list.id === listToAddTo.id ? listToAddTo : list
+      })
+    },
   },
 })
 
@@ -57,6 +67,7 @@ export const {
   updateItemInList,
   removeItemFromList,
   removeShoppingList,
+  addItemToList,
 } = shoppingListSlice.actions
 
 // Gets all shopping lists if a user is logged in, they are set in the state
@@ -83,28 +94,39 @@ export const createShoppingList = (shoppingList) => {
   return async (dispatch) => {
     const createdList = await service.createShoppingList(shoppingList)
 
+    if (!createdList) {
+      return
+    }
+
     dispatch(appendShoppingList(createdList))
   }
 }
 
 export const updateItem = (listId, item) => {
   return async (dispatch) => {
-    if (!item.id) throw new Error('Item id is missing')
-
     const updated = await service.updateItem(listId, item)
+
+    if (!updated) {
+      return
+    }
+
     dispatch(updateItemInList({ listId, item: updated }))
   }
 }
 
 export const removeItem = (listId, itemId) => {
   return async (dispatch) => {
-    await service.deleteItem(listId, itemId)
+    const deleted = await service.deleteItem(listId, itemId)
+
+    if (!deleted) {
+      return
+    }
 
     dispatch(removeItemFromList({ listId, itemId }))
   }
 }
 
-const updateList = (list, item) => {
+export const updateList = (list, item) => {
   const newProductList = list.productList.map((e) => {
     return e.id === item.id ? item : e
   })
@@ -115,12 +137,13 @@ const updateList = (list, item) => {
   return copy
 }
 
-export const createItem = (list, item) => {
+export const createItem = (listId, item) => {
   return async (dispatch) => {
-    const updatedList = updateList(list, item)
-    const updated = await service.updateShoppingList(updatedList)
-    dispatch(removeShoppingList(list))
-    dispatch(appendShoppingList(updated))
+    const created = service.createItem(listId, item)
+    if (!created) {
+      return
+    }
+    dispatch(addItemToList(listId, created))
   }
 }
 

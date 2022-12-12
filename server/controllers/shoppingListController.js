@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const ShoppingItem = require('../models/ShoppingItem');
+const mongoose = require('mongoose')
+const ShoppingItem = require('../models/ShoppingItem')
 const ShoppingList = require('../models/ShoppingList')
 
 /**
@@ -22,15 +22,17 @@ function makeProducts(list) {
     return []
   }
   const schemaList = []
-  list.forEach(element => {
-    schemaList.push(new ShoppingItem({
-      name: element.name || 'no name',
-      amount: element.amount || null,
-      unit: element.unit || null,
-      comment: element.comment || null,
-      checked: element.checked || false,
-    }))
-  });
+  list.forEach((element) => {
+    schemaList.push(
+      new ShoppingItem({
+        name: element.name || 'no name',
+        amount: element.amount || null,
+        unit: element.unit || null,
+        comment: element.comment || null,
+        checked: element.checked || false,
+      }),
+    )
+  })
   return schemaList
 }
 
@@ -44,7 +46,9 @@ function makeProducts(list) {
 
 const getUserLists = async (req, res) => {
   try {
-    const uLists = await ShoppingList.find({ owner: req.id }).sort({ createdAt: -1 })
+    const uLists = await ShoppingList.find({ owner: req.id }).sort({
+      createdAt: -1,
+    })
     if (uLists.length === 0) {
       return res.status(400).send({ error: 'no lists found for you' })
     }
@@ -103,7 +107,10 @@ const addShoppingLists = async (req, res) => {
   const products = makeProducts(itemList)
   try {
     const shoppingList = await ShoppingList.create({
-      title, products, comment, owner: req.id,
+      title,
+      products,
+      comment,
+      owner: req.id,
     })
     res.status(200).send(shoppingList)
   } catch (error) {
@@ -255,7 +262,11 @@ const deleteItemFromList = async (req, res) => {
 const editItemFromList = async (req, res) => {
   const { shListId: id, id: productId } = req.params // list id (path)
   const {
-    name = null, amount = null, unit = null, comment = null, checked = null,
+    name = null,
+    amount = null,
+    unit = null,
+    comment = null,
+    checked = null,
   } = req.body
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -365,16 +376,16 @@ const addItemsToList = async (req, res) => {
   }
 
   if (!products) {
-    const {
-      name, amount, unit, comment, checked,
-    } = req.body
-    products = [{
-      name,
-      amount,
-      unit,
-      comment,
-      checked,
-    }]
+    const { name, amount, unit, comment, checked } = req.body
+    products = [
+      {
+        name,
+        amount,
+        unit,
+        comment,
+        checked,
+      },
+    ]
     products = makeProducts(products)
   }
 
