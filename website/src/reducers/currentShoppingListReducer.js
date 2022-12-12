@@ -7,7 +7,8 @@ const currentShoppingListSlice = createSlice({
   initialState,
   reducers: {
     setCurrent(state, action) {
-      return action.payload
+      const newCurrent = action.payload
+      return { ...newCurrent }
     },
   },
 })

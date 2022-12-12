@@ -14,4 +14,5 @@ export const authenticatedRequest = async (url, method, data = {}) => {
       headers,
     })
     .then((res) => res.data)
+    .catch((err) => null)
 }

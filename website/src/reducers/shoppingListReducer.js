@@ -68,6 +68,11 @@ export const initializeShoppingLists = () => {
     }
 
     const shoppingLists = await service.getShoppingLists(user.id)
+
+    if (!shoppingLists) {
+      return
+    }
+
     dispatch(setShoppingLists(shoppingLists))
   }
 }

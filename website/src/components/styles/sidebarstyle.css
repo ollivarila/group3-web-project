@@ -1,13 +1,15 @@
 
   .sidebar{
-    position: flex;
+    display: flex;
+    flex-direction: column;
     width: 240px;
     left: 0px;
     top: 0px;
     border-radius: 5px;
-    margin-top: 10px;
-    background: #FFFFFF;
+    background-color: #FFFFFF; 
     margin-bottom: 0;
+    gap: 32px;
+    align-items: center;
     }
     
     .listItem{
@@ -23,43 +25,32 @@
       height: 40px;
       margin: 2px 2px;
       font-size: 16px;
-      
+      box-shadow: none; 
+      border-radius: 0;
+      transition: font-size 0.1s ease-in-out;
+    }
+
+    .listItem:hover {
+      font-size: 20px;
+      transition: font-size 0.1s ease-in-out;
     }
   
     .buttonWrapper {
       /* margin: auto; */
       display: flex;
       justify-content: center;
+      flex-direction: column;
     }
-  
-    .listItem:hover{
-      font-size: 18px;
-    }
-    
-    .list:active{
-      font-size: 18px;
-    }
-  
-    .list{
-      position: fixed;
-      display: block;
-      justify-content: center;
-      margin-top: 50px;
-      position: absolute;
-      width: 40%;
-      max-width: 260px;
-      height: 272px;
-      left: 0px;
-      top: 162px;
-    }
-    
+
+
     .addbutton{
+    cursor: pointer;
     margin-top: 20px;
     width: 150px;
     height: 40px;
     font-size: 18px;
     border-radius: 50px;
-    background: #2892B4;
+    background: var(--secondary);
     color:var(--text);
     border: none;
     opacity:0.8;

@@ -38,6 +38,8 @@ html {
 }
 
 main {
+  margin-top: 10px;
   display: flex;
   flex-grow: 1;
+  gap: 10px;
 }

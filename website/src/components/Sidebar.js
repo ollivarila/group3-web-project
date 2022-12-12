@@ -1,33 +1,39 @@
-import React , {useEffect}from 'react';
+import React from 'react'
 import './styles/sidebarstyle.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { initializeShoppingLists } from '../reducers/shoppingListReducer'
+import { setCurrent } from '../reducers/currentShoppingListReducer'
 
-const Sidebar = ({ handleShowList, handleShowListAdding }) => {
+const Sidebar = ({ handleShowListAdding }) => {
   const dispatch = useDispatch()
+  const user = useSelector((state) => state.user)
   const shoppingLists = useSelector((state) => state.shoppingLists)
 
-  useEffect(() => {
-    dispatch(initializeShoppingLists())
-  }, [dispatch])
-  //const shoppingLists = []
-  console.log(shoppingLists)
+  const handleButtonSelected = (shoppingList) => {
+    dispatch(setCurrent(shoppingList))
+  }
+
   return (
     <section className="sidebar">
       <div className="buttonWrapper">
-        <button className="addbutton" onClick={handleShowListAdding}>+ Add a new list</button>
+        <button className="addbutton" onClick={handleShowListAdding}>
+          + Add a new list
+        </button>
       </div>
-      <h3>My Lists</h3>
+      <h3>{user.username}'s Lists</h3>
       <div className="list">
         {shoppingLists.map((list, index) => {
           return (
             <div key={index} className="buttonWrapper">
-              <button className="listItem" onClick={() => handleShowList(list)}>{list.title}</button>
+              <button
+                className="listItem"
+                onClick={() => handleButtonSelected(list)}>
+                {list.title}
+              </button>
             </div>
-          );
+          )
         })}
       </div>
     </section>
-  );
-};
-export default Sidebar;
+  )
+}
+export default Sidebar

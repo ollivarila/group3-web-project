@@ -10,10 +10,14 @@ const Navbar = () => {
     navigate('/login')
   }
 
+  const navigateHome = () => {
+    navigate('/')
+  }
+
   return (
     <header className="navHeader">
       <div className="container">
-        <h1>Shopping list</h1>
+        <h1 onClick={navigateHome}>Shopping list</h1>
         <nav>
           <div>
             <button onClick={handleClick}>Log out</button>
