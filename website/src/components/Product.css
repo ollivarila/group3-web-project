@@ -56,7 +56,9 @@
 
 .right {
   display: flex;
-  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  align-content: center;
 }
 
 
@@ -106,7 +108,9 @@
 .detailsContainerHidden {
   position: relative;
   z-index: 10;
-  animation: hide 0.1s ease-out;
+  animation-name: hide;
+  animation-duration: 0.1s;
+  animation-timing-function: ease-out;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -132,8 +136,39 @@
   width: 50%;
 }
 
+.product:hover {
+  background-color: var(--secondary);
+  transition: background-color 0.1s ease-out;
+}
+
+.icon {
+  align-self: center;
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
 hr {
   width: 100%;
   border-style: none;
   border-top: 1px solid black;
+  margin: 0;
+}
+
+
+.checkbox input{
+  margin: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.product button {
+  border-style: none;
+  width: 64px;
+  height: 32px;
+  text-align: center;
+}
+
+#prevent-animation { 
+  animation-duration: 0s !important;
 }

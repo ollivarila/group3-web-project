@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { updateItem } from '../reducers/shoppingListReducer'
 import { useSelector, useDispatch } from 'react-redux'
 import './Product.css'
@@ -77,10 +77,17 @@ const EditProduct = ({ product, setEdit }) => {
 }
 
 const ProductDetails = ({ product, show }) => {
+  const [preventAnimation, setPreventAnimation] = useState(true)
   const keys = Object.keys(product)
+  useEffect(() => {
+    const timeout = setTimeout(() => setPreventAnimation(false), 200)
+    return () => clearTimeout(timeout)
+  }, [])
 
   return (
-    <div className={show ? 'detailsContainer' : 'detailsContainerHidden'}>
+    <div
+      className={show ? 'detailsContainer' : 'detailsContainerHidden'}
+      id={preventAnimation ? 'prevent-animation' : 'animated'}>
       <hr />
       {keys.map((key) => {
         const val = product[key]
@@ -88,7 +95,7 @@ const ProductDetails = ({ product, show }) => {
 
         return (
           <p key={val + Math.random()}>
-            {name}: {val}
+            {name}: {val.toString()}
           </p>
         )
       })}
@@ -114,12 +121,14 @@ const Product = ({ product }) => {
   }
 
   return (
-    <div className="product">
+    <div
+      className="product"
+      onClick={() => setShowAll(!showAll)}
+      style={showAll ? { backgroundColor: 'var(--secondary)' } : {}}>
       <div className="simpleContainer">
         <h3 className="name">{product.name}</h3>
         <div className="right">
-          <p className="checkbox">
-            Mark as done
+          <div className="checkbox">
             <input
               type="checkBox"
               onChange={(e) => {
@@ -129,13 +138,11 @@ const Product = ({ product }) => {
               value={checked}
               checked={checked}
             />
-          </p>
+          </div>
           <div className="buttons">
             <button onClick={() => setEdit(!edit)}>edit</button>
-            <button onClick={() => setShowAll(!showAll)}>
-              {showAll ? 'hide' : 'view'}
-            </button>
           </div>
+          <p className="icon">{showAll ? '-' : '+'}</p>
         </div>
       </div>
       {<ProductDetails product={product} show={showAll} />}

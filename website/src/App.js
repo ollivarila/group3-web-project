@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { initializeShoppingLists } from './reducers/shoppingListReducer'
 import NavbarWrapper from './components/NavbarWrapper'
 import { initializeUser } from './reducers/userReducer'
-import Product from './components/Product'
 
 const App = () => {
   const user = useSelector((state) => state.user)
