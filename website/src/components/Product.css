@@ -3,16 +3,13 @@
   flex-direction: column;
   align-items: center;
   background-color: var(--primary);
-  padding: 20px;
+  padding: 10px 20px 20px 20px;
   border-radius: 20px;
 }
 
 
-.editProductForm div {
-  margin-top: 10px;
-}
-
 .editProductForm input{
+  width: 60%;
   border-radius: 5px;
   border-style: none;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
@@ -20,8 +17,10 @@
 }
 
 .editProductForm label {
-  font-size: small;
-  font-weight: 300;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .editProductForm button {
@@ -33,14 +32,19 @@
   transition: background-color 0.2s ease-out;
 }
 
-.cancel:hover {
+.buttons button:hover {
   transition: background-color 0.2s ease-out;
-  background-color: var(--error);
+  background-color: gray;
 }
 
-.submit:hover {
-  transition: background-color 0.2s ease-out;
-  background-color: var(--success);
+
+.submitContainer {
+  margin-top: 20px;
+  margin-bottom: 5px;
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 
@@ -51,6 +55,8 @@
   justify-content: space-between;
   gap: 5px;
   padding: 10px;
+  padding-right: 15px;
+  padding-left: 15px;
   z-index: 100;
 }
 
@@ -64,6 +70,7 @@
 
 
 .simpleContainer h3 {
+  font-size: 20px;
   font-weight: 300;
   margin: 0;
 }
@@ -73,16 +80,40 @@
   z-index: 10;
   animation: show 0.1s ease-in;
   display: flex;
-  flex-direction: column;
-  gap: 5px;
-  justify-content: center;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
   overflow: hidden;
+  border-top: 3px;
+  border-style: solid;
+  border-bottom: 0;
+  border-right: 0;
+  border-left: 0;
 }
 
 .detailsContainer p {
+  text-align: center;
   margin: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 20%;
 }
+
+
+.notes {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.notes p{
+  width: 100%;
+}
+
+.notes p#leftAlign {
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
 
 @keyframes show {
   from {
@@ -133,7 +164,7 @@
 .product {
   border-radius: 5px;
   background-color: var(--primary);
-  width: 50%;
+  width: 100%;
 }
 
 .product:hover {
@@ -142,6 +173,7 @@
 }
 
 .icon {
+  cursor: pointer;
   align-self: center;
   margin: 0;
   font-size: 24px;
@@ -167,8 +199,55 @@ hr {
   width: 64px;
   height: 32px;
   text-align: center;
+  border-radius: 5px;
 }
 
 #prevent-animation { 
   animation-duration: 0s !important;
+}
+
+
+.notes {
+  border-top: 1px;
+  border-style: solid;
+  border-bottom: 0;
+  border-right: 0;
+  border-left: 0;
+  width: 95%;
+}
+
+.submitContainer button {
+  padding: 0;
+  margin: 0;
+  width: 45%;
+}
+
+
+
+.cancel:hover {
+  transition: background-color 0.2s ease-out;
+  background-color: var(--error);
+}
+
+.submit:hover {
+  transition: background-color 0.2s ease-out;
+  background-color: var(--success);
+}
+
+
+@media (max-width: 480px){
+  .simpleContainer {
+    flex-direction: column;
+  }
+  .simpleContainer * {
+    align-items: center;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+  }
+  .submitContainer button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
 }

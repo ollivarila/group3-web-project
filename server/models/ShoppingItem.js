@@ -12,6 +12,9 @@ const productSchema = new Schema({
   unit: {
     type: String,
   },
+  checked: {
+    type: Boolean,
+  },
   comment: {
     type: String,
   },
