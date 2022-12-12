@@ -25,15 +25,15 @@ axiosMock.onPost(baseurl).reply(200, {
   id: 'id',
 })
 
-axiosMock.onPatch(baseurl + '/item/mockListId').reply(200, {
+axiosMock.onPatch(baseurl + '/mockListId/item/mockItemId').reply(200, {
   title: 'updated',
 })
 
-axiosMock.onDelete(baseurl + '/item/mockListId').reply(200, {
+axiosMock.onDelete(baseurl + '/mockListId/item/mockItemId').reply(200, {
   title: 'removed',
 })
 
-axiosMock.onPatch(baseurl + '/mockListId').reply(200, {
+axiosMock.onPatch(baseurl + '/mockListId/item').reply(200, {
   title: 'created',
 })
 

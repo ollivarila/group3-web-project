@@ -34,7 +34,7 @@ const createShoppingList = async (shoppingList) => {
 }
 
 const createItem = async (listId, item) => {
-  const url = baseurl + `/api/shoppingLists/${listId}`
+  const url = baseurl + `/${listId}/item`
   return authenticatedRequest(url, 'patch', item).catch((err) => null)
 }
 

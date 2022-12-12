@@ -53,7 +53,7 @@ describe('shoppingListReducer', () => {
     render(
       <Wrapper store={store}>
         <StoreTester sendStateToCallback={cb} actionToDispatch={action} />
-      </Wrapper>
+      </Wrapper>,
     )
 
     expect(lists.list[1]).toBe(2)
@@ -71,7 +71,7 @@ describe('shoppingListReducer', () => {
     render(
       <Wrapper store={store}>
         <StoreTester sendStateToCallback={cb} actionToDispatch={action} />
-      </Wrapper>
+      </Wrapper>,
     )
 
     expect(lists.length).toBe(2)
@@ -95,7 +95,7 @@ describe('shoppingListReducer', () => {
     render(
       <Wrapper store={store}>
         <StoreTester sendStateToCallback={cb} actionToDispatch={action} />
-      </Wrapper>
+      </Wrapper>,
     )
 
     expect(lists.length).toBe(1)
@@ -116,7 +116,7 @@ describe('shoppingListReducer', () => {
     render(
       <Wrapper store={store}>
         <StoreTester sendStateToCallback={cb} actionToDispatch={action} />
-      </Wrapper>
+      </Wrapper>,
     )
     expect(lists.length).toBe(1)
     expect(lists[0].productList.length).toBe(0)
@@ -133,7 +133,7 @@ describe('shoppingListReducer', () => {
     render(
       <Wrapper store={store}>
         <StoreTester sendStateToCallback={cb} actionToDispatch={action} />
-      </Wrapper>
+      </Wrapper>,
     )
     expect(lists.length).toBe(0)
   })
@@ -214,12 +214,9 @@ describe('shoppingListReducer', () => {
       }
     })
     const mockDispatch = jest.fn()
-    const action = createItem(
-      { title: 'mockList', productList: [], id: 'mockListId' },
-      { name: 'item' }
-    )
-    await action(mockDispatch, mockGetState)
+    const action = createItem('mockListId', { name: 'item' })
+    await action(mockDispatch)
     const { payload } = mockDispatch.mock.lastCall[0]
-    expect(payload.title).toBe('created')
+    expect(payload.item.title).toBe('created')
   })
 })

@@ -105,7 +105,6 @@ export const createShoppingList = (shoppingList) => {
 export const updateItem = (listId, item) => {
   return async (dispatch) => {
     const updated = await service.updateItem(listId, item)
-
     if (!updated) {
       return
     }
@@ -117,7 +116,6 @@ export const updateItem = (listId, item) => {
 export const removeItem = (listId, itemId) => {
   return async (dispatch) => {
     const deleted = await service.deleteItem(listId, itemId)
-
     if (!deleted) {
       return
     }
@@ -139,11 +137,11 @@ export const updateList = (list, item) => {
 
 export const createItem = (listId, item) => {
   return async (dispatch) => {
-    const created = service.createItem(listId, item)
+    const created = await service.createItem(listId, item)
     if (!created) {
       return
     }
-    dispatch(addItemToList(listId, created))
+    dispatch(addItemToList({ listId, item: created }))
   }
 }
 
