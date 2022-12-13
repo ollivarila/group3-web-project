@@ -1,0 +1,15 @@
+.notification {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  border-style: solid;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 1);
+  width: 300px;
+}
+
+.notification-message {
+  font-weight: 300;
+  font-size: 32px;
+  margin: 16px;
+}

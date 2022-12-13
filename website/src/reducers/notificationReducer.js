@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   message: null,
   timeout: null,
+  type: 'success',
 }
 
 const notifSlice = createSlice({
@@ -17,7 +18,7 @@ const notifSlice = createSlice({
 
 const { setNotification } = notifSlice.actions
 
-export const createNotification = (message) => {
+export const createNotification = (message, type = 'success') => {
   return (dispatch, getState) => {
     const { timeout } = getState()
 
@@ -29,7 +30,7 @@ export const createNotification = (message) => {
       dispatch(setNotification(initialState))
     }, 5000)
 
-    dispatch(setNotification({ message, timeout: newTimeout }))
+    dispatch(setNotification({ message, timeout: newTimeout, type }))
   }
 }
 
