@@ -162,4 +162,17 @@ export const createItem = (listId, item) => {
   }
 }
 
+export const deleteList = (listId) => {
+  return async (dispatch) => {
+    const deleted = await service.deleteShoppingList(listId)
+
+    if (!deleted) {
+      dispatch(createNotification('Could not delete list', 'error'))
+    }
+
+    dispatch(createNotification('List deleted', 'success'))
+    dispatch(removeShoppingList(listId))
+  }
+}
+
 export default shoppingListSlice.reducer
