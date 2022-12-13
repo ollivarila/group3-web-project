@@ -27,7 +27,7 @@ const shoppingListSlice = createSlice({
       })
 
       shList.products = productsToUpdate
-      return state.map((list) => {
+      state = state.map((list) => {
         return list.id === shList.id ? shList : list
       })
     },
@@ -65,7 +65,6 @@ const shoppingListSlice = createSlice({
     },
     updateShoppingList(state, action) {
       const { id } = action.payload
-      console.log(id)
       return state.map((list) => {
         return list.id === id ? action.payload : list
       })
@@ -130,8 +129,9 @@ export const updateItem = (listId, item) => {
       return
     }
 
+    console.log(item, updated)
     dispatch(createNotification('Item updated', 'success'))
-    dispatch(updateItemInList({ listId, item: updated }))
+    dispatch(updateShoppingList(updated))
   }
 }
 

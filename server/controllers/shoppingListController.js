@@ -288,7 +288,7 @@ const editItemFromList = async (req, res) => {
     amount: amount || product.amount,
     unit: unit || product.unit,
     comment: comment || product.comment,
-    checked: checked || product.checked,
+    checked,
     _id: product.id,
   })
 
@@ -298,7 +298,6 @@ const editItemFromList = async (req, res) => {
     }
     return item
   })
-
   const updated = await ShoppingList.findByIdAndUpdate(
     list._id,
     { products: newList },

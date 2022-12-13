@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { updateItem } from '../reducers/shoppingListReducer'
+import { updateItem, updateList } from '../reducers/shoppingListReducer'
 import { useSelector, useDispatch } from 'react-redux'
 import './Product.css'
 
@@ -93,12 +93,12 @@ const ProductDetails = ({ product, show }) => {
         const name = capitalize(key)
 
         if (!val) {
-          return <></>
+          return null
         }
 
         if (name === 'Comment') {
           return (
-            <article className="notes">
+            <article className="notes" key={name}>
               <p>Notes:</p>
               <p id="leftAlign">{val.toString()}</p>
             </article>
@@ -122,6 +122,8 @@ const Product = ({ product }) => {
   const [edit, setEdit] = useState(false)
   const [checked, setChecked] = useState(product.checked || false)
   const [showAll, setShowAll] = useState(false)
+  const dispatch = useDispatch()
+  const shoppingList = useSelector((state) => state.current)
 
   const copy = {
     ...product,
@@ -133,6 +135,13 @@ const Product = ({ product }) => {
         <EditProduct product={copy} setEdit={setEdit} />
       </div>
     )
+  }
+
+  const handleCheckClick = (e) => {
+    e.stopPropagation()
+    copy.checked = !checked
+    setChecked(!checked)
+    dispatch(updateItem(shoppingList.id, copy))
   }
 
   return (
@@ -149,10 +158,7 @@ const Product = ({ product }) => {
           <div className="checkbox">
             <input
               type="checkBox"
-              onClick={(e) => {
-                e.stopPropagation()
-                setChecked(!checked)
-              }}
+              onClick={handleCheckClick}
               onChange={() => {}}
               checked={checked}
             />
