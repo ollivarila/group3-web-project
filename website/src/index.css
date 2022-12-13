@@ -70,4 +70,5 @@ main {
   display: flex;
   flex-grow: 1;
   gap: 10px;
+  margin-bottom: 10px;
 }
