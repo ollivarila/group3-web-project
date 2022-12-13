@@ -10,7 +10,10 @@
     "build": "cd website && npm run build && cd ..  && npm run copy:build",
     "copy:build": "cp -r website/build ./ && rm -rf website/build",
     "test:backend": "clear && cross-env NODE_ENV=test jest server/ --verbose --runInBand --forceExit --watchAll",
-    "test:frontend": "cd website && npm run test --transformIgnorePatterns \"node_modules/(?!axios)/\""
+    "test:deployment": "cross-env NODE_ENV=test jest server/ --verbose --runInBand --forceExit",
+    "test:frontend": "cd website && npm run test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
+    "install:full": "npm install && cd website && npm install"
+
   },
   "dependencies": {
     "bcrypt": "^5.1.0",

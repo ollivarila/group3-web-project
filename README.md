@@ -1,17 +1,13 @@
 TODO
 ===
-- refactor backend: name productlist itemlist etc to products, add boolean checked (or something better) to ProductSchema. (Mikko)
-- Navbar needs functionality (Ilona)
-- Sidebar functionality (Jenni)
-- Show something in homepage when nothing is selected (Jenni)
-- Component for new shoppinglist: functionality needed (Ilona)
 - <ShoppingList> (Mikko) component: shows currently selected list (gets it from the store) , 
-  contains a list of <Product> (Olli)(has button for editing, deleting, and checking as completed) components, shoppingList contains button for deleting list and adding new item
-- Add components to make a home page
+  contains a list of <Product>
 - improve styling
+- slide effect to notification
 - Deployment workflow
 
-JOTAIN
+- slides for presentation
+- report
 
 FUTURE PLANS
 ===
