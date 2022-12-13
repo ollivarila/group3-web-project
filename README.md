@@ -7,7 +7,7 @@ TODO
 - Deployment workflow
 
 - slides for presentation
-- report
+- raport
 
 FUTURE PLANS
 ===
