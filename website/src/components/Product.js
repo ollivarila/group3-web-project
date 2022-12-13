@@ -156,7 +156,7 @@ const Product = ({ product }) => {
                 e.stopPropagation()
                 setChecked(!checked)
               }}
-              value={checked}
+              onChange={() => {}}
               checked={checked}
             />
           </div>

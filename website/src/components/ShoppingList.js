@@ -1,82 +1,93 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { createItem } from '../reducers/shoppingListReducer'
+import { createItem, deleteList, updateList } from '../reducers/shoppingListReducer'
 import Product from './Product'
+import ItemForm from '../pages/Home/components/ItemForm'
 import './list.css'
 
 
-const handleAddNewItem = (list) => {
-    const newItem = {
-        name: 'New item',
-        amount: null,
-        unit: null,
-        comment: null,
-        checked: false
-    }
-    console.log(list,newItem);
-    //createItem(list, newItem)
 
-}
 
-const ListItems = (props) => {
-    const pList = props.products
-    console.log(pList);
-    if(pList === []){
+
+const ListItems = ({list}) => {
+
+    if(list === []){
         return <p>No content</p>
     }
     
     return (
         <ul className='shoppinglistUl'>
-            {pList.map((p) => {
+            {list.map((p) => {
                 return(
                     <li key={Math.floor(Math.random() * 100000)}>
                         <Product product={p}/>
                     </li>
                 )  
             })}
-            <li className='addItem'>
-                <button onClick={handleAddNewItem(props.list)}>+ Add new item</button>
-            </li>
+            
         </ul>
     )
 }
 
 
-const ShoppingList = ({shoppingList}) => {
-
-    const copy = {...shoppingList}
-    const [productList, setProductList] = useState(copy.products)
-    const [name, setName] = useState(copy.title)
-    const [comment, setComment] = useState(copy.comment)
+const ShoppingList = () => {
 
     
+
+    const dispatch = useDispatch()
+
+    const shoppingList = useSelector(state => state.current)
+    const { title, comment, products } = shoppingList
+    const [showForm, setShowform] = useState(false)
+
+    useEffect(() => {
+        setShowform(false)
+        console.log('setfalse');
+    }, [shoppingList])
+
+    const handleAddNewItem = () => {
+        setShowform(true)
+        console.log(shoppingList)
+    }
+
     const handleNameChange = () => {
-        //updateList({comment: 'comment', ...list})
+        dispatch(updateList(shoppingList, {comment: 'newcomment', ...shoppingList}))
     }
     const handleCommentchange = () => {
-        //updateingList({name: 'updated', ...list})
+        dispatch(updateList(shoppingList, {title: 'updated', ...shoppingList}))
     }
     
     const handleDelete = () => {
-        //deleteList(list)
-    }
-    
+        const confirmation = window.confirm('are you sure you want to delete the list?')
+        if(confirmation){
+            dispatch(deleteList(shoppingList.id))
+        }     
+    } 
     return (
+        <>
+        
         <article className='shoppinglistContainer'>
             <header>
-                {name}
+                {title}
             </header>
-            <ListItems products={productList} list={name}/>
+            <ListItems list={products}/>
+            <button className='addItem' onClick={handleAddNewItem}>+ Add new item</button>
             <section className='comment'>
                 <p>{comment}</p>
             </section>
+            
             <footer>
                 <button className='changeComment' onClick={handleCommentchange}>Edit comment</button>
                 <button className='changeName' onClick={handleNameChange}>Change name</button>
                 <button className='deleteList' onClick={handleDelete}>Delete</button>
                 
             </footer>
+            
         </article>
+        <section className="createItemForm">
+            {showForm ? <ItemForm /> : null}
+        </section>
+        </>
     )
 }
 

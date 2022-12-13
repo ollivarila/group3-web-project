@@ -70,8 +70,10 @@ footer button {
 }
 
 .addItem {
-    margin-top: 10px;
-    width: 100%;
+    background-color: var(--primary);
+    margin-top: 5px;
+    width: 80%;
+    border-width: 1px;
 }
 
 .addItem button {
