@@ -4,14 +4,11 @@ import { createShoppingList } from '../../../reducers/shoppingListReducer'
 import './NewShoppingList.css'
 
 const NewShoppingList = ({ setWantsToCreate }) => {
-  //const [title, setTitle] = useState('')
-  //const [comment, setComment] = useState('')
   const [list, setList] = useState({ title: '', comment: '' })
   const dispatch = useDispatch()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('sdfds')
     dispatch(createShoppingList(list))
     setWantsToCreate(false)
   }
