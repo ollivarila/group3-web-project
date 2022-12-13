@@ -1,10 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = null
+const initialState = {
+  title: 'testi',
+    products: [{
+      name: 'maito',
+      amount: 2,
+      unit: 'dl',
+      comment: 'valion',
+      checked: false
+  },
+  {
+  name: 'maito',
+  amount: 2,
+  unit: 'dl',
+  comment: 'valion',
+  checked: false
+  }],
+  comment: 'hyvä lista'
+}
 
 const currentShoppingListSlice = createSlice({
   name: 'current',
-  initialState,
+  initialState ,
   reducers: {
     setCurrent(state, action) {
       const newCurrent = action.payload

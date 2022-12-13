@@ -3,10 +3,13 @@
 .shoppinglistContainer {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
+    height: fit-content;
+    align-items: center;
     background: lightgrey;
-    justify-content: center;
     margin: 10px;
     border-radius: 25px;
+    flex-grow: 1;
     
 }
 
@@ -15,15 +18,20 @@
     flex-wrap: wrap;
     justify-content: center;
     margin: 0;
+    margin-top: 20px;
     padding: 0;
+    gap: 5px;
     list-style-type: none;
     width: 100%;
+    flex-direction: column;
+    align-items: center;
     
 }
 
 .shoppinglistUl li {
     width: 80%;
-    margin-top: 5px;
+    margin: 0;
+
 }
 
 .product {
@@ -40,7 +48,7 @@ header {
 }
 
 footer {
-    margin: 10px 0px 20px 0px;
+    margin: 20px 0px 20px 0px;
     width: 80%;
     display: flex;
     justify-content: space-between;
@@ -54,14 +62,18 @@ footer button {
 
 
 .deleteList {
-    background-color: lightcoral;
+    background-color: lightgrey ;
     border-width: 1px;
+    border-color: var(--error);
+    color: var(--error);
     
 }
 
 .addItem {
-    margin-top: 10px;
-    width: 100%;
+    background-color: var(--primary);
+    margin-top: 5px;
+    width: 80%;
+    border-width: 1px;
 }
 
 .addItem button {
@@ -82,14 +94,19 @@ footer button {
     background-color: red;
 }
 
+.changeName:hover, .changeComment:hover {
+    background-color: grey;
+}
+
 .comment {
-    margin-top: 10px;
+    margin-top: 20px;
     border-style: dashed;
     border-width: 0.5px;
     width: 80%;
 }
 
 .comment p {
+    text-align: left;
     margin: 10px;
 }
 

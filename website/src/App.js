@@ -20,7 +20,7 @@ const App = () => {
     <>
       <Routes>
         <Route path="/" element={<NavbarWrapper />}>
-          <Route path="/" element={user ? <Home /> : <Login />} />
+          <Route path="/" element={user ? <Home /> : <Login />} />  
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<div>404 not found</div>} />

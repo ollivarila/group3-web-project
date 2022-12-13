@@ -9,6 +9,8 @@ const userSlice = createSlice({
       return action.payload
     },
     removeUser(state, action) {
+      localStorage.removeItem('user')
+      localStorage.removeItem('token')
       return null
     },
   },

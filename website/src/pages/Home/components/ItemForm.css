@@ -23,12 +23,12 @@
     gap: 10px;
  
 }
-label, input {
+.insideForm label, input {
     display: block;
 
 }
 
-input {
+.insideForm input {
     padding: 10px;
     margin-top: 5px;
     margin-bottom: 10px;
@@ -37,11 +37,9 @@ input {
     border: 1px solid #ddd;
     border-radius: 4px;
     box-shadow: rgba(36, 49, 171, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-
 }
 
-
-form button {
+.insideForm button {
     color: #fff;
     padding: 10px;
     border-radius: 4px;
@@ -60,5 +58,9 @@ form button {
 
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 
+    cursor: pointer;
 }
 
+button:hover {
+    background-color: rgba(0, 0, 0, 0.12);
+  }

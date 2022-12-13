@@ -1,63 +1,82 @@
 import React, { useState } from 'react'
 import './ItemForm.css'
-import {currentShoppingListSlice} from '../../../reducers/currentShoppingListReducer'
+import { useDispatch, useSelector } from 'react-redux'
+import { createItem } from '../../../reducers/shoppingListReducer'
+import Home from '../Home'
 
-const ItemForm = () => {
+const ItemForm = ( ) => {
 
-const [name, setName] = useState('')
-  const [amount, setAmount] = useState('')
-  const [unit, setUnit] = useState('')
-  const [comment, setComment] = useState('')
   const [error, setError] = useState('')
+  const [item, setItem] = useState({name:'', amount:'', unit:'', comment:'' })
+  const list = useSelector((state) => state.current)
+  const dispatch = useDispatch()
 
-const handleSubmit = async (e) => {
-  // hae reducerista itemin lisäysfunktio, siihen myös valittu lista hae reducer funktiosta. 
-      e.preventDefault()
-      try {
-           // eslint-disable-next-line no-alert
-        alert(` name = ${name} amount = ${amount} unit = ${unit} comment = ${comment} `)
-      } catch (err) {
-        setError(err.message)
-        setName('')
-        setAmount('')
-        setUnit('')
-        console.log(error)
-      }
+  const handleNameChange = (e) => {
+    setItem({...item, name:e.target.value})
   }
-  
+  const handleUnitChange = (e) => {
+    setItem({...item, unit:e.target.value})
+  }
+
+  const handleAmountChange = (e) => {
+    setItem({...item, amount:e.target.value})
+  }
+
+  const handleCommentChange = (e) => {
+    setItem({...item, comment:e.target.value})
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      console.log ("itemform current list id", list.id,"current list name", list.title, "item", item)
+      dispatch(createItem(list.id, item)) 
+    //siirtyis/navigois valitun listan listdetailsiin
+
+    } catch (err) {
+      setError(err.message)
+      console.log(error)
+    }
+}
+  const handleCancel = () => {  
+   //muuta että siirtyis/navigois valitun listan listdetailsiin 
+    return <Home />
+  }
   return (
     <div className='formLayout'>
-      <form onSubmit={handleSubmit} className='ItemForm'>
-        <h3>Add a New Item</h3>
-        <div className="insideForm">
-          <label >Name:</label>
-          <input
-            type="text"
-            onChange={(e) => setName(e.target.value)}
-            value={name}
-          />
-          <label>Amount:</label>
-          <input
-            type="text"
-            onChange={(e) => setAmount(e.target.value)}
-            value={amount}
-          />
-          <label>Unit:</label>
-          <input
-            type="text"
-            onChange={(e) => setUnit(e.target.value)}
-            value={unit}
-          />
-          <label>Comment:</label>
-          <input
-            type="text"
-            onChange={(e) => setComment(e.target.value)}
-            value={comment}
-          />
-          <button>Add Item</button>
-        </div>
-      </form>
-    </div>
+    <form className='ItemForm'>
+      <h3>Add a New Item to {list.title}  list </h3>
+   
+      <div className="insideForm">
+        <label >Name:</label>
+        <input
+          type="text"
+          onChange={handleNameChange}
+          value={item.name}
+        />
+        <label>Amount:</label>
+        <input
+          type="text"
+          onChange={handleAmountChange}
+          value={item.amount}
+        />
+        <label>Unit:</label>
+        <input
+          type="text"
+          onChange={handleUnitChange}
+          value={item.unit}
+        />
+        <label>Comment:</label>
+        <input
+          type="text"
+          onChange={handleCommentChange}
+          value={item.comment}
+        />
+        <button onClick={handleSubmit}>Add Item</button>
+        <button onClick={handleCancel}>Cancel adding items</button>
+      </div>
+    </form>
+  </div> 
   )
 }
 

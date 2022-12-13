@@ -1,4 +1,4 @@
-  header .container {
+  .navHeader .container {
     border-radius: 5px;
     background: #fff;
     color: var(--background) ;
@@ -10,11 +10,11 @@
     box-sizing: border-box;
     height: 120px;
   }
-  header a {
+  .navHeader a {
     color:var(--background);
   }
   
-  button {
+  .container button {
     border-style: solid;
     border-width: 2px;
     border-color: var(--background);
@@ -24,14 +24,26 @@
     border-radius: 5px;
     font-size: large;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    cursor: pointer;
   }
+
+  .container button:hover {
+    background-color: rgba(0, 0, 0, 0.12);
+  }
+
 
   nav {
     margin-right: 32px;
   }
 
-  h1 {
+  .container h1 {
     margin-left: 32px;
+  }
+
+  h1:hover {
+    background-color: rgba(0, 0, 0, 0.12);
+    border-radius: 5px;
+
   }
 
   .navHeader {
