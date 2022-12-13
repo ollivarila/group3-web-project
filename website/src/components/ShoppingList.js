@@ -6,9 +6,6 @@ import ItemForm from '../pages/Home/components/ItemForm'
 import './list.css'
 
 
-
-
-
 const ListItems = ({list}) => {
 
     if(list === []){
@@ -42,19 +39,17 @@ const ShoppingList = () => {
 
     useEffect(() => {
         setShowform(false)
-        console.log('setfalse');
     }, [shoppingList])
 
     const handleAddNewItem = () => {
         setShowform(true)
-        console.log(shoppingList)
     }
 
     const handleNameChange = () => {
-        dispatch(updateList(shoppingList, {comment: 'newcomment', ...shoppingList}))
+        dispatch(updateList(shoppingList, {title: 'newcomment', ...shoppingList}))
     }
     const handleCommentchange = () => {
-        dispatch(updateList(shoppingList, {title: 'updated', ...shoppingList}))
+        dispatch(updateList(shoppingList, {comment: 'updated', ...shoppingList}))
     }
     
     const handleDelete = () => {
