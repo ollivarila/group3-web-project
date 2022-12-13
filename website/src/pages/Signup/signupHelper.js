@@ -5,11 +5,11 @@ import { BACKEND_URL } from '../../config'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../../reducers/userReducer'
 
-export const sendSignupRequest = (user) => {
+export const sendSignupRequest = async (user) => {
   const url = `${BACKEND_URL}/api/user/signup`
   return axios
     .post(url, user)
-    .then((res) => res.data)
+    .then((res) => res.data.token)
     .catch((err) => {
       // Catch error to throw new one hmmm
       throw new Error(err.response.data.error)
@@ -27,7 +27,7 @@ export const signup = async (user) => {
 
   const decoded = jwtDecode(token)
 
-  localStorage.setItem('user', decoded)
+  localStorage.setItem('user', JSON.stringify(decoded))
 
   return decoded
 }
