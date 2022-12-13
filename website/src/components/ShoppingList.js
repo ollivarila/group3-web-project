@@ -44,7 +44,7 @@ const ListItems = (props) => {
 
 const ShoppingList = ({shoppingList}) => {
 
-    const copy = [...shoppingList]
+    const copy = {...shoppingList}
     const [productList, setProductList] = useState(copy.products)
     const [name, setName] = useState(copy.title)
     const [comment, setComment] = useState(copy.comment)

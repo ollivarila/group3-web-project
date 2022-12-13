@@ -148,14 +148,13 @@ const Product = ({ product }) => {
       style={showAll ? { backgroundColor: 'var(--secondary)' } : {}}>
       <div className="simpleContainer">
         <h3 className="name" >- - {product.amount ? product.amount + ' -' : null} {product.unit ? product.unit + ' -' : null} {product.name}</h3>
-        <div className='filler' onClick={() => setShowAll(!showAll)}></div>
         <div className="right">
           <div className="checkbox">
             <input
               type="checkBox"
-              onChange={(e) => {
+              onClick={(e) => {
+                e.stopPropagation()
                 setChecked(!checked)
-                console.log(checked)
               }}
               value={checked}
               checked={checked}

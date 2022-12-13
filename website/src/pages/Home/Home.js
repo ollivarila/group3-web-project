@@ -3,6 +3,7 @@ import Sidebar from '../../components/Sidebar'
 import { useSelector } from 'react-redux'
 import DefaultView from './DefaultView'
 import NewShoppingList from './components/NewShoppingList'
+import ShoppingList from '../../components/ShoppingList'
 import './Home.css'
 import ItemForm from './components/ItemForm'
 
@@ -18,7 +19,7 @@ const Home = () => {
   //console.log(selectedList)
   return (
     <>
-      <Sidebar handleShowListAdding={handleAddToListClick} />
+        <Sidebar handleShowListAdding={handleAddToListClick} />
       <div className="content-container">
       {wantsToCreate ? (
           <NewShoppingList setWantsToCreate={setWantsToCreate} />
@@ -26,8 +27,10 @@ const Home = () => {
         {selectedList ?  <ItemForm /> : <DefaultView />   }
       
       </div>
+      
     </>
   )
+  
 }
 
 export default Home
