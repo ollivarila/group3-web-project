@@ -64,7 +64,7 @@ const EditProduct = ({ product, setEdit }) => {
       <label>Comment</label>
       <input value={comment} onChange={(e) => setComment(e.target.value)} />
 
-      <div className='submitContainer'>
+      <div className="submitContainer">
         <button className="submit" type="submit">
           submit
         </button>
@@ -84,8 +84,6 @@ const ProductDetails = ({ product, show }) => {
     return () => clearTimeout(timeout)
   }, [])
 
-  
-
   return (
     <div
       className={show ? 'detailsContainer' : 'detailsContainerHidden'}
@@ -93,32 +91,28 @@ const ProductDetails = ({ product, show }) => {
       {keys.map((key) => {
         const val = product[key]
         const name = capitalize(key)
-        if (name === 'Comment'){
+
+        if (!val) {
+          return <></>
+        }
+
+        if (name === 'Comment') {
           return (
-            <article className='notes'>
-              <p>
-                Notes:
-              </p>
-              <p id='leftAlign'>
-                {val.toString()}
-              </p>
+            <article className="notes">
+              <p>Notes:</p>
+              <p id="leftAlign">{val.toString()}</p>
             </article>
-           
           )
         }
-        if(name !== 'Checked'){
+        if (name !== 'Checked') {
           return (
-            
-              <p key={val + Math.random()}>
-                {name  === 'Comment' ? null : name + ': ' + val.toString()}
-              </p>
-           
-            
+            <p key={val + Math.random()}>
+              {name === 'Comment' ? null : name + ': ' + val.toString()}
+            </p>
           )
         }
-        
+
         return null
-        
       })}
     </div>
   )
@@ -147,7 +141,10 @@ const Product = ({ product }) => {
       onClick={() => setShowAll(!showAll)}
       style={showAll ? { backgroundColor: 'var(--secondary)' } : {}}>
       <div className="simpleContainer">
-        <h3 className="name" >- - {product.amount ? product.amount + ' -' : null} {product.unit ? product.unit + ' -' : null} {product.name}</h3>
+        <h3 className="name">
+          - - {product.amount ? product.amount + ' -' : null}{' '}
+          {product.unit ? product.unit + ' -' : null} {product.name}
+        </h3>
         <div className="right">
           <div className="checkbox">
             <input

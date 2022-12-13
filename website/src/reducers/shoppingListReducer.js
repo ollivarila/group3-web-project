@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import service from '../services/shoppingListService'
 import { createNotification } from './notificationReducer'
+import { setCurrent } from './currentShoppingListReducer'
 
 const initialState = []
 
@@ -26,7 +27,7 @@ const shoppingListSlice = createSlice({
       })
 
       shList.products = productsToUpdate
-      state = state.map((list) => {
+      return state.map((list) => {
         return list.id === shList.id ? shList : list
       })
     },
@@ -41,7 +42,7 @@ const shoppingListSlice = createSlice({
 
       removeFromThis.products = newProductList
 
-      state = state.map((list) => {
+      return state.map((list) => {
         return list.id === removeFromThis.id ? removeFromThis : list
       })
     },
@@ -53,10 +54,20 @@ const shoppingListSlice = createSlice({
       const { listId, item } = action.payload
 
       const listToAddTo = state.filter((list) => (list.id = listId)).pop()
+
       const { products } = listToAddTo
+
       listToAddTo.products = [...products, item]
-      state = state.map((list) => {
+
+      return state.map((list) => {
         return list.id === listToAddTo.id ? listToAddTo : list
+      })
+    },
+    updateShoppingList(state, action) {
+      const { id } = action.payload
+      console.log(id)
+      return state.map((list) => {
+        return list.id === id ? action.payload : list
       })
     },
   },
@@ -69,6 +80,7 @@ export const {
   removeItemFromList,
   removeShoppingList,
   addItemToList,
+  updateShoppingList,
 } = shoppingListSlice.actions
 
 // Gets all shopping lists if a user is logged in, they are set in the state
@@ -106,6 +118,7 @@ export const createShoppingList = (shoppingList) => {
       ),
     )
     dispatch(appendShoppingList(createdList))
+    dispatch(setCurrent(createdList))
   }
 }
 
@@ -135,18 +148,16 @@ export const removeItem = (listId, itemId) => {
   }
 }
 
-export const updateList = (list, item) => {
-  const newProductList = list.productList.map((e) => {
-    if (!item.id) {
-      return e
+export const updateList = (list, key, value) => {
+  return async (dispatch) => {
+    const copy = {
+      ...list,
     }
-    return e.id === item.id ? item : e
-  })
-  const copy = {
-    ...list,
+    copy[key] = value
+    const newList = await service.updateShoppingList(copy)
+    dispatch(updateShoppingList(newList))
+    dispatch(setCurrent(newList))
   }
-  copy.productList = newProductList
-  return copy
 }
 
 export const createItem = (listId, item) => {
@@ -158,7 +169,8 @@ export const createItem = (listId, item) => {
     }
 
     dispatch(createNotification('Item created', 'success'))
-    dispatch(addItemToList({ listId, item: created }))
+    dispatch(updateShoppingList(created))
+    dispatch(setCurrent(created))
   }
 }
 
@@ -172,6 +184,7 @@ export const deleteList = (listId) => {
 
     dispatch(createNotification('List deleted', 'success'))
     dispatch(removeShoppingList(listId))
+    dispatch(setCurrent(null))
   }
 }
 

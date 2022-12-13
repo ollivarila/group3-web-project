@@ -4,11 +4,10 @@ const initialState = null
 
 const currentShoppingListSlice = createSlice({
   name: 'current',
-  initialState ,
+  initialState,
   reducers: {
     setCurrent(state, action) {
-      const newCurrent = action.payload
-      return { ...newCurrent }
+      return action.payload
     },
   },
 })
