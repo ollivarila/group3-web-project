@@ -6,6 +6,7 @@ import FailNotification from '../../../components/FailNotification'
 import { useNavigate, Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../../../reducers/userReducer'
+import { createNotification } from '../../../reducers/notificationReducer'
 
 const LoginForm = () => {
   const [user, { setNameOrEmail, setPassword }] = useLogin()
@@ -17,6 +18,7 @@ const LoginForm = () => {
     try {
       const userFromResponse = await login(user)
       dispatch(setUser(userFromResponse))
+      dispatch(createNotification(`Welcome ${userFromResponse.username}`))
       navigate('/')
     } catch (err) {
       setError(err.message)

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import service from '../services/shoppingListService'
+import { createNotification } from './notificationReducer'
 
 const initialState = []
 
@@ -95,9 +96,15 @@ export const createShoppingList = (shoppingList) => {
     const createdList = await service.createShoppingList(shoppingList)
 
     if (!createdList) {
+      dispatch(createNotification('Could not create shopping list', 'error'))
       return
     }
-
+    dispatch(
+      createNotification(
+        `Created new shopping list: ${createdList.title}`,
+        'success',
+      ),
+    )
     dispatch(appendShoppingList(createdList))
   }
 }
@@ -106,9 +113,11 @@ export const updateItem = (listId, item) => {
   return async (dispatch) => {
     const updated = await service.updateItem(listId, item)
     if (!updated) {
+      dispatch(createNotification('Could not update shopping list', 'error'))
       return
     }
 
+    dispatch(createNotification('Item updated', 'success'))
     dispatch(updateItemInList({ listId, item: updated }))
   }
 }
@@ -117,9 +126,11 @@ export const removeItem = (listId, itemId) => {
   return async (dispatch) => {
     const deleted = await service.deleteItem(listId, itemId)
     if (!deleted) {
+      dispatch(createNotification('Could not remove item', 'error'))
       return
     }
 
+    dispatch(createNotification('Item removed', 'success'))
     dispatch(removeItemFromList({ listId, itemId }))
   }
 }
@@ -142,8 +153,11 @@ export const createItem = (listId, item) => {
   return async (dispatch) => {
     const created = await service.createItem(listId, item)
     if (!created) {
+      dispatch(createNotification('Could not create item', 'error'))
       return
     }
+
+    dispatch(createNotification('Item created', 'success'))
     dispatch(addItemToList({ listId, item: created }))
   }
 }
