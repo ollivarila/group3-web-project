@@ -6,7 +6,36 @@ on:
     types: [opened, synchronize]
 
 jobs:
+  lint:
+    name: Lint 
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup
+        uses: actions/setup-node@v3
+      - name: Npm install
+        run: npm install
+      - name: lint
+        run: npm run lint
+
+  test:
+    name: Test
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup
+        uses: actions/setup-node@v3
+      - name: Npm install
+        run: npm run install:full
+      - name: Run tests
+        run: npm run test:deployment
+        env:
+          NODE_ENV: test
+
   notify_webhook:
+    needs: [lint, test]
     if: always()
     name: Send discord notification
     runs-on: ubuntu-20.04
