@@ -88,7 +88,7 @@ const ShoppingList = () => {
         </footer>
       </article>
       <section className="createItemForm">
-        {showForm ? <ItemForm /> : null}
+        {showForm ? <ItemForm setShowForm={setShowform} /> : null}
       </section>
     </>
   )

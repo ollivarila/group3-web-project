@@ -96,6 +96,8 @@ export const initializeShoppingLists = () => {
       return
     }
 
+    dispatch(setCurrent(shoppingLists[0]))
+
     dispatch(setShoppingLists(shoppingLists))
   }
 }
