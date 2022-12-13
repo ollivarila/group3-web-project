@@ -8,7 +8,7 @@ const DefaultView = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(initializeUser())
-  }, [dispatch])
+  }, [dispatch]) 
   return (
     <div className="text">
       <h1>Welcome, {user.username}</h1>

@@ -19,7 +19,9 @@ const Sidebar = ({ handleShowListAdding }) => {
           + Add a new list
         </button>
       </div>
-      <h3>{user.username}'s Lists</h3>
+      {user.username.charAt(user.username.length-1)==='s' 
+      ? <h2>{user.username}' Lists </h2>
+      : <h2>{user.username}'s Lists</h2>}
       <div className="list">
         {shoppingLists.map((list, index) => {
           return (

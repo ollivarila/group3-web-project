@@ -8,12 +8,13 @@
   border-radius: 5px;
 }
 
-p{
+.text p{
   text-align: center;
+  font-size: medium;
   padding: 2px, 2px;
   margin: 2px, 2px;
 }
 
-h1{
+.text h1{
   text-align: center;
 }
