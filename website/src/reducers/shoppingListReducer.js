@@ -42,7 +42,7 @@ const shoppingListSlice = createSlice({
 
       removeFromThis.products = newProductList
 
-      return state.map((list) => {
+      state = state.map((list) => {
         return list.id === removeFromThis.id ? removeFromThis : list
       })
     },
@@ -131,22 +131,30 @@ export const updateItem = (listId, item) => {
       return
     }
 
-    console.log(item, updated)
     dispatch(createNotification('Item updated', 'success'))
     dispatch(updateShoppingList(updated))
+    dispatch(setCurrent(updated))
   }
 }
 
 export const removeItem = (listId, itemId) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     const deleted = await service.deleteItem(listId, itemId)
     if (!deleted) {
       dispatch(createNotification('Could not remove item', 'error'))
       return
     }
+    const { shoppingLists } = getState()
+    const shList = shoppingLists.filter((list) => list.id === listId).pop()
+
+    let copy = { ...shList }
+    let products = copy.products
+
+    copy.products = products.filter((p) => p.id !== itemId)
 
     dispatch(createNotification('Item removed', 'success'))
     dispatch(removeItemFromList({ listId, itemId }))
+    dispatch(setCurrent(copy))
   }
 }
 

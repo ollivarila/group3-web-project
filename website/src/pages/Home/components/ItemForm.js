@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import './ItemForm.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { createItem } from '../../../reducers/shoppingListReducer'
-import Home from '../Home'
 
 const ItemForm = ({ setShowForm }) => {
   const [error, setError] = useState('')

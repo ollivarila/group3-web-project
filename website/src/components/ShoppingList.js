@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  createItem,
-  deleteList,
-  updateList,
-} from '../reducers/shoppingListReducer'
-import { setCurrent } from '../reducers/currentShoppingListReducer'
+import { deleteList, updateList } from '../reducers/shoppingListReducer'
 import Product from './Product'
 import ItemForm from '../pages/Home/components/ItemForm'
 import './list.css'
@@ -58,7 +53,6 @@ const ShoppingList = () => {
       dispatch(deleteList(shoppingList.id))
     }
   }
-  console.log(shoppingList)
   if (!shoppingList) {
     return null
   }

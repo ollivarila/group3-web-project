@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { updateItem, updateList } from '../reducers/shoppingListReducer'
+import { removeItem, updateItem } from '../reducers/shoppingListReducer'
 import { useSelector, useDispatch } from 'react-redux'
 import './Product.css'
 
@@ -14,7 +14,7 @@ const EditProduct = ({ product, setEdit }) => {
   const [amount, setAmount] = useState(product.amount || '')
   const [unit, setUnit] = useState(product.unit || '')
   const [comment, setComment] = useState(product.comment || '')
-  const [checked, setChecked] = useState(product.checked || false)
+  const checked = product.checked
 
   const createProduct = () => {
     const newProduct = {}
@@ -144,6 +144,10 @@ const Product = ({ product }) => {
     dispatch(updateItem(shoppingList.id, copy))
   }
 
+  const handleDelete = (productId) => {
+    dispatch(removeItem(shoppingList.id, productId))
+  }
+
   return (
     <div
       className="product"
@@ -165,6 +169,13 @@ const Product = ({ product }) => {
           </div>
           <div className="buttons">
             <button onClick={() => setEdit(!edit)}>edit</button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                handleDelete(product.id)
+              }}>
+              delete
+            </button>
           </div>
           <p className="icon">{showAll ? '-' : '+'}</p>
         </div>
