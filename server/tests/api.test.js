@@ -14,14 +14,14 @@ const routes = {
   shoppingList: '/api/shoppingLists',
 }
 
-describe('Api tests', () => {
-  let savedToken = null
+describe('Api integration tests', () => {
   beforeAll(async () => {
     return mongoose.connect(config.MONGODB_URI)
   })
 
   describe('User signup/login', () => {
     test('Sign up works with correct details', async () => {
+      await User.deleteMany({})
       const mockUser = {
         username: 'user',
         email: 'user@email.com',
@@ -73,8 +73,33 @@ describe('Api tests', () => {
   describe('Shoppinglist', () => {
     let auth
     let listId
-    beforeAll(() => {
-      auth = { Authorization: `bearer ${savedToken}` }
+    beforeEach(async () => {
+      await User.deleteMany({})
+      await ShoppingList.deleteMany({})
+      const mockUser = {
+        username: 'user',
+        email: 'user@email.com',
+        password: 'password',
+      }
+
+      const res = await api.post(routes.signup).send(mockUser)
+      const { token } = res.body
+      const user = jwt.decode(token)
+      auth = { Authorization: `bearer ${token}` }
+      const shoppingList = new ShoppingList({
+        title: 'mockTitle',
+        comment: 'mockComment2',
+        products: [
+          {
+            name: 'product',
+            amount: 3,
+          },
+        ],
+        owner: user.id,
+      })
+      const saved = await shoppingList.save()
+      const list = saved
+      listId = list.id
     })
     test('Authentication is required', async () => {
       const res = await api.get(routes.shoppingList)
@@ -116,7 +141,6 @@ describe('Api tests', () => {
       const res = await api.get(`${routes.shoppingList}/${listId}`).set(auth)
       const list = res.body
 
-      console.log(list)
       expect(list.id).toBe(listId)
       expect(list.title).toBe('mockTitle')
     })
@@ -127,12 +151,15 @@ describe('Api tests', () => {
         products: [
           {
             name: 'item2',
-            amount: '2',
+            amount: 2,
           },
         ],
+        comment: 'updated comment',
       }
 
-      const res = await api.patch(`${routes.shoppingList}/${listId}`).set(auth)
+      const res = await api
+        .patch(`${routes.shoppingList}/${listId}`)
+        .set(auth)
         .send(updateThis)
 
       const list = res.body
@@ -148,25 +175,57 @@ describe('Api tests', () => {
       const list = res.body
 
       const listFromDB = await ShoppingList.findById(listId)
-      console.log(list)
       expect(list.id).toBe(listId)
       expect(listFromDB).toBe(null)
+    })
+
+    test('Delete item from list', async () => {
+      const shoppingList = await ShoppingList.findOne({})
+      const { products } = shoppingList
+      const url = `${routes.shoppingList}/${shoppingList._id}/item/${products[0]._id}`
+      const res = await api.delete(url).set(auth)
+      expect(res.body.products.length).toBe(0)
+      expect(res.body.title).toBe('mockTitle')
+    })
+
+    test('Edit item from list', async () => {
+      const shoppingList = await ShoppingList.findOne({})
+      const itemId = shoppingList.products[0]._id
+      const url = `${routes.shoppingList}/${shoppingList._id}/item/${itemId}`
+      const res = await api.patch(url).set(auth).send({ name: 'updated name' })
+
+      expect(res.body.products[0].name).toBe('updated name')
+      const listFromDb = await ShoppingList.findOne({})
+      expect(listFromDb.products[0].name).toBe('updated name')
+    })
+
+    test('Add item to list', async () => {
+      const shoppingList = await ShoppingList.findOne({})
+      const url = `${routes.shoppingList}/${shoppingList._id}/item/`
+      const res = await api.patch(url).set(auth).send({ name: 'second item' })
+
+      const listFromDb = await ShoppingList.findOne({})
+      expect(res.body.products.length).toBe(2)
+      expect(listFromDb.products[0].name).toBe('second item')
     })
 
     describe('Without auth', () => {
       let id
       beforeAll(async () => {
-        const res = await api.post(routes.shoppingList).set(auth).send({
-          title: 'mockTitle',
-          products: [
-            {
-              name: 'mockItem',
-              amount: 5,
-              comment: 'mockComment',
-            },
-          ],
-          comment: 'mockComment2',
-        })
+        const res = await api
+          .post(routes.shoppingList)
+          .set(auth)
+          .send({
+            title: 'mockTitle',
+            products: [
+              {
+                name: 'mockItem',
+                amount: 5,
+                comment: 'mockComment',
+              },
+            ],
+            comment: 'mockComment2',
+          })
         id = res.body.id
       })
 
@@ -192,20 +251,22 @@ describe('Api tests', () => {
       ]
 
       test('Correct response without auth on all routes that require auth', async () => {
-        await Promise.all(tests.map(async test => {
-          const hasId = test.id ? test.id : ''
-          const url = `${routes.shoppingList}/${hasId}`
-          const res = await api[test.method](url)
+        await Promise.all(
+          tests.map(async (test) => {
+            const hasId = test.id ? test.id : ''
+            const url = `${routes.shoppingList}/${hasId}`
+            const res = await api[test.method](url)
 
-          expect(res.body.error).toBe('Authorization token required')
-        }))
+            expect(res.body.error).toBe('Authorization token required')
+          }),
+        )
       })
     })
   })
 
   afterAll(async () => {
     await User.deleteMany({})
-
+    await ShoppingList.deleteMany({})
     return mongoose.connection.close()
   })
 })

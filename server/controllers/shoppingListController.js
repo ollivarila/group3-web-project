@@ -175,12 +175,11 @@ const updateShoppingList = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: 'No list for this id found' })
   }
-  const { title = null, comment = '', itemList = null } = req.body
+  const { title = null, comment = '', products: itemList } = req.body
   let products = null
   if (itemList) {
     products = makeProducts(itemList)
   }
-
   try {
     const shoppingList = await ShoppingList.findById(id)
     if (!shoppingList) {
@@ -189,15 +188,12 @@ const updateShoppingList = async (req, res) => {
     if (!verifyOwnership(shoppingList.owner, req.id)) {
       return res.status(400).send({ error: "You can't modify this list" })
     }
-    const updated = await ShoppingList.findByIdAndUpdate(
-      shoppingList._id,
-      {
-        title: title || shoppingList.title,
-        producs: products || shoppingList.products,
-        comment,
-      },
-      { new: true },
-    )
+    await ShoppingList.findByIdAndUpdate(shoppingList._id, {
+      title: title || shoppingList.title,
+      products,
+      comment,
+    })
+    const updated = await ShoppingList.findById(shoppingList._id)
     res.status(200).send(updated)
   } catch (error) {
     console.error(error)
@@ -232,7 +228,7 @@ const deleteItemFromList = async (req, res) => {
     return res.status(404).json({ error: 'No list found' })
   }
 
-  const editedList = lis.products.filter((p) => p.id !== productId)
+  const editedList = list.products.filter((p) => p.id !== productId)
 
   const updated = await ShoppingList.findByIdAndUpdate(
     list._id,
