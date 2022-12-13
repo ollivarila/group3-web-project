@@ -40,7 +40,7 @@ input {
 
 }
 
-form button {
+.insideForm button {
     color: #fff;
     padding: 10px;
     border-radius: 4px;
@@ -58,6 +58,13 @@ form button {
     border-radius: 4px;
 
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+    
+    cursor: pointer;
+}
+
+.insideForm button:hover {
+    background-color: rgba(0, 0, 0, 0.12);
 
 }
 

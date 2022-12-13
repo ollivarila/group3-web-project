@@ -3,7 +3,6 @@ import './ItemForm.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { createItem } from '../../../reducers/shoppingListReducer'
 import Home from '../Home'
-import ShoppingList from '../../../components/ShoppingList'
 
 const ItemForm = ( ) => {
 
@@ -32,21 +31,21 @@ const ItemForm = ( ) => {
     try {
       console.log ("itemform current list id", list.id,"current list name", list.title, "item", item)
       dispatch(createItem(list.id, item)) 
-      //return valitun listan listdetailsiin 
-      
+    //siirtyis/navigois valitun listan listdetailsiin
+
     } catch (err) {
       setError(err.message)
       console.log(error)
     }
 }
   const handleCancel = () => {  
+   //muuta että siirtyis/navigois valitun listan listdetailsiin 
     return <Home />
   }
-//{list.title}
   return (
     <div className='formLayout'>
     <form className='ItemForm'>
-      <h3>Add a New Item to  list </h3>
+      <h3>Add a New Item to {list.title}  list </h3>
    
       <div className="insideForm">
         <label >Name:</label>
