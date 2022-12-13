@@ -2,16 +2,15 @@ import React, { useState } from 'react'
 import './ItemForm.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { createItem } from '../../../reducers/shoppingListReducer'
-import DefaultView from '../DefaultView'
-import { useNavigate } from 'react-router-dom'
+import Home from '../Home'
+import ShoppingList from '../../../components/ShoppingList'
 
-const ItemForm = ( {setWantsToAdd}) => {
+const ItemForm = ( ) => {
 
   const [error, setError] = useState('')
   const [item, setItem] = useState({name:'', amount:'', unit:'', comment:'' })
   const list = useSelector((state) => state.current)
   const dispatch = useDispatch()
-  const navigate = useNavigate();
 
   const handleNameChange = (e) => {
     setItem({...item, name:e.target.value})
@@ -32,18 +31,22 @@ const ItemForm = ( {setWantsToAdd}) => {
     e.preventDefault()
     try {
       console.log ("itemform current list id", list.id,"current list name", list.title, "item", item)
-      dispatch(createItem(list.id, item))  
-      navigate('/home')
+      dispatch(createItem(list.id, item)) 
+      //return valitun listan listdetailsiin 
+      
     } catch (err) {
       setError(err.message)
       console.log(error)
     }
 }
-
+  const handleCancel = () => {  
+    return <Home />
+  }
+//{list.title}
   return (
     <div className='formLayout'>
-    <form onSubmit={handleSubmit} className='ItemForm'>
-      <h3>Add a New Item to {list.title} </h3>
+    <form className='ItemForm'>
+      <h3>Add a New Item to  list </h3>
    
       <div className="insideForm">
         <label >Name:</label>
@@ -70,7 +73,8 @@ const ItemForm = ( {setWantsToAdd}) => {
           onChange={handleCommentChange}
           value={item.comment}
         />
-        <button>Add Item</button>
+        <button onClick={handleSubmit}>Add Item</button>
+        <button onClick={handleCancel}>Cancel adding items</button>
       </div>
     </form>
   </div> 

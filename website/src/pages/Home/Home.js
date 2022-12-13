@@ -20,10 +20,11 @@ const Home = () => {
     <>
       <Sidebar handleShowListAdding={handleAddToListClick} />
       <div className="content-container">
-        {selectedList ?  <ItemForm /> : <DefaultView />   }
-        {wantsToCreate ? (
+      {wantsToCreate ? (
           <NewShoppingList setWantsToCreate={setWantsToCreate} />
         ) : null}
+        {selectedList ?  <ItemForm /> : <DefaultView />   }
+      
       </div>
     </>
   )

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { createItem } from '../reducers/shoppingListReducer'
 import Product from './Product'
 import './list.css'
-import ItemForm from '../pages/Home/components/ItemForm'
+
 
 const handleAddNewItem = (list) => {
     const newItem = {
@@ -14,8 +14,6 @@ const handleAddNewItem = (list) => {
         checked: false
     }
     console.log(list,newItem);
-    return <ItemForm />
-
     //createItem(list, newItem)
 
 }

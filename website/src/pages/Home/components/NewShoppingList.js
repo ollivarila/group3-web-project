@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { createShoppingList } from '../../../reducers/shoppingListReducer'
 import './NewShoppingList.css'
+import Home from '../Home'
 
 const NewShoppingList = ({ setWantsToCreate }) => {
   const [list, setList] = useState({ title: '', comment: '' })
@@ -21,9 +22,13 @@ const NewShoppingList = ({ setWantsToCreate }) => {
     setList({ ...list, comment: e.target.value })
   }
 
+  const handleCancel = () => {  
+    return <Home />
+  }
+
   return (
     <div className="formLayout">
-      <form onSubmit={handleSubmit}>
+      <form>
         <h3>Make a New List</h3>
         <div className="insideForm">
           <label>Title:</label>
@@ -34,9 +39,10 @@ const NewShoppingList = ({ setWantsToCreate }) => {
             onChange={handleCommentChange}
             value={list.comment}
           />
-          <button disabled={list.title === ''} type="submit">
+          <button disabled={list.title === ''} type="submit" onClick={handleSubmit}>
             Save List
           </button>
+          <button onClick={handleCancel}>Cancel</button>
         </div>
       </form>
     </div>
