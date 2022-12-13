@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import DefaultView from './DefaultView'
 import NewShoppingList from './components/NewShoppingList'
 import './Home.css'
+import ItemForm from './components/ItemForm'
 
 const Home = () => {
   const [wantsToCreate, setWantsToCreate] = useState(false)
@@ -14,12 +15,12 @@ const Home = () => {
     setWantsToCreate(true)
   }
 
-  console.log(selectedList)
+  //console.log(selectedList)
   return (
     <>
       <Sidebar handleShowListAdding={handleAddToListClick} />
       <div className="content-container">
-        {selectedList ? null : <DefaultView />}
+        {selectedList ?  <ItemForm /> : <DefaultView />   }
         {wantsToCreate ? (
           <NewShoppingList setWantsToCreate={setWantsToCreate} />
         ) : null}

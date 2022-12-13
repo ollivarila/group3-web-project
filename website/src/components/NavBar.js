@@ -1,12 +1,17 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
-
+import { useNavigate } from "react-router-dom";
+import { removeUser } from '../reducers/userReducer';
 import './Navbar.css'
+import { useDispatch } from 'react-redux'
+
 
 const Navbar = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
+
   const handleClick = () => {
+    dispatch(removeUser())
     navigate('/login')
   }
 

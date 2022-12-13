@@ -2,6 +2,7 @@ import React from 'react'
 import './styles/sidebarstyle.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCurrent } from '../reducers/currentShoppingListReducer'
+import ItemForm from '../pages/Home/components/ItemForm'
 
 const Sidebar = ({ handleShowListAdding }) => {
   const dispatch = useDispatch()
@@ -10,6 +11,7 @@ const Sidebar = ({ handleShowListAdding }) => {
 
   const handleButtonSelected = (shoppingList) => {
     dispatch(setCurrent(shoppingList))
+    return  <ItemForm />
   }
 
   return (
