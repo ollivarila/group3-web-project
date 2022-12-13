@@ -1,23 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
-  title: 'testi',
-    products: [{
-      name: 'maito',
-      amount: 2,
-      unit: 'dl',
-      comment: 'valion',
-      checked: false
-  },
-  {
-  name: 'maito',
-  amount: 2,
-  unit: 'dl',
-  comment: 'valion',
-  checked: false
-  }],
-  comment: 'hyvä lista'
-}
+const initialState = null
 
 const currentShoppingListSlice = createSlice({
   name: 'current',

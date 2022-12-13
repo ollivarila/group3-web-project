@@ -19,12 +19,13 @@ const Home = () => {
   //console.log(selectedList)
   return (
     <>
-        <Sidebar handleShowListAdding={handleAddToListClick} />
+      <Sidebar handleShowListAdding={handleAddToListClick} />
       <div className="content-container">
+      
       {wantsToCreate ? (
           <NewShoppingList setWantsToCreate={setWantsToCreate} />
         ) : null}
-        {selectedList ?  <ItemForm /> : <DefaultView />   }
+        {selectedList ?  <ShoppingList /> : <DefaultView />   }
       
       </div>
       
