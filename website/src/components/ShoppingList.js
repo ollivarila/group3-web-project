@@ -4,23 +4,29 @@ import { deleteList, updateList } from '../reducers/shoppingListReducer'
 import Product from './Product'
 import ItemForm from '../pages/Home/components/ItemForm'
 import './list.css'
+import { setCurrent } from '../reducers/currentShoppingListReducer'
 
-const ListItems = ({ list }) => {
-  if (list === []) {
-    return <p>No content</p>
-  }
 
-  return (
-    <ul className="shoppinglistUl">
-      {list.map((p) => {
-        return (
-          <li key={Math.floor(Math.random() * 100000)}>
-            <Product product={p} />
-          </li>
-        )
-      })}
-    </ul>
-  )
+const ListItems = ({list}) => {
+    if(!list){
+        return
+    }
+    if(list === []){
+        return <p>No content</p>
+    }
+    
+    return (
+        <ul className='shoppinglistUl'>
+            {list.map((p) => {
+                return(
+                    <li key={Math.floor(Math.random() * 100000)}>
+                        <Product product={p}/>
+                    </li>
+                )  
+            })}
+            
+        </ul>
+    )
 }
 
 const ShoppingList = () => {
@@ -29,6 +35,7 @@ const ShoppingList = () => {
   const shoppingList = useSelector((state) => state.current)
   const { title, comment, products } = shoppingList
   const [showForm, setShowform] = useState(false)
+
 
   useEffect(() => {
     setShowform(false)
@@ -57,35 +64,38 @@ const ShoppingList = () => {
     return null
   }
 
-  return (
-    <>
-      <article className="shoppinglistContainer">
-        <header>{title}</header>
-        <ListItems list={products} />
-        <button className="addItem" onClick={handleAddNewItem}>
-          + Add new item
-        </button>
-        <section className="comment">
-          <p>{comment}</p>
-        </section>
+    const handleClose = () =>{
+        dispatch(setCurrent(null))
+    }
 
-        <footer>
-          <button className="changeComment" onClick={handleCommentchange}>
-            Edit comment
-          </button>
-          <button className="changeName" onClick={handleNameChange}>
-            Change name
-          </button>
-          <button className="deleteList" onClick={handleDelete}>
-            Delete
-          </button>
-        </footer>
-      </article>
-      <section className="createItemForm">
-        {showForm ? <ItemForm setShowForm={setShowform} /> : null}
-      </section>
-    </>
-  )
+    return (
+        <section className='shoppinglistView'>
+            
+            <article className='shoppinglistContainer' >
+                <header>
+                <button className='close' onClick={handleClose}>X</button>
+                    {title}
+                    
+                </header>
+                <ListItems list={products}/>
+                <button className='addItem' onClick={handleAddNewItem}>+ Add new item</button>
+                <section className='comment'>
+                    <p>{comment}</p>
+                </section>
+                
+                <footer>
+                    <button className='changeComment' onClick={handleCommentchange}>Edit comment</button>
+                    <button className='changeName' onClick={handleNameChange}>Change name</button>
+                    <button className='deleteList' onClick={handleDelete}>Delete</button>
+                    
+                </footer>
+                
+            </article>
+            <section className="createItemForm">
+                {showForm ? <ItemForm /> : null}
+            </section>
+        </section>
+    )
 }
 
 export default ShoppingList

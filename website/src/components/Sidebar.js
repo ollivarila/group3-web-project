@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setCurrent } from '../reducers/currentShoppingListReducer'
 import ItemForm from '../pages/Home/components/ItemForm'
 
-const Sidebar = ({ handleShowListAdding }) => {
+const Sidebar = ({ handleShowListAdding , handleListClick}) => {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
   const shoppingLists = useSelector((state) => state.shoppingLists)
 
   const handleButtonSelected = (shoppingList) => {
     dispatch(setCurrent(shoppingList))
-    return  <ItemForm />
+    handleListClick()
   }
 
   return (

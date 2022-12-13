@@ -1,31 +1,51 @@
 import React, { useState } from 'react'
 import Sidebar from '../../components/Sidebar'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import DefaultView from './DefaultView'
 import NewShoppingList from './components/NewShoppingList'
 import ShoppingList from '../../components/ShoppingList'
 import './Home.css'
 import ItemForm from './components/ItemForm'
+import { setCurrent } from '../../reducers/currentShoppingListReducer'
 
 const Home = () => {
+
+  const dispatch = useDispatch()
+
   const [wantsToCreate, setWantsToCreate] = useState(false)
 
   const selectedList = useSelector((state) => state.current)
 
   const handleAddToListClick = () => {
     setWantsToCreate(true)
+    dispatch(setCurrent(null))
+    
+  }
+
+  const handleListClick = () => {
+    setWantsToCreate(false)
+  }
+
+  function homeContent () {
+    if(wantsToCreate){
+      return(
+        <NewShoppingList setWantsToCreate={setWantsToCreate} />
+      )
+    }
+    if(selectedList){
+      return <ShoppingList /> 
+    }
+
+    return <DefaultView />
   }
 
   //console.log(selectedList)
   return (
     <>
-      <Sidebar handleShowListAdding={handleAddToListClick} />
+      <Sidebar handleShowListAdding={handleAddToListClick} handleListClick={handleListClick} />
       <div className="content-container">
       
-      {wantsToCreate ? (
-          <NewShoppingList setWantsToCreate={setWantsToCreate} />
-        ) : null}
-        {selectedList ?  <ShoppingList /> : <DefaultView />   }
+        {homeContent()}
       
       </div>
       

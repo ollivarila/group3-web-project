@@ -13,6 +13,16 @@
     
 }
 
+.shoppinglistContainer header {
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 30px;
+    top: 10px;
+}
+
 .shoppinglistUl {
     display: flex;
     flex-wrap: wrap;
@@ -91,6 +101,7 @@ footer button {
 }
 
 .deleteList:hover {
+    color: black;
     background-color: red;
 }
 
@@ -110,13 +121,35 @@ footer button {
     margin: 10px;
 }
 
-@media (max-width: 480px){
+.shoppinglistView {
+    width: 80%;
+}
+
+.createItemForm {
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+
+@media (max-width: 650px){
     footer {
         flex-wrap: wrap;
     }
     footer button {
         width: 100%;
         margin: 2px;
+    }
+
+    .shoppinglistContainer header{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .close {
+        position: unset;
+        width: 80%;
     }
 
 
