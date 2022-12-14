@@ -1,13 +1,12 @@
 TODO
 ===
-- <ShoppingList> (Mikko) component: shows currently selected list (gets it from the store) , 
-  contains a list of <Product>
-- improve styling
-- slide effect to notification
-- Deployment workflow
+- Deployment
+- improve css
+- forms for editing comment and title
+- remove user from localstorage and redux store if token has expired (this forces user to login page)
 
 - slides for presentation
-- raport
+- report 
 
 FUTURE PLANS
 ===
