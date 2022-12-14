@@ -11,8 +11,11 @@ const Home = () => {
   const dispatch = useDispatch()
 
   const [wantsToCreate, setWantsToCreate] = useState(false)
+  const [backToDefault, setBackToDefault] = useState(true)
+  const [selected, setSelected] = useState(false);
 
   const selectedList = useSelector((state) => state.current)
+ //setSelectedList(useSelector((state) => state.current))
 
   const handleAddToListClick = () => {
     setWantsToCreate(true)

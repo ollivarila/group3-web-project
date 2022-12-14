@@ -2,15 +2,20 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { createShoppingList } from '../../../reducers/shoppingListReducer'
 import './NewShoppingList.css'
+import { useNavigate } from 'react-router-dom'
+import ShoppingList from '../../../components/ShoppingList'
 
-const NewShoppingList = ({ setWantsToCreate }) => {
+const NewShoppingList = ({ setWantsToCreate, setBackToDefault }) => {
   const [list, setList] = useState({ title: '', comment: '' })
   const dispatch = useDispatch()
+const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     dispatch(createShoppingList(list))
-    setWantsToCreate(false)
+   // setWantsToCreate(false)
+    //setBackToDefault(false)
+  //  navigate('/ShoppingList');
   }
 
   const handleTitleChange = (e) => {
