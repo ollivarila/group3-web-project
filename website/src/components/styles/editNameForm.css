@@ -1,0 +1,60 @@
+.nameEditForm {
+
+    margin: 40px;
+    align-items: center;
+}
+.nameEditForm form {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    height: fit-content;
+    align-items: center;
+    background: var(--text);
+    margin: 40px;
+    border-radius: 25px;
+    flex-grow: 1;
+
+    box-shadow: -15px -15px 0px  var(--secondary);
+    border-radius: 24px;
+    padding: 32px 32px; 
+    gap: 10px;
+    
+}
+
+.nameEditForm label, input {
+    display: block;
+
+}
+
+.nameEditForm input {
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+   align-items: center;
+    width: 310px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: rgba(36, 49, 171, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.submitEdit, .cancelButton {
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+
+    background: var(--background);
+    border-radius: 4px;
+
+    box-shadow: var(--primary)
+}
+
+button:hover {
+    background-color: var(--primary);
+  }

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createItem } from '../../../reducers/shoppingListReducer'
 
 const ItemForm = ({ setShowForm }) => {
+  
   const [error, setError] = useState('')
   const [item, setItem] = useState({
     name: '',
