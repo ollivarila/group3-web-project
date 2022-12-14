@@ -21,6 +21,7 @@ const Sidebar = ({ handleShowListAdding , handleListClick}) => {
           + Add a new list
         </button>
       </div>
+      <div className='sidebarContainer'>
       {user.username.charAt(user.username.length-1)==='s' 
       ? <h2>{user.username}' Lists </h2>
       : <h2>{user.username}'s Lists</h2>} 
@@ -36,6 +37,7 @@ const Sidebar = ({ handleShowListAdding , handleListClick}) => {
             </div>
           )
         })}
+      </div>
       </div>
     </section>
   )
