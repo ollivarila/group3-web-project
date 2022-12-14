@@ -24,7 +24,7 @@
 .signupForm button {
   border-style: none;
   color: #FFFFFF;
-  background-color: var(--success);
+  background-color: var(--background);
   height: 40px;
   border-radius: 5px;
   font-size: large;
@@ -49,7 +49,7 @@
 
 .signupFormContainer {
   align-self: center;
-  background-color: var(--primary);
+  background-color: var(--secondary);
   color: var(--text);
   display: flex;
   justify-content: center;

@@ -27,12 +27,15 @@ const Sidebar = ({ handleShowListAdding , handleListClick}) => {
       : <h2>{user.username}'s Lists</h2>} 
       <div className="list">
         {shoppingLists.map((list, index) => {
+          const date = new Date(list.createdAt)
+          const dateStr = date.toLocaleString('fi-FI',{day: '2-digit', month: '2-digit'})
+          console.log(dateStr);
           return (
             <div key={index} className="buttonWrapper">
               <button
                 className="listItem"
                 onClick={() => handleButtonSelected(list)}>
-                {list.title}
+                  <p>{list.title}</p><p className='date'>{dateStr}</p> 
               </button>
             </div>
           )

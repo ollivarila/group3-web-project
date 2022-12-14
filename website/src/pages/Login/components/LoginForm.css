@@ -21,13 +21,18 @@
 }
 
 .loginForm button {
+  width: 100%;
   border-style: none;
   color: #FFFFFF;
-  background-color: var(--success);
+  background-color: var(--background);
   height: 40px;
   border-radius: 5px;
   font-size: large;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.loginForm button:hover{
+  cursor: pointer;
 }
 
 .loginForm p {
@@ -46,7 +51,7 @@
 
 .loginFormContainer {
   align-self: center;
-  background-color: var(--primary);
+  background-color: var(--secondary);
   color: var(--text);
   display: flex;
   flex-wrap: wrap;

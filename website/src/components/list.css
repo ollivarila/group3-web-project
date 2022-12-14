@@ -1,15 +1,19 @@
 
-
 .shoppinglistContainer {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     height: fit-content;
     align-items: center;
-    background: lightgrey;
-    margin: 10px;
+    background: var(--text);
+    margin: 40px;
     border-radius: 25px;
     flex-grow: 1;
+
+    box-shadow: -15px -15px 0px  var(--secondary);
+    border-radius: 24px;
+    padding: 32px 32px; 
+    gap: 10px;
     
 }
 
@@ -21,6 +25,7 @@
     position: absolute;
     right: 30px;
     top: 10px;
+    background: var(--text);
 }
 
 .shoppinglistUl {
@@ -44,19 +49,20 @@
 
 }
 
-.product {
+/*.product {
     border-color: black;
     border-width: 1px;
     border-style: solid;
-}
+} */
 
-header {
+.shoppingListContainer h2{
+    font-size: 30px; 
+}
+ header{
     margin-top: 10px;
     text-align: center;
     width: 100%;
-    font-size: 40px;
 }
-
 footer {
     margin: 20px 0px 20px 0px;
     width: 80%;
@@ -72,18 +78,34 @@ footer button {
 
 
 .deleteList {
-    background-color: lightgrey ;
-    border-width: 1px;
+   /* border-width: 1px;
     border-color: var(--error);
-    color: var(--error);
+    color: var(--error); */
     
+    color: var(--text);
+    padding: 10px;
+    border-radius: 4px;
+
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+
+    background: var(--background);
+    border-radius: 4px;
+
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
 .addItem {
-    background-color: var(--primary);
+    background-color: var(--secondary);
     margin-top: 5px;
     width: 80%;
+    height: 100%;
     border-width: 1px;
+    border-radius: 5px;
 }
 
 .addItem button {
@@ -92,23 +114,39 @@ footer button {
     padding: 10px;
     width: 100%;
     background-color: var(--primary);
-    border-radius: 3px;
     border-width: 1px;
 }
 
 .addItem button:hover {
-    background-color: var(--secondary);
+    background-color: var(--primary);
 }
 
 .deleteList:hover {
-    color: black;
-    background-color: red;
+    color: var(--text);
+    background-color: var(--error);
 }
 
 .changeName:hover, .changeComment:hover {
-    background-color: grey;
+    background-color: rgba(0, 0, 0, 0.12);
 }
 
+.changeComment, .changeName{
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+
+    background: var(--background);
+    border-radius: 4px;
+
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
 .comment {
     margin-top: 20px;
     border-style: dashed;

@@ -6,13 +6,24 @@
   --primary: #4C956C;
   --secondary: #7389AE;
   --third: #416788; */
+
+  /*
   --background: #222E50;
   --text: #FFFFFF;
   --primary: #4BB3FD;
   --secondary: #118AB2;
   --success: #4CB944;
   --warning: #FFD166;
-  --error: #ef233c;
+  --error: #ef233c; */
+
+  --background: #285238;
+  --text: #FFFFFF;
+  --third: #E6EFE8; 
+  --primary: #F3F7F4;
+  --secondary: #9FBCA5;
+  --success: #4CB944;
+  --warning: #FFD166;
+  --error: #871E1C;
 }
 
 body {
@@ -24,9 +35,19 @@ body {
 
 p,
 input,
-button{
-  font-weight: 300;
+button
+{
+  font-weight: 400; 
   font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, h3 {
+  /*font-weight: 400; */
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  font-size: 35px;
 }
 
 #root {

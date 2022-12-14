@@ -73,8 +73,8 @@ const ShoppingList = () => {
             
             <article className='shoppinglistContainer' >
                 <header>
-                <button className='close' onClick={handleClose}>X</button>
-                    {title}
+                <button className='close' onClick={handleClose}><b>X</b></button>
+                    <h2>{title}</h2>
                     
                 </header>
                 <ListItems list={products}/>

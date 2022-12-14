@@ -28,7 +28,7 @@ const NewShoppingList = ({ setWantsToCreate }) => {
   return (
     <div className="formLayout">
       <form>
-        <h3>Make a New List</h3>
+        <h2>Make a New List</h2>
         <div className="insideForm">
           <label>Title:</label>
           <input type="text" onChange={handleTitleChange} value={list.title} />
