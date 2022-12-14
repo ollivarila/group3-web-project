@@ -33,7 +33,6 @@ const Sidebar = ({ handleShowListAdding, handleListClick }) => {
               day: '2-digit',
               month: '2-digit',
             })
-            console.log(dateStr)
             return (
               <div key={index} className="buttonWrapper">
                 <button

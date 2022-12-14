@@ -146,9 +146,8 @@
   animation-duration: 0.1s;
   animation-timing-function: ease-out;
   display: flex;
-  flex-direction: column;
   gap: 5px;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   overflow: hidden;
   max-height: 0px;
@@ -156,7 +155,11 @@
 }
 
 .detailsContainerHidden p {
+  text-align: center;
   margin: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 20%;
 }
 
 .name {

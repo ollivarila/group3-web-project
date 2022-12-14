@@ -8,7 +8,7 @@ const capitalize = (str) => {
 }
 
 const EditProduct = ({ product, setEdit }) => {
-  const selectedList = useSelector((state) => state.selected)
+  const selectedList = useSelector((state) => state.current)
   const dispatch = useDispatch()
   const [name, setName] = useState(product.name || '')
   const [amount, setAmount] = useState(product.amount || '')
@@ -17,7 +17,9 @@ const EditProduct = ({ product, setEdit }) => {
   const checked = product.checked
 
   const createProduct = () => {
-    const newProduct = {}
+    const newProduct = {
+      id: product.id,
+    }
 
     if (name) {
       newProduct.name = name
@@ -93,6 +95,10 @@ const ProductDetails = ({ product, show }) => {
         const name = capitalize(key)
 
         if (!val) {
+          return null
+        }
+
+        if (name === 'Id') {
           return null
         }
 

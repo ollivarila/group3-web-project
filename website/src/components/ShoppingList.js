@@ -78,10 +78,12 @@ const ShoppingList = () => {
         <button className="addItem" onClick={handleAddNewItem}>
           + Add new item
         </button>
-        <section className="comment">
-          <p>{comment}</p>
-        </section>
 
+        {comment && (
+          <section className="comment">
+            <p>{comment}</p>
+          </section>
+        )}
         <footer>
           <button className="changeComment" onClick={handleCommentchange}>
             Edit comment
@@ -95,7 +97,7 @@ const ShoppingList = () => {
         </footer>
       </article>
       <section className="createItemForm">
-        {showForm ? <ItemForm /> : null}
+        {showForm ? <ItemForm setShowForm={setShowform} /> : null}
       </section>
     </section>
   )
