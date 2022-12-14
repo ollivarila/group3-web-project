@@ -5,6 +5,11 @@ on:
     branches: [main]
     types: [opened, synchronize]
 
+env:
+  TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI}}
+  MONGODB_URI: ${{ secrets.MONGODB_URI }}
+  JWT_SECRET: ${{ secrets.JWT_SECRET }}
+  
 jobs:
   lint:
     name: Lint 
