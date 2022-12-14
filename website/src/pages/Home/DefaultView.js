@@ -8,13 +8,13 @@ const DefaultView = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(initializeUser())
-  }, [dispatch]) 
+  }, [dispatch])
   return (
     <div className="text">
       <h1>Welcome, {user.username}</h1>
       <p>
-        <b>To add a new list</b> to your shopping lists, click "+ Add a new
-        list"
+        <b>To add a new list</b> to your shopping lists, click &quot;+ Add a new
+        list&quot;
       </p>
       <p>
         <b>To see and edit</b> your shopping lists, click on any of your

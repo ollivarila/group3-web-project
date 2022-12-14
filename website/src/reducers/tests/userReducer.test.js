@@ -1,12 +1,12 @@
+import React from 'react'
+import { configureStore } from '@reduxjs/toolkit'
+import { render } from '@testing-library/react'
 import userReducer, {
   initializeUser,
   removeUser,
   setUser,
 } from '../userReducer'
-import { configureStore } from '@reduxjs/toolkit'
-import { render } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import React from 'react'
 import StoreTester from './StoreTester'
 import Wrapper from './Wrapper'
 
@@ -24,14 +24,14 @@ describe('userReducer', () => {
 
   it('initializes user correctly', async () => {
     let user
-    const cb = (store) => {
-      user = store.user
+    const cb = (st) => {
+      user = st.user
     }
     const action = initializeUser()
     render(
       <Wrapper store={store}>
         <StoreTester sendStateToCallback={cb} actionToDispatch={action} />
-      </Wrapper>
+      </Wrapper>,
     )
     expect(user.id).toBe('123')
     expect(user.name).toBe('mockUser')
@@ -42,14 +42,14 @@ describe('userReducer', () => {
       name: 'test',
     }
     let user
-    const cb = (store) => {
-      user = store.user
+    const cb = (st) => {
+      user = st.user
     }
     const action = setUser(mockUser)
     render(
       <Wrapper store={store}>
         <StoreTester sendStateToCallback={cb} actionToDispatch={action} />
-      </Wrapper>
+      </Wrapper>,
     )
 
     expect(user.name).toBe('test')
@@ -57,14 +57,14 @@ describe('userReducer', () => {
 
   it('removes user correctly', () => {
     let user
-    const cb = (store) => {
-      user = store.user
+    const cb = (st) => {
+      user = st.user
     }
     const action = removeUser()
     render(
       <Wrapper store={store}>
         <StoreTester sendStateToCallback={cb} actionToDispatch={action} />
-      </Wrapper>
+      </Wrapper>,
     )
 
     expect(user).toBe(null)

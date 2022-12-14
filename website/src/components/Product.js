@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { removeItem, updateItem } from '../reducers/shoppingListReducer'
 import { useSelector, useDispatch } from 'react-redux'
+import { removeItem, updateItem } from '../reducers/shoppingListReducer'
 import './Product.css'
 
 const capitalize = (str) => {
@@ -14,7 +14,7 @@ const EditProduct = ({ product, setEdit }) => {
   const [amount, setAmount] = useState(product.amount || '')
   const [unit, setUnit] = useState(product.unit || '')
   const [comment, setComment] = useState(product.comment || '')
-  const checked = product.checked
+  const { checked } = product
 
   const createProduct = () => {
     const newProduct = {
@@ -113,7 +113,7 @@ const ProductDetails = ({ product, show }) => {
         if (name !== 'Checked') {
           return (
             <p key={val + Math.random()}>
-              {name === 'Comment' ? null : name + ': ' + val.toString()}
+              {name === 'Comment' ? null : `${name}: ${val.toString()}`}
             </p>
           )
         }
@@ -161,8 +161,8 @@ const Product = ({ product }) => {
       style={showAll ? { backgroundColor: 'var(--secondary)' } : {}}>
       <div className="simpleContainer">
         <h3 className="name">
-          - - {product.amount ? product.amount + ' -' : null}{' '}
-          {product.unit ? product.unit + ' -' : null} {product.name}
+          - - {product.amount ? `${product.amount} -` : null}{' '}
+          {product.unit ? `${product.unit} -` : null} {product.name}
         </h3>
         <div className="right">
           <div className="checkbox">

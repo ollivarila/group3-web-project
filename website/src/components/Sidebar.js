@@ -22,9 +22,9 @@ const Sidebar = ({ handleShowListAdding, handleListClick }) => {
       </div>
       <div className="sidebarContainer">
         {user.username.charAt(user.username.length - 1) === 's' ? (
-          <h2>{user.username}' Lists </h2>
+          <h2>{user.username}&#39; Lists </h2>
         ) : (
-          <h2>{user.username}'s Lists</h2>
+          <h2>{user.username}&#39;s Lists</h2>
         )}
         <div className="list">
           {shoppingLists.map((list, index) => {

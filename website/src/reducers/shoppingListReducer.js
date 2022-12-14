@@ -53,7 +53,7 @@ const shoppingListSlice = createSlice({
     addItemToList(state, action) {
       const { listId, item } = action.payload
 
-      const listToAddTo = state.filter((list) => (list.id = listId)).pop()
+      const listToAddTo = state.filter((list) => list.id === listId).pop()
 
       const { products } = listToAddTo
 
@@ -147,8 +147,8 @@ export const removeItem = (listId, itemId) => {
     const { shoppingLists } = getState()
     const shList = shoppingLists.filter((list) => list.id === listId).pop()
 
-    let copy = { ...shList }
-    let products = copy.products
+    const copy = { ...shList }
+    const { products } = copy
 
     copy.products = products.filter((p) => p.id !== itemId)
 

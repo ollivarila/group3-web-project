@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import Sidebar from '../../components/Sidebar'
 import { useSelector, useDispatch } from 'react-redux'
+import Sidebar from '../../components/Sidebar'
 import DefaultView from './DefaultView'
 import NewShoppingList from './components/NewShoppingList'
 import ShoppingList from '../../components/ShoppingList'
@@ -34,7 +34,6 @@ const Home = () => {
     return <DefaultView />
   }
 
-  //console.log(selectedList)
   return (
     <>
       <Sidebar

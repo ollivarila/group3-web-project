@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { useSignup, signup } from '../signupHelper'
 import Input from '../../../components/Input'
 import './SignupForm.css'
 import FailNotification from '../../../components/FailNotification'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import { setUser } from '../../../reducers/userReducer'
 import { createNotification } from '../../../reducers/notificationReducer'
 

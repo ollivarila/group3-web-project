@@ -50,6 +50,7 @@ const ShoppingList = () => {
   }
 
   const handleDelete = () => {
+    // eslint-disable-next-line no-alert
     const confirmation = window.confirm(
       'are you sure you want to delete the list?',
     )

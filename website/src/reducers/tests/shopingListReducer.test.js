@@ -46,8 +46,8 @@ describe('shoppingListReducer', () => {
 
   it('sets shoppinglists', () => {
     let lists
-    const cb = (store) => {
-      lists = store.shoppingLists
+    const cb = (st) => {
+      lists = st.shoppingLists
     }
     const action = setShoppingLists({ list: [1, 2, 3] })
     render(
@@ -61,8 +61,8 @@ describe('shoppingListReducer', () => {
 
   it('appends shoppinglists', () => {
     let lists
-    const cb = (store) => {
-      lists = store.shoppingLists
+    const cb = (st) => {
+      lists = st.shoppingLists
     }
     const action = appendShoppingList({
       title: 'shoppingList',
@@ -80,8 +80,8 @@ describe('shoppingListReducer', () => {
 
   it('updates item in list', () => {
     let lists
-    const cb = (store) => {
-      lists = store.shoppingLists
+    const cb = (st) => {
+      lists = st.shoppingLists
     }
 
     const action = updateItemInList({
@@ -104,8 +104,8 @@ describe('shoppingListReducer', () => {
 
   it('removes item from list', () => {
     let lists
-    const cb = (store) => {
-      lists = store.shoppingLists
+    const cb = (st) => {
+      lists = st.shoppingLists
     }
 
     const action = removeItemFromList({
@@ -124,8 +124,8 @@ describe('shoppingListReducer', () => {
 
   it('removes shoppingList', () => {
     let lists
-    const cb = (store) => {
-      lists = store.shoppingLists
+    const cb = (st) => {
+      lists = st.shoppingLists
     }
 
     const action = removeShoppingList('mockId')
