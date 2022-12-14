@@ -20,7 +20,7 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
       - name: Npm install
-        run: npm install
+        run: npm run install:full
       - name: lint
         run: npm run lint
 
