@@ -9,7 +9,7 @@ env:
   TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI}}
   MONGODB_URI: ${{ secrets.MONGODB_URI }}
   JWT_SECRET: ${{ secrets.JWT_SECRET }}
-  
+
 jobs:
   lint:
     name: Lint 
@@ -20,7 +20,7 @@ jobs:
       - name: Setup
         uses: actions/setup-node@v3
       - name: Npm install
-        run: npm install
+        run: npm run install:full 
       - name: lint
         run: npm run lint
 
