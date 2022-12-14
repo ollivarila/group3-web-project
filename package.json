@@ -13,7 +13,6 @@
     "test:deployment": "cross-env NODE_ENV=test jest server/ --verbose --runInBand --forceExit",
     "test:frontend": "cd website && npm run test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "install:full": "npm install && cd website && npm install"
-
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -28,9 +27,10 @@
     "@types/jest": "^29.2.4",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
-    "eslint": "^8.3.0",
+    "eslint": "^8.29.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-react": "^7.31.11",
@@ -40,12 +40,6 @@
     "jest-watch-typeahead": "^1.0.0",
     "nodemon": "^2.0.20",
     "supertest": "^6.3.3"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -61,5 +55,41 @@
   },
   "nodemonConfig": {
     "ignore": "website/*"
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "commonjs": true,
+      "es2021": true
+    },
+    "extends":["airbnb-base"],
+    "overrides": [],
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "requireConfigFile": false
+    },
+    "rules": {
+      "indent": ["error", 2],
+      "semi": 0,
+
+    "no-restricted-syntax": [
+      "error",
+      "ForInStatement",
+      "LabeledStatement",
+      "WithStatement"
+    ],
+    "arrow-parens": 0,
+    "consistent-return": 0,
+    "no-plusplus": 0,
+    "no-await-in-loop": 0,
+    "no-underscore-dangle": 0,
+    "react/prop-types": 0,
+    "arrow-body-style": 0,
+    "import/prefer-default-export": 0,
+    "no-undef": 0,
+    "no-param-reassign": 0,
+    "no-console": 0,
+    "object-curly-newline": 0
+    }
   }
 }
