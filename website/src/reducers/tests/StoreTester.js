@@ -1,10 +1,5 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import userReducer, {
-  initializeUser,
-  removeUser,
-  setUser,
-} from '../userReducer'
 
 const StoreTester = ({ sendStateToCallback, actionToDispatch, data }) => {
   const store = useSelector((store) => store)

@@ -5,11 +5,9 @@ import DefaultView from './DefaultView'
 import NewShoppingList from './components/NewShoppingList'
 import ShoppingList from '../../components/ShoppingList'
 import './Home.css'
-import ItemForm from './components/ItemForm'
 import { setCurrent } from '../../reducers/currentShoppingListReducer'
 
 const Home = () => {
-
   const dispatch = useDispatch()
 
   const [wantsToCreate, setWantsToCreate] = useState(false)
@@ -19,21 +17,18 @@ const Home = () => {
   const handleAddToListClick = () => {
     setWantsToCreate(true)
     dispatch(setCurrent(null))
-    
   }
 
   const handleListClick = () => {
     setWantsToCreate(false)
   }
 
-  function homeContent () {
-    if(wantsToCreate){
-      return(
-        <NewShoppingList setWantsToCreate={setWantsToCreate} />
-      )
+  function homeContent() {
+    if (wantsToCreate) {
+      return <NewShoppingList setWantsToCreate={setWantsToCreate} />
     }
-    if(selectedList){
-      return <ShoppingList /> 
+    if (selectedList) {
+      return <ShoppingList />
     }
 
     return <DefaultView />
@@ -42,16 +37,13 @@ const Home = () => {
   //console.log(selectedList)
   return (
     <>
-      <Sidebar handleShowListAdding={handleAddToListClick} handleListClick={handleListClick} />
-      <div className="content-container">
-      
-        {homeContent()}
-      
-      </div>
-      
+      <Sidebar
+        handleShowListAdding={handleAddToListClick}
+        handleListClick={handleListClick}
+      />
+      <div className="content-container">{homeContent()}</div>
     </>
   )
-  
 }
 
 export default Home

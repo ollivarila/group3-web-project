@@ -206,13 +206,6 @@ describe('shoppingListReducer', () => {
   })
 
   it('creates item to shoppinglist', async () => {
-    const mockGetState = jest.fn(() => {
-      return {
-        user: {
-          id: 'mockUserId',
-        },
-      }
-    })
     const mockDispatch = jest.fn()
     const action = createItem('mockListId', { name: 'item' })
     await action(mockDispatch)

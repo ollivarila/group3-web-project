@@ -2,8 +2,6 @@ import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import { useState } from 'react'
 import { BACKEND_URL } from '../../config'
-import { useDispatch } from 'react-redux'
-import { setUser } from '../../reducers/userReducer'
 
 export const sendSignupRequest = async (user) => {
   const url = `${BACKEND_URL}/api/user/signup`
