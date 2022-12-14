@@ -1,0 +1,67 @@
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex-wrap: wrap;
+  flex-shrink: 1;
+}
+
+.loginForm > * {
+  width: 300px;
+}
+
+
+.loginForm input {
+  height: 40px;
+  font-size: large;
+  border-radius: 5px;
+  border-style: none;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.loginForm button {
+  width: 100%;
+  border-style: none;
+  color: #FFFFFF;
+  background-color: var(--background);
+  height: 40px;
+  border-radius: 5px;
+  font-size: large;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.loginForm button:hover{
+  cursor: pointer;
+}
+
+.loginForm p {
+  margin: 0;
+  font-size: 16px;
+  text-align: center;
+}
+
+.loginForm h2 {
+  text-align: center;
+  margin: 0;
+  margin-bottom: 24px;
+  font-weight: 300;
+  font-size: 64px;
+}
+
+.loginFormContainer {
+  align-self: center;
+  background-color: var(--secondary);
+  color: var(--text);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  max-width: 500px;
+  flex-shrink: 1;
+  padding: 64px;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  max-height: 400px;
+}

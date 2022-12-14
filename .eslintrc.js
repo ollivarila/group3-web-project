@@ -4,24 +4,20 @@ module.exports = {
     commonjs: true,
     es2021: true,
   },
-  extends: [
-    'airbnb-base',
-    'plugin:react/recommended',
-  ],
-  overrides: [
-  ],
+  extends: ['airbnb-base', 'plugin:react/recommended'],
+  overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
+    requireConfigFile: false,
   },
-  parser: '@babel/eslint-parser',
   rules: {
-    indent: [
-      'error',
-      2,
-    ],
+    indent: ['error', 2],
     semi: 0,
     'no-restricted-syntax': [
-      'error', 'ForInStatement', 'LabeledStatement', 'WithStatement',
+      'error',
+      'ForInStatement',
+      'LabeledStatement',
+      'WithStatement',
     ],
     'arrow-parens': 0,
     'consistent-return': 0,
@@ -33,5 +29,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'no-undef': 0,
     'no-param-reassign': 0,
+    'no-console': 0,
+    'object-curly-newline': 0,
   },
-};
+}

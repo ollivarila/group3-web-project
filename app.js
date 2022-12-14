@@ -1,17 +1,42 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const cors = require('cors');
+const express = require('express')
+const cors = require('cors')
+const path = require('path')
+const startUp = require('./utils/startUp')
+const loginRouter = require('./server/routes/user')
+const shoppingListRouter = require('./server/routes/shoppingList')
+const config = require('./config')
 
-dotenv.config();
+startUp()
 
-const app = express();
+const app = express()
 
-app.use(cors());
+app.use(cors())
 
-app.get('/', (req, res) => {
-  res.send({ message: 'hello world!' });
-});
+app.get('/health', (req, res) => {
+  res.send('ok')
+})
 
-const port = process.env.PORT || 3000;
+app.use(express.json())
 
-app.listen(port, () => console.log(`Server listening on ${port}`));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('build'))
+}
+
+app.use('/api/user', loginRouter)
+app.use('/api/shoppingLists', shoppingListRouter)
+
+if (process.env.NODE_ENV === 'production') {
+  app.get('*', (req, res) => {
+    res.sendFile('index.html', {
+      root: path.join(__dirname, 'build/'),
+    })
+  })
+}
+
+const port = config.PORT
+
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => console.log(`Server listening on ${port}`))
+}
+
+module.exports = app

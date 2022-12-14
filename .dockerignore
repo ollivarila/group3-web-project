@@ -1,0 +1,34 @@
+# flyctl launch added from .gitignore
+**/.env
+node_modules
+reqs
+website/node_modules
+**/.prettierrc
+
+# flyctl launch added from website/.gitignore
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+website/node_modules
+website/.pnp
+website/**/.pnp.js
+
+# testing
+website/coverage
+
+# production
+website/build
+
+# misc
+website/**/.DS_Store
+website/**/.env.local
+website/**/.env.development.local
+website/**/.env.test.local
+website/**/.env.production.local
+
+website/**/npm-debug.log*
+website/**/yarn-debug.log*
+website/**/yarn-error.log*
+
+
+website/**/website/node_modules

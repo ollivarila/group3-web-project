@@ -1,0 +1,20 @@
+.text{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 74px;
+  background-color: #FFFFFF;
+  box-shadow: 0px 44px 64px rgba(69, 25, 160, 0.1);
+  border-radius: 5px;
+}
+
+.text p{
+  text-align: center;
+  font-size: medium;
+  padding: 2px, 2px;
+  margin: 2px, 2px;
+}
+
+.text h1{
+  text-align: center;
+}

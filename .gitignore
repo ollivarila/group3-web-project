@@ -1,3 +1,6 @@
 .env
-/dist
+/build
 /node_modules
+/reqs
+/website/node_modules
+.prettierrc
