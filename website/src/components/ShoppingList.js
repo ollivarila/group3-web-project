@@ -4,6 +4,7 @@ import { createItem, deleteList, updateList } from '../reducers/shoppingListRedu
 import Product from './Product'
 import ItemForm from '../pages/Home/components/ItemForm'
 import './list.css'
+import { setCurrent } from '../reducers/currentShoppingListReducer'
 
 const ListItems = ({ list }) => {
   if (!list) {
@@ -28,8 +29,6 @@ const ListItems = ({ list }) => {
 
 
 const ShoppingList = () => {
-
-    
 
     const dispatch = useDispatch()
 
