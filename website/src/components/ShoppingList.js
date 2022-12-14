@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { deleteList, updateList } from '../reducers/shoppingListReducer'
+import { createItem, deleteList, updateList } from '../reducers/shoppingListReducer'
 import Product from './Product'
 import ItemForm from '../pages/Home/components/ItemForm'
 import './list.css'
-import { setCurrent } from '../reducers/currentShoppingListReducer'
 
 const ListItems = ({ list }) => {
   if (!list) {
@@ -27,20 +26,24 @@ const ListItems = ({ list }) => {
   )
 }
 
+
 const ShoppingList = () => {
-  const dispatch = useDispatch()
+
+    
+
+    const dispatch = useDispatch()
 
   const shoppingList = useSelector((state) => state.current)
   const { title, comment, products } = shoppingList
   const [showForm, setShowform] = useState(false)
 
-  useEffect(() => {
-    setShowform(false)
-  }, [shoppingList])
+    useEffect(() => {
+        setShowform(false)
+    }, [shoppingList])
 
-  const handleAddNewItem = () => {
-    setShowform(true)
-  }
+    const handleAddNewItem = () => {
+        setShowform(true)
+    }
 
   const handleNameChange = () => {
     dispatch(updateList(shoppingList, 'title', 'newName'))

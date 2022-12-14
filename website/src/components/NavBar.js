@@ -1,12 +1,16 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { removeUser } from '../reducers/userReducer'
+import { useNavigate } from "react-router-dom";
+import { removeUser } from '../reducers/userReducer';
 import './Navbar.css'
+import { useDispatch, useSelector} from 'react-redux'
+
+
 
 const Navbar = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const user = useSelector((state) => state.user)
 
   const handleClick = () => {
     dispatch(removeUser())
@@ -23,7 +27,9 @@ const Navbar = () => {
         <h1 onClick={navigateHome}>Shopping list</h1>
         <nav>
           <div>
-            <button onClick={handleClick}>Log out</button>
+            <button onClick={handleClick}>
+              {user ?  "Log out" :"Log in"}
+            </button>
           </div>
         </nav>
       </div>
