@@ -56,32 +56,32 @@ jobs:
       - name: Deploy to fly.io
         run: flyctl deploy --remote-only
 
-notify_webhook:
-    if: always()
-    name: Send discord notification
-    needs: [lint, test, deployment]
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Success
-        if: success()
-        uses: rjstone/discord-webhook-notify@v1
-        with:
-          severity: info
-          details: ${{ github.event_name }} succeeded!
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-      - name: Failure
-        if: failure()
-        uses: rjstone/discord-webhook-notify@v1
-        with:
-          severity: error
-          details: ${{ github.event_name }} failed!
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}       
-      - name: Cancelled
-        if: cancelled()
-        uses: rjstone/discord-webhook-notify@v1
-        with:
-          severity: warn
-          details: ${{ github.event_name }} canceled!
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}  
+  notify_webhook:
+      if: always()
+      name: Send discord notification
+      needs: [lint, test, deployment]
+      runs-on: ubuntu-20.04
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+        - name: Success
+          if: success()
+          uses: rjstone/discord-webhook-notify@v1
+          with:
+            severity: info
+            details: ${{ github.event_name }} succeeded!
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+        - name: Failure
+          if: failure()
+          uses: rjstone/discord-webhook-notify@v1
+          with:
+            severity: error
+            details: ${{ github.event_name }} failed!
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}       
+        - name: Cancelled
+          if: cancelled()
+          uses: rjstone/discord-webhook-notify@v1
+          with:
+            severity: warn
+            details: ${{ github.event_name }} canceled!
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}  
