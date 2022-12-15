@@ -8,7 +8,6 @@ const Sidebar = ({ handleShowListAdding, handleListClick }) => {
   const user = useSelector((state) => state.user)
   const shoppingLists = useSelector((state) => state.shoppingLists)
 
-
   const handleButtonSelected = (shoppingList) => {
     dispatch(setCurrent(shoppingList))
     handleListClick()

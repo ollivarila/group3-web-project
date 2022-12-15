@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { createItem, deleteList, updateList } from '../reducers/shoppingListReducer'
+import { deleteList, updateList } from '../reducers/shoppingListReducer'
 import Product from './Product'
 import ItemForm from '../pages/Home/components/ItemForm'
 import './list.css'
@@ -29,86 +29,67 @@ const ListItems = ({ list }) => {
   )
 }
 
-
-
-const EditCommentForm = ({ handleEditCommentTrue , editComment, setEditComment, handleCommentchange}) => {
-
+const EditCommentForm = ({ handleEditCommentTrue, editComment, setEditComment,
+  handleCommentchange }) => {
   const handleEditChange = (e) => {
     e.preventDefault()
     setEditComment(e.target.value)
   }
 
   return (
-  <section className='commentEditForm'>
-    <form >
-      <label>Edit Comment</label>
-       <input value={editComment} onChange={handleEditChange}/>
-      <button className={"submitEdit"} onClick={() => handleCommentchange(editComment)}> Submit </button>
-      <button className={'cancelButton'} onClick={() => handleEditCommentTrue(false)}> Cancel </button> 
-    </form>
-  </section>
+    <section className='commentEditForm'>
+      <form >
+        <label>Edit Comment</label>
+        <input value={editComment} onChange={handleEditChange}/>
+        <button className={'submitEdit'} onClick={() => handleCommentchange(editComment)}> Submit </button>
+        <button className={'cancelButton'} onClick={() => handleEditCommentTrue(false)}>Cancel</button>
+      </form>
+    </section>
   )
 }
 
-
 const ShoppingList = () => {
-
   const dispatch = useDispatch()
 
   const shoppingList = useSelector((state) => state.current)
   const { title, comment, products } = shoppingList
   const [showForm, setShowform] = useState(false)
 
-  const [showEditName, setShowEditName] = useState (false)
-  const [showEditComment, setShowEditComment] = useState (false)
-  const [editComment, setEditComment] = useState ('')
+  const [showEditName, setShowEditName] = useState(false)
+  const [showEditComment, setShowEditComment] = useState(false)
+  const [editComment, setEditComment] = useState('')
   const [editName, setEditName] = useState('')
-
-  const EditNameForm = () => {
-    return(
-     <section className='nameEditForm'>
-       <form >
-         <label>Edit Name</label>
-           <input value={editName} onChange={ (e) => handleEditChange(e)}/>
-         <button className={"submitEdit"} onClick={() => handleNameChange(editName)}> Submit </button>
-         <button className={'cancelButton'} onClick={() => handleEditNameTrue (false)}> Cancel </button> 
-        </form>
-     </section>
-   )
-  }
 
   const handleEditChange = (e) => {
     e.preventDefault()
     setEditName(e.target.value)
   }
 
-
-    useEffect(() => {
-        setShowform(false)
-    }, [shoppingList])
-
+  useEffect(() => {
+    setShowform(false)
+  }, [shoppingList])
 
   const handleAddNewItem = () => {
-        setShowform(true)
-        setShowEditComment(false)
-        setShowEditName(false)
+    setShowform(true)
+    setShowEditComment(false)
+    setShowEditName(false)
   }
-  
-  const handleEditNameTrue = ( trueorfalse ) => {
-      setShowEditName(trueorfalse)
+
+  const handleEditNameTrue = (trueorfalse) => {
+    setShowEditName(trueorfalse)
   }
 
   const handleEditCommentTrue = (trueorfalse) => {
     setShowEditComment(trueorfalse)
   }
 
-  const handleNameChange = (editName) => {
-    dispatch(updateList(shoppingList, 'title', editName))
+  const handleNameChange = (editedName) => {
+    dispatch(updateList(shoppingList, 'title', editedName))
     setShowEditName(!showEditName)
   }
 
-  const handleCommentchange = (editComment) => {
-    dispatch(updateList(shoppingList, 'comment', editComment))
+  const handleCommentchange = (editedComment) => {
+    dispatch(updateList(shoppingList, 'comment', editedComment))
     setShowEditComment(!showEditComment)
   }
 
@@ -131,7 +112,18 @@ const ShoppingList = () => {
   const handleClose = () => {
     dispatch(setCurrent(null))
   }
-
+  const EditNameForm = () => {
+    return (
+      <section className='nameEditForm'>
+        <form >
+          <label>Edit Name</label>
+          <input value={ editName } onChange={ (e) => handleEditChange(e)}/>
+          <button className={ 'submitEdit' } onClick={() => handleNameChange(editName)}> Submit </button>
+          <button className={ 'cancelButton' } onClick={() => handleEditNameTrue(false)}> Cancel </button>
+        </form>
+      </section>
+    )
+  }
 
   return (
     <section className="shoppinglistView">

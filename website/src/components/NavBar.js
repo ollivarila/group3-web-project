@@ -1,6 +1,6 @@
 import React from 'react'
-import { useDispatch, useSelector} from 'react-redux'
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
 import { removeUser } from '../reducers/userReducer';
 import './Navbar.css'
 
@@ -26,7 +26,7 @@ const Navbar = () => {
         <nav>
           <div>
             <button onClick={handleClick}>
-              {user ?  "Log out" :"Log in"}
+              {user ? 'Log out' : 'Log in'}
             </button>
           </div>
         </nav>
