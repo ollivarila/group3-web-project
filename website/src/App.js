@@ -7,6 +7,7 @@ import Login from './pages/Login/Login'
 import { initializeShoppingLists } from './reducers/shoppingListReducer'
 import NavbarWrapper from './components/NavbarWrapper'
 import { initializeUser } from './reducers/userReducer'
+import ShoppingList from './components/ShoppingList'
 
 const App = () => {
   const user = useSelector((state) => state.user)
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/" element={user ? <Home /> : <Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/Shoppinglist" element={<ShoppingList />} />
           <Route path="*" element={<div>404 not found</div>} />
         </Route>
       </Routes>

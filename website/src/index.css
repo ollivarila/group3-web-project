@@ -21,7 +21,7 @@
   --third: #E6EFE8; 
   --primary: #F3F7F4;
   --secondary: #9FBCA5;
-  --success: #4CB944;
+  --success: #88D18A;
   --warning: #FFD166;
   --error: #871E1C;
 }
@@ -70,4 +70,5 @@ main {
   display: flex;
   flex-grow: 1;
   gap: 10px;
+  margin-bottom: 10px;
 }

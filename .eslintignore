@@ -1,7 +1,5 @@
 /build
 /node_modules
 /website/node_modules
-webpack.config.js
-/scripts
 /config
 /website

@@ -11,6 +11,8 @@
   gap: 32px;
   align-items: center;
   justify-content: auto;
+  margin-bottom: 20px
+
 }
 
 .sidebarContainer{
@@ -19,7 +21,7 @@
 }
 
 .listItem{
-  /*position: flex; */
+
   padding: 8px 8px;
   gap: 2px; 
   background: none;
