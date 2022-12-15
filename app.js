@@ -10,9 +10,9 @@ startUp()
 
 const app = express()
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'production') {
   app.options('*', cors())
-  app.use(cors({ origin: 'http://localhost:3000', preflightContinue: true })) // https://shopping-list-app.fly.dev
+  app.use(cors({ origin: 'https://shopping-list-app.fly.dev', preflightContinue: true }))
 } else {
   app.use(cors())
 }
