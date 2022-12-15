@@ -28,32 +28,9 @@ const ListItems = ({ list }) => {
   )
 }
 
-const EditNameForm = ({ handleShowEditName, editName, setEditName, handleTitleSubmit }) => {
 
-  const handleEditChange = (e) => {
-    e.preventDefault()
-    setEditName(e.target.value)
-  }
-
-  return (
-    <section className='editForm'>
-      <form onSubmit={(e) => {
-        e.preventDefault()
-        handleTitleSubmit(editName)
-      }}>
-        <label>Edit Name</label>
-        <input value={ editName } onChange={handleEditChange}/>
-        <footer className='buttonFooter'>
-        <button type='submit' className={'submitEdit' } > Submit </button>
-        <button type='reset' className={ 'cancelButton' } onClick={() => handleShowEditName(false)}> Cancel </button>
-        </footer>
-      </form>
-    </section>
-  )
-}
-
-const EditCommentForm = ({ handleShowEditComment, editComment, setEditComment,
-  handleCommentSubmit }) => {
+const EditForm = ({ handleCancel, editComment, setEditComment,
+  handleCommentSubmit, title }) => {
   const handleEditChange = (e) => {
     e.preventDefault()
     setEditComment(e.target.value)
@@ -66,11 +43,11 @@ const EditCommentForm = ({ handleShowEditComment, editComment, setEditComment,
         handleCommentSubmit(editComment)}
       }>
      
-        <label>Edit Comment</label>
+        <label>{title}</label>
         <input value={editComment} onChange={handleEditChange}/>
         <footer className='buttonFooter'>
         <button type='submit' className={'submitEdit'}> Submit </button>
-        <button type='reset' className={'cancelButton'} onClick={() => handleShowEditComment(false)}>Cancel</button>
+        <button type='reset' className={'cancelButton'} onClick={() => handleCancel()}>Cancel</button>
         </footer>
       </form>
     </section>
@@ -82,44 +59,44 @@ const ShoppingList = () => {
 
   const shoppingList = useSelector((state) => state.current)
   const { title, comment, products } = shoppingList
-  const [showForm, setShowform] = useState(false)
 
-  const [showEditName, setShowEditName] = useState(false)
-  const [showEditComment, setShowEditComment] = useState(false)
+  const [show, setShow] = useState('')
+
   const [editComment, setEditComment] = useState('')
   const [editName, setEditName] = useState('')
 
   useEffect(() => {
-    setShowform(false)
+    setShow('')
   }, [shoppingList])
 
   const handleAddNewItem = () => {
-    setShowform(true)
-    setShowEditComment(false)
-    setShowEditName(false)
+    setShow('form')
   }
 
-  const handleShowEditName = (trueorfalse) => {
-    setShowEditName(trueorfalse)
+  const handleShowEditName = () => {
+    setShow('name')
   }
 
-  const handleShowEditComment = (trueorfalse) => {
-    setShowEditComment(trueorfalse)
+  const handleShowEditComment = () => {
+    setShow('comment')
+  }
+
+  const handleCancel = () => {
+    setShow('')
   }
 
   const handleTitleSubmit = (editedName) => {
     dispatch(updateList(shoppingList, 'title', editedName))
-    setShowEditName(false)
+    setShow('')
   }
 
   const handleCommentSubmit = (editedComment) => {
     dispatch(updateList(shoppingList, 'comment', editedComment))
-    setShowEditComment(false)
+    setShow('')
   }
 
   const handleDelete = () => {
-    setShowEditComment(false)
-    setShowEditName(false)
+    setShow('')
     // eslint-disable-next-line no-alert
     const confirmation = window.confirm(
       'are you sure you want to delete the list?',
@@ -140,24 +117,26 @@ const ShoppingList = () => {
   return (
     <section className="shoppinglistView">
         <section className='editComment'>
-        {showEditComment ? <EditCommentForm
+        {show === 'comment' ? <EditForm
+          title={'Edit comment'}
           editComment={editComment}
           setEditComment={setEditComment}
-          handleShowEditComment={handleShowEditComment}
+          handleCancel={handleCancel}
           handleCommentSubmit={handleCommentSubmit}
         /> : null}
       </section>
 
       <section className='editName'>
-        {showEditName ? <EditNameForm
+        {show === 'name' ? <EditForm
+          title={'Edit name'}
           editName={editName}
           setEditName={setEditName}
-          handleShowEditName={handleShowEditName}
+          handleCancel={handleCancel}
           handleTitleSubmit={handleTitleSubmit}
         /> : null}
       </section>
       <section className="createItemForm">
-        {showForm ? <ItemForm setShowForm={setShowform} /> : null}
+        {show === 'form' ? <ItemForm setShowForm={setShow} /> : null}
       </section>
       <article className="shoppinglistContainer">
         <header>
@@ -179,13 +158,11 @@ const ShoppingList = () => {
 
         <footer>
           <button className="changeComment" onClick={() => {
-            handleShowEditName(false)
             handleShowEditComment(true)
           } }>
             Edit comment
           </button>
           <button className="changeName" onClick={ () => {
-            handleShowEditComment(false)
             handleShowEditName(true)}}>
             Change name
           </button>
@@ -194,10 +171,6 @@ const ShoppingList = () => {
           </button>
         </footer>
       </article>
-
-      <section className="createItemForm">
-        {showForm ? <ItemForm setShowForm={setShowform}/> : null}
-      </section>
     </section>
   )
 }

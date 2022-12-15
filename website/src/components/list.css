@@ -28,6 +28,10 @@
     border-color: var(--background);
 }
 
+.close:hover {
+    background-color: var(--secondary);
+}
+
 .shoppinglistUl {
     display: flex;
     flex-wrap: wrap;

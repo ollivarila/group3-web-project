@@ -9,9 +9,10 @@ const config = require('./config')
 startUp()
 
 const app = express()
+
 if (process.env.NODE_ENV === 'development') {
   app.options('*', cors())
-  app.use(cors({ origin: 'https://shopping-list-app.fly.dev', preflightContinue: true }))
+  app.use(cors({ origin: 'http://localhost:3000', preflightContinue: true })) // https://shopping-list-app.fly.dev
 } else {
   app.use(cors())
 }

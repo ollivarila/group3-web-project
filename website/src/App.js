@@ -6,15 +6,15 @@ import Signup from './pages/Signup/Signup'
 import Login from './pages/Login/Login'
 import { initializeShoppingLists } from './reducers/shoppingListReducer'
 import NavbarWrapper from './components/NavbarWrapper'
-import { initializeUser } from './reducers/userReducer'
+import { updateUser } from './reducers/userReducer'
 import ShoppingList from './components/ShoppingList'
 
 const App = () => {
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
+  
   useEffect(() => {
-    dispatch(initializeShoppingLists())
-    dispatch(initializeUser())
+    dispatch(updateUser())
   }, [dispatch])
 
   return (
