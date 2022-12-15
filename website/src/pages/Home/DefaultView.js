@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { initializeUser } from '../../reducers/userReducer'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import '../../components/styles/defaultviewstyle.css'
 
 const DefaultView = () => {

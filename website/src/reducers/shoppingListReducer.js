@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit'
 import service from '../services/shoppingListService'
 import { createNotification } from './notificationReducer'
 import { setCurrent } from './currentShoppingListReducer'
-import { useEffect } from 'react'
 
 const initialState = []
 

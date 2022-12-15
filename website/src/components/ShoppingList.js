@@ -30,7 +30,7 @@ const ListItems = ({ list }) => {
 
 
 const EditForm = ({ handleCancel, editComment, setEditComment,
-  handleCommentSubmit, title }) => {
+  handleSubmit, title }) => {
   const handleEditChange = (e) => {
     e.preventDefault()
     setEditComment(e.target.value)
@@ -40,7 +40,7 @@ const EditForm = ({ handleCancel, editComment, setEditComment,
     <section className='editForm'>
       <form onSubmit={(e) => {
         e.preventDefault()
-        handleCommentSubmit(editComment)}
+        handleSubmit(editComment)}
       }>
      
         <label>{title}</label>
@@ -122,7 +122,7 @@ const ShoppingList = () => {
           editComment={editComment}
           setEditComment={setEditComment}
           handleCancel={handleCancel}
-          handleCommentSubmit={handleCommentSubmit}
+          handleSubmit={handleCommentSubmit}
         /> : null}
       </section>
 
@@ -132,7 +132,7 @@ const ShoppingList = () => {
           editName={editName}
           setEditName={setEditName}
           handleCancel={handleCancel}
-          handleTitleSubmit={handleTitleSubmit}
+          handleSubmit={handleTitleSubmit}
         /> : null}
       </section>
       <section className="createItemForm">
