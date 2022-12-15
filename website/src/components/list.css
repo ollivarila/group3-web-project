@@ -24,6 +24,8 @@
     right: 30px;
     top: 10px;
     background: var(--text);
+    color: var(--background);
+    border-color: var(--background);
 }
 
 .shoppinglistUl {

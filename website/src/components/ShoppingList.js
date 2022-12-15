@@ -68,6 +68,9 @@ const ShoppingList = () => {
 
   return (
     <section className="shoppinglistView">
+      <section className="createItemForm">
+      {showForm ? <ItemForm setShowForm={setShowform} /> : null}
+      </section>
       <article className="shoppinglistContainer">
         <header>
           <button className="close" onClick={handleClose}>
@@ -97,9 +100,7 @@ const ShoppingList = () => {
           </button>
         </footer>
       </article>
-      <section className="createItemForm">
-        {showForm ? <ItemForm setShowForm={setShowform} /> : null}
-      </section>
+      
     </section>
   )
 }

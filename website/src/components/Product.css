@@ -4,7 +4,8 @@
   align-items: center;
   background-color: var(--text);
   padding: 10px 20px 20px 20px;
-  border-radius: 20px;
+  border-radius: 5px;
+  background-color: var(--secondary);
 }
 
 
@@ -169,7 +170,6 @@
 
 .product {
   border-radius: 5px;
-  color: var(--text);
   width: 100%;
   background-color: var(--secondary);
 }
@@ -202,7 +202,9 @@ hr {
   height: 32px;
   border:rgba(0, 0, 0, 0.12);
 }
-
+.checkbox input:checked{
+  background-color: var(--background);
+}
 .product button {
   border-style: none;
   width: 64px;
