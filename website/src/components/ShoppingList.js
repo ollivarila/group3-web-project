@@ -28,26 +28,38 @@ const ListItems = ({ list }) => {
   )
 }
 
-
-const EditForm = ({ handleCancel, editComment, setEditComment,
-  handleSubmit, title }) => {
+const EditForm = ({
+  handleCancel,
+  value,
+  setEditField,
+  handleSubmit,
+  title,
+}) => {
   const handleEditChange = (e) => {
     e.preventDefault()
-    setEditComment(e.target.value)
+    setEditField(e.target.value)
   }
 
   return (
-    <section className='editForm'>
-      <form onSubmit={(e) => {
-        e.preventDefault()
-        handleSubmit(editComment)}
-      }>
-     
+    <section className="editForm">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleSubmit(value)
+        }}>
         <label>{title}</label>
-        <input value={editComment} onChange={handleEditChange}/>
-        <footer className='buttonFooter'>
-        <button type='submit' className={'submitEdit'}> Submit </button>
-        <button type='reset' className={'cancelButton'} onClick={() => handleCancel()}>Cancel</button>
+        <input value={value} onChange={handleEditChange} />
+        <footer className="buttonFooter">
+          <button type="submit" className={'submitEdit'}>
+            {' '}
+            Submit{' '}
+          </button>
+          <button
+            type="reset"
+            className={'cancelButton'}
+            onClick={() => handleCancel()}>
+            Cancel
+          </button>
         </footer>
       </form>
     </section>
@@ -116,24 +128,28 @@ const ShoppingList = () => {
 
   return (
     <section className="shoppinglistView">
-        <section className='editComment'>
-        {show === 'comment' ? <EditForm
-          title={'Edit comment'}
-          editComment={editComment}
-          setEditComment={setEditComment}
-          handleCancel={handleCancel}
-          handleSubmit={handleCommentSubmit}
-        /> : null}
+      <section className="editComment">
+        {show === 'comment' ? (
+          <EditForm
+            title={'Edit comment'}
+            value={editComment}
+            setEditField={setEditComment}
+            handleCancel={handleCancel}
+            handleSubmit={handleCommentSubmit}
+          />
+        ) : null}
       </section>
 
-      <section className='editName'>
-        {show === 'name' ? <EditForm
-          title={'Edit name'}
-          editName={editName}
-          setEditName={setEditName}
-          handleCancel={handleCancel}
-          handleSubmit={handleTitleSubmit}
-        /> : null}
+      <section className="editName">
+        {show === 'name' ? (
+          <EditForm
+            title={'Edit name'}
+            value={editName}
+            setEditField={setEditName}
+            handleCancel={handleCancel}
+            handleSubmit={handleTitleSubmit}
+          />
+        ) : null}
       </section>
       <section className="createItemForm">
         {show === 'form' ? <ItemForm setShowForm={setShow} /> : null}
@@ -157,13 +173,18 @@ const ShoppingList = () => {
         )}
 
         <footer>
-          <button className="changeComment" onClick={() => {
-            handleShowEditComment(true)
-          } }>
+          <button
+            className="changeComment"
+            onClick={() => {
+              handleShowEditComment(true)
+            }}>
             Edit comment
           </button>
-          <button className="changeName" onClick={ () => {
-            handleShowEditName(true)}}>
+          <button
+            className="changeName"
+            onClick={() => {
+              handleShowEditName(true)
+            }}>
             Change name
           </button>
           <button className="deleteList" onClick={handleDelete}>
