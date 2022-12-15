@@ -29,8 +29,30 @@ const ListItems = ({ list }) => {
   )
 }
 
-const EditCommentForm = ({ handleEditCommentTrue, editComment, setEditComment,
-  handleCommentchange }) => {
+const EditNameForm = ({ handleShowEditName, editName, setEditName, handleTitleSubmit }) => {
+
+  const handleEditChange = (e) => {
+    e.preventDefault()
+    setEditName(e.target.value)
+  }
+
+  return (
+    <section className='nameEditForm'>
+      <form onSubmit={(e) => {
+        e.preventDefault()
+        handleTitleSubmit(editName)
+      }}>
+        <label>Edit Name</label>
+        <input value={ editName } onChange={handleEditChange}/>
+        <button type='submit' className={ 'submitEdit' } > Submit </button>
+        <button type='reset' className={ 'cancelButton' } onClick={() => handleShowEditName(false)}> Cancel </button>
+      </form>
+    </section>
+  )
+}
+
+const EditCommentForm = ({ handleShowEditComment, editComment, setEditComment,
+  handleCommentSubmit }) => {
   const handleEditChange = (e) => {
     e.preventDefault()
     setEditComment(e.target.value)
@@ -38,11 +60,15 @@ const EditCommentForm = ({ handleEditCommentTrue, editComment, setEditComment,
 
   return (
     <section className='commentEditForm'>
-      <form >
+      <form onSubmit={(e) => {
+        e.preventDefault()
+        handleCommentSubmit(editComment)}
+      }>
+     
         <label>Edit Comment</label>
         <input value={editComment} onChange={handleEditChange}/>
-        <button className={'submitEdit'} onClick={() => handleCommentchange(editComment)}> Submit </button>
-        <button className={'cancelButton'} onClick={() => handleEditCommentTrue(false)}>Cancel</button>
+        <button type='submit' className={'submitEdit'}> Submit </button>
+        <button type='reset' className={'cancelButton'} onClick={() => handleShowEditComment(false)}>Cancel</button>
       </form>
     </section>
   )
@@ -60,11 +86,6 @@ const ShoppingList = () => {
   const [editComment, setEditComment] = useState('')
   const [editName, setEditName] = useState('')
 
-  const handleEditChange = (e) => {
-    e.preventDefault()
-    setEditName(e.target.value)
-  }
-
   useEffect(() => {
     setShowform(false)
   }, [shoppingList])
@@ -75,28 +96,28 @@ const ShoppingList = () => {
     setShowEditName(false)
   }
 
-  const handleEditNameTrue = (trueorfalse) => {
+  const handleShowEditName = (trueorfalse) => {
     setShowEditName(trueorfalse)
   }
 
-  const handleEditCommentTrue = (trueorfalse) => {
+  const handleShowEditComment = (trueorfalse) => {
     setShowEditComment(trueorfalse)
   }
 
-  const handleNameChange = (editedName) => {
+  const handleTitleSubmit = (editedName) => {
     dispatch(updateList(shoppingList, 'title', editedName))
-    setShowEditName(!showEditName)
+    setShowEditName(false)
   }
 
-  const handleCommentchange = (editedComment) => {
+  const handleCommentSubmit = (editedComment) => {
     dispatch(updateList(shoppingList, 'comment', editedComment))
-    setShowEditComment(!showEditComment)
+    setShowEditComment(false)
   }
 
   const handleDelete = () => {
-    // eslint-disable-next-line no-alert
     setShowEditComment(false)
     setShowEditName(false)
+    // eslint-disable-next-line no-alert
     const confirmation = window.confirm(
       'are you sure you want to delete the list?',
     )
@@ -111,18 +132,6 @@ const ShoppingList = () => {
 
   const handleClose = () => {
     dispatch(setCurrent(null))
-  }
-  const EditNameForm = () => {
-    return (
-      <section className='nameEditForm'>
-        <form >
-          <label>Edit Name</label>
-          <input value={ editName } onChange={ (e) => handleEditChange(e)}/>
-          <button className={ 'submitEdit' } onClick={() => handleNameChange(editName)}> Submit </button>
-          <button className={ 'cancelButton' } onClick={() => handleEditNameTrue(false)}> Cancel </button>
-        </form>
-      </section>
-    )
   }
 
   return (
@@ -149,10 +158,10 @@ const ShoppingList = () => {
         )}
 
         <footer>
-          <button className="changeComment" onClick={() => handleEditCommentTrue(true)}>
+          <button className="changeComment" onClick={() => handleShowEditComment(true)}>
             Edit comment
           </button>
-          <button className="changeName" onClick={ () => handleEditNameTrue(true)}>
+          <button className="changeName" onClick={ () => handleShowEditName(true)}>
             Change name
           </button>
           <button className="deleteList" onClick={handleDelete}>
@@ -167,33 +176,23 @@ const ShoppingList = () => {
 
       <section className='editComment'>
         {showEditComment ? <EditCommentForm
-           editComment={editComment} 
-           setEditComment={setEditComment} 
-           handleEditCommentTrue={handleEditCommentTrue}
-           handleCommentchange={handleCommentchange}
-          /> : null}  
+          editComment={editComment}
+          setEditComment={setEditComment}
+          handleShowEditComment={handleShowEditComment}
+          handleCommentSubmit={handleCommentSubmit}
+        /> : null}
       </section>
 
       <section className='editName'>
-        {showEditName ? <EditNameForm /> : null}
+        {showEditName ? <EditNameForm
+          editName={editName}
+          setEditName={setEditName}
+          handleShowEditName={handleShowEditName}
+          handleTitleSubmit={handleTitleSubmit}
+        /> : null}
       </section>
     </section>
   )
 }
 
 export default ShoppingList
-
-/*  editComment={editComment} 
-        setEditComment={setEditComment} 
-        handleEditCommentTrue={handleEditCommentTrue}
-        handleCommentchange={handleCommentchange} 
-        
-        
-              <section className='editName'>
-        {showEditName ? <EditNameForm 
-        editComment={editComment} 
-        setEditComment={setEditComment} 
-        handleEditCommentTrue={handleEditCommentTrue}
-        handleCommentchange={handleCommentchange}
-        /> : null}
-      </section>*/
