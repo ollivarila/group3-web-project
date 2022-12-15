@@ -1,9 +1,9 @@
-.nameEditForm {
-
+.editForm {
     margin: 40px;
     align-items: center;
 }
-.nameEditForm form {
+
+.editForm form {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -21,34 +21,42 @@
     
 }
 
-.nameEditForm label, input {
-    display: block;
-
+.editForm label{
+    display: flex;
+    align-items: center;
+    margin: 10px;
 }
 
-.nameEditForm input {
+.editForm input {
     padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-   align-items: center;
-    width: 310px;
+    margin: 10px;
+    align-items: center;
+    width: 100%;
     border: 1px solid #ddd;
     border-radius: 4px;
     box-shadow: rgba(36, 49, 171, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
 
+.buttonFooter {
+    margin: 20px 0px 20px 0px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
 .submitEdit, .cancelButton {
+    justify-content: center;
     color: #fff;
     padding: 10px;
     border-radius: 4px;
 
     display: flex;
     flex-direction: row; 
-    justify-content: space-between;
     align-items: center;
     padding: 10px;
     gap: 10px;
-
+   
     background: var(--background);
     border-radius: 4px;
 

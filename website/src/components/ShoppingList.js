@@ -5,7 +5,6 @@ import Product from './Product'
 import ItemForm from '../pages/Home/components/ItemForm'
 import './list.css'
 import './styles/editNameForm.css'
-import './styles/editCommentForm.css'
 import { setCurrent } from '../reducers/currentShoppingListReducer'
 
 const ListItems = ({ list }) => {
@@ -37,15 +36,17 @@ const EditNameForm = ({ handleShowEditName, editName, setEditName, handleTitleSu
   }
 
   return (
-    <section className='nameEditForm'>
+    <section className='editForm'>
       <form onSubmit={(e) => {
         e.preventDefault()
         handleTitleSubmit(editName)
       }}>
         <label>Edit Name</label>
         <input value={ editName } onChange={handleEditChange}/>
-        <button type='submit' className={ 'submitEdit' } > Submit </button>
+        <footer className='buttonFooter'>
+        <button type='submit' className={'submitEdit' } > Submit </button>
         <button type='reset' className={ 'cancelButton' } onClick={() => handleShowEditName(false)}> Cancel </button>
+        </footer>
       </form>
     </section>
   )
@@ -59,7 +60,7 @@ const EditCommentForm = ({ handleShowEditComment, editComment, setEditComment,
   }
 
   return (
-    <section className='commentEditForm'>
+    <section className='editForm'>
       <form onSubmit={(e) => {
         e.preventDefault()
         handleCommentSubmit(editComment)}
@@ -67,8 +68,10 @@ const EditCommentForm = ({ handleShowEditComment, editComment, setEditComment,
      
         <label>Edit Comment</label>
         <input value={editComment} onChange={handleEditChange}/>
+        <footer className='buttonFooter'>
         <button type='submit' className={'submitEdit'}> Submit </button>
         <button type='reset' className={'cancelButton'} onClick={() => handleShowEditComment(false)}>Cancel</button>
+        </footer>
       </form>
     </section>
   )
@@ -136,6 +139,23 @@ const ShoppingList = () => {
 
   return (
     <section className="shoppinglistView">
+        <section className='editComment'>
+        {showEditComment ? <EditCommentForm
+          editComment={editComment}
+          setEditComment={setEditComment}
+          handleShowEditComment={handleShowEditComment}
+          handleCommentSubmit={handleCommentSubmit}
+        /> : null}
+      </section>
+
+      <section className='editName'>
+        {showEditName ? <EditNameForm
+          editName={editName}
+          setEditName={setEditName}
+          handleShowEditName={handleShowEditName}
+          handleTitleSubmit={handleTitleSubmit}
+        /> : null}
+      </section>
       <section className="createItemForm">
         {showForm ? <ItemForm setShowForm={setShowform} /> : null}
       </section>
@@ -158,10 +178,15 @@ const ShoppingList = () => {
         )}
 
         <footer>
-          <button className="changeComment" onClick={() => handleShowEditComment(true)}>
+          <button className="changeComment" onClick={() => {
+            handleShowEditName(false)
+            handleShowEditComment(true)
+          } }>
             Edit comment
           </button>
-          <button className="changeName" onClick={ () => handleShowEditName(true)}>
+          <button className="changeName" onClick={ () => {
+            handleShowEditComment(false)
+            handleShowEditName(true)}}>
             Change name
           </button>
           <button className="deleteList" onClick={handleDelete}>
@@ -172,24 +197,6 @@ const ShoppingList = () => {
 
       <section className="createItemForm">
         {showForm ? <ItemForm setShowForm={setShowform}/> : null}
-      </section>
-
-      <section className='editComment'>
-        {showEditComment ? <EditCommentForm
-          editComment={editComment}
-          setEditComment={setEditComment}
-          handleShowEditComment={handleShowEditComment}
-          handleCommentSubmit={handleCommentSubmit}
-        /> : null}
-      </section>
-
-      <section className='editName'>
-        {showEditName ? <EditNameForm
-          editName={editName}
-          setEditName={setEditName}
-          handleShowEditName={handleShowEditName}
-          handleTitleSubmit={handleTitleSubmit}
-        /> : null}
       </section>
     </section>
   )

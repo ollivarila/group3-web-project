@@ -2,6 +2,8 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { removeUser } from '../reducers/userReducer';
+import { setCurrent } from '../reducers/currentShoppingListReducer'
+import { setShoppingLists } from '../reducers/shoppingListReducer'
 import './Navbar.css'
 
 const Navbar = () => {
@@ -12,6 +14,8 @@ const Navbar = () => {
 
   const handleClick = () => {
     dispatch(removeUser())
+    dispatch(setCurrent(null))
+    dispatch(setShoppingLists([]))
     navigate('/login')
   }
 

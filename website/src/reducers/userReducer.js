@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit'
+import { initializeShoppingLists } from './shoppingListReducer'
 
 const initialState = null
 const userSlice = createSlice({
@@ -26,9 +27,9 @@ export const initializeUser = () => {
     if (!userJSON) {
       return
     }
-
     const user = JSON.parse(userJSON)
     dispatch(setUser(user))
+    dispatch(initializeShoppingLists())
   }
 }
 

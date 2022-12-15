@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { createShoppingList } from '../../../reducers/shoppingListReducer'
 import './NewShoppingList.css'
-// import { useDispatch, useSelector} from 'react-redux'
+
 const NewShoppingList = ({ setWantsToCreate }) => {
   const [list, setList] = useState({ title: '', comment: '' })
   const dispatch = useDispatch()
@@ -10,7 +10,7 @@ const NewShoppingList = ({ setWantsToCreate }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     dispatch(createShoppingList(list))
-    // setWantsToCreate(false)
+    setWantsToCreate(false)
   }
 
   const handleTitleChange = (e) => {

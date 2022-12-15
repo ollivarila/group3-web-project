@@ -9,8 +9,12 @@ const config = require('./config')
 startUp()
 
 const app = express()
-
-app.use(cors())
+if (process.env.NODE_ENV === 'development') {
+  app.options('*', cors())
+  app.use(cors({ origin: 'https://shopping-list-app.fly.dev', preflightContinue: true }))
+} else {
+  app.use(cors())
+}
 
 app.get('/health', (req, res) => {
   res.send('ok')
