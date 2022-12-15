@@ -11,7 +11,7 @@ const ListItems = ({ list }) => {
     return null
   }
   if (list === []) {
-    return (<p>No content</p>)
+    return <p>No content</p>
   }
 
   return (
@@ -69,7 +69,7 @@ const ShoppingList = () => {
   return (
     <section className="shoppinglistView">
       <section className="createItemForm">
-      {showForm ? <ItemForm setShowForm={setShowform} /> : null}
+        {showForm ? <ItemForm setShowForm={setShowform} /> : null}
       </section>
       <article className="shoppinglistContainer">
         <header>
@@ -100,7 +100,6 @@ const ShoppingList = () => {
           </button>
         </footer>
       </article>
-      
     </section>
   )
 }
