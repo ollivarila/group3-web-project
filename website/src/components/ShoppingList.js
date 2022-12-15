@@ -29,37 +29,22 @@ const ListItems = ({ list }) => {
   )
 }
 
-const EditNameForm = ({ handleEditNameTrue, editName, setEditName, handleNameChange}) => {
-
-  const handleEditChange = (e) => {
-    setEditName(e.target.value)
-  }
-
-  return(
-   <section className='nameEditForm'>
-     <form >
-       <label>Edit Name</label>
-         <input value={editName} onChange={handleEditChange}/>
-       <button className={"submitEdit"} onClick={() => handleNameChange(editName)}> Submit </button>
-       <button className={'cancelButton'} onClick={handleEditNameTrue}> Cancel </button> 
-      </form>
-   </section>
- )
-}
 
 
 const EditCommentForm = ({ handleEditCommentTrue , editComment, setEditComment, handleCommentchange}) => {
 
   const handleEditChange = (e) => {
+    e.preventDefault()
     setEditComment(e.target.value)
   }
+
   return (
   <section className='commentEditForm'>
     <form >
       <label>Edit Comment</label>
        <input value={editComment} onChange={handleEditChange}/>
       <button className={"submitEdit"} onClick={() => handleCommentchange(editComment)}> Submit </button>
-      <button className={'cancelButton'} onClick={handleEditCommentTrue}> Cancel </button> 
+      <button className={'cancelButton'} onClick={() => handleEditCommentTrue(false)}> Cancel </button> 
     </form>
   </section>
   )
@@ -79,6 +64,25 @@ const ShoppingList = () => {
   const [editComment, setEditComment] = useState ('')
   const [editName, setEditName] = useState('')
 
+  const EditNameForm = () => {
+    return(
+     <section className='nameEditForm'>
+       <form >
+         <label>Edit Name</label>
+           <input value={editName} onChange={ (e) => handleEditChange(e)}/>
+         <button className={"submitEdit"} onClick={() => handleNameChange(editName)}> Submit </button>
+         <button className={'cancelButton'} onClick={() => handleEditNameTrue (false)}> Cancel </button> 
+        </form>
+     </section>
+   )
+  }
+
+  const handleEditChange = (e) => {
+    e.preventDefault()
+    setEditName(e.target.value)
+  }
+
+
     useEffect(() => {
         setShowform(false)
     }, [shoppingList])
@@ -90,12 +94,12 @@ const ShoppingList = () => {
         setShowEditName(false)
   }
   
-  const handleEditNameTrue = () => {
-      setShowEditName(!showEditName)
+  const handleEditNameTrue = ( trueorfalse ) => {
+      setShowEditName(trueorfalse)
   }
 
-  const handleEditCommentTrue = () => {
-    setShowEditComment(!showEditComment)
+  const handleEditCommentTrue = (trueorfalse) => {
+    setShowEditComment(trueorfalse)
   }
 
   const handleNameChange = (editName) => {
@@ -151,11 +155,12 @@ const ShoppingList = () => {
             <p>{comment}</p>
           </section>
         )}
+
         <footer>
-          <button className="changeComment" onClick={handleEditCommentTrue}>
+          <button className="changeComment" onClick={() => handleEditCommentTrue(true)}>
             Edit comment
           </button>
-          <button className="changeName" onClick={handleEditNameTrue}>
+          <button className="changeName" onClick={ () => handleEditNameTrue(true)}>
             Change name
           </button>
           <button className="deleteList" onClick={handleDelete}>
@@ -170,39 +175,33 @@ const ShoppingList = () => {
 
       <section className='editComment'>
         {showEditComment ? <EditCommentForm
-         editName={editName}
-          setEditName={setEditName} 
-          handleEditNameTrue={handleEditNameTrue}
-          handleNameChange={handleNameChange}
+           editComment={editComment} 
+           setEditComment={setEditComment} 
+           handleEditCommentTrue={handleEditCommentTrue}
+           handleCommentchange={handleCommentchange}
           /> : null}  
-      </section>
-      <section className='editName'>
-        {showEditName ? <EditNameForm 
-        editComment={editComment} 
-        setEditComment={setEditComment} 
-        handleEditCommentTrue={handleEditCommentTrue}
-        handleCommentchange={handleCommentchange}
-        /> : null}
       </section>
 
-      <section className='editComment'>
-        {showEditComment ? <EditCommentForm
-         editName={editName}
-          setEditName={setEditName} 
-          handleEditNameTrue={handleEditNameTrue}
-          handleNameChange={handleNameChange}
-          /> : null}  
-      </section>
       <section className='editName'>
-        {showEditName ? <EditNameForm 
-        editComment={editComment} 
-        setEditComment={setEditComment} 
-        handleEditCommentTrue={handleEditCommentTrue}
-        handleCommentchange={handleCommentchange}
-        /> : null}
+        {showEditName ? <EditNameForm /> : null}
       </section>
     </section>
   )
 }
 
 export default ShoppingList
+
+/*  editComment={editComment} 
+        setEditComment={setEditComment} 
+        handleEditCommentTrue={handleEditCommentTrue}
+        handleCommentchange={handleCommentchange} 
+        
+        
+              <section className='editName'>
+        {showEditName ? <EditNameForm 
+        editComment={editComment} 
+        setEditComment={setEditComment} 
+        handleEditCommentTrue={handleEditCommentTrue}
+        handleCommentchange={handleCommentchange}
+        /> : null}
+      </section>*/
