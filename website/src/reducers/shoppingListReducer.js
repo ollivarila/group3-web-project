@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import service from '../services/shoppingListService'
 import { createNotification } from './notificationReducer'
 import { setCurrent } from './currentShoppingListReducer'
+import { useEffect } from 'react'
 
 const initialState = []
 
@@ -96,9 +97,12 @@ export const initializeShoppingLists = () => {
       return
     }
 
-    dispatch(setCurrent(shoppingLists[0]))
-
     dispatch(setShoppingLists(shoppingLists))
+
+
+    dispatch(setCurrent(shoppingLists[0]))
+    
+    
   }
 }
 

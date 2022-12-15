@@ -9,7 +9,8 @@ const config = require('./config')
 startUp()
 
 const app = express()
-if (process.env.NODE_ENV === 'development') {
+
+if (process.env.NODE_ENV === 'production') {
   app.options('*', cors())
   app.use(cors({ origin: 'https://shopping-list-app.fly.dev', preflightContinue: true }))
 } else {

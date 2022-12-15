@@ -5,8 +5,9 @@ import { login, useLogin } from '../loginHelper'
 import Input from '../../../components/Input'
 import './LoginForm.css'
 import FailNotification from '../../../components/FailNotification'
-import { setUser } from '../../../reducers/userReducer'
+import { updateUser } from '../../../reducers/userReducer'
 import { createNotification } from '../../../reducers/notificationReducer'
+
 
 const LoginForm = () => {
   const [user, { setNameOrEmail, setPassword }] = useLogin()
@@ -17,7 +18,7 @@ const LoginForm = () => {
     e.preventDefault()
     try {
       const userFromResponse = await login(user)
-      dispatch(setUser(userFromResponse))
+      dispatch(updateUser(userFromResponse))
       dispatch(createNotification(`Welcome ${userFromResponse.username}`))
       navigate('/')
     } catch (err) {

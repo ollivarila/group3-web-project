@@ -41,14 +41,15 @@ const ItemForm = ({ setShowForm }) => {
         item,
       )
       dispatch(createItem(list.id, item))
-      setShowForm(false)
+      setShowForm('')
     } catch (err) {
       setError(err.message)
       console.log(error)
     }
   }
-  const handleCancel = () => {
-    setShowForm(false)
+  const handleCancel = async (e) => {
+    e.preventDefault()
+    setShowForm('')
   }
   return (
     <div className="formLayout">

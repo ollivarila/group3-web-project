@@ -5,10 +5,7 @@ import '../../components/styles/defaultviewstyle.css'
 
 const DefaultView = () => {
   const user = useSelector((state) => state.user)
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(initializeUser())
-  }, [dispatch])
+  
   return (
     <div className="text">
       <h1>Welcome, {user.username}</h1>
