@@ -8,10 +8,10 @@ import { setCurrent } from '../reducers/currentShoppingListReducer'
 
 const ListItems = ({ list }) => {
   if (!list) {
-    return
+    return null
   }
   if (list === []) {
-    return <p>No content</p>
+    return (<p>No content</p>)
   }
 
   return (
